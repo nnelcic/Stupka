@@ -1,6 +1,7 @@
 using Cinema.Service.DI;
 using Cinema.Service.Interfaces;
 using Cinema.Service.Services;
+using Cinema.UI.Extensions;
 using FluentValidation.AspNetCore;
 using NLog;
 
@@ -33,6 +34,8 @@ public class Program
         });
 
         var app = builder.Build();
+
+        app.ConfiguteExceptionHandler();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
