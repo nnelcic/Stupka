@@ -1,4 +1,6 @@
-﻿namespace Cinema.Domain.Models.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Cinema.Domain.Models.Entities;
 
 public class Cinema
 {
@@ -8,4 +10,6 @@ public class Cinema
     public string City { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
+    // Navigation property
+    public ICollection<Hall> Halls { get; set; }
 }
