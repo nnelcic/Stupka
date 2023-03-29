@@ -2,6 +2,7 @@ using Cinema.Service.DI;
 using Cinema.Service.Interfaces;
 using Cinema.Service.Services;
 using FluentValidation.AspNetCore;
+using NLog;
 
 namespace Cinema.UI;
 public class Program
@@ -9,7 +10,10 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        
+
+        // Logger
+        LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+
         builder.Services.AddControllers();
         
         builder.Services.AddEndpointsApiExplorer();

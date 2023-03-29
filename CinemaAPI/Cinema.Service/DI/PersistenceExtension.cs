@@ -1,6 +1,8 @@
 ﻿using Cinema.Persistence.Data;
 using Cinema.Persistence.Interfaces;
 using Cinema.Persistence.Repositories;
+using Cinema.Service.Interfaces;
+using Cinema.Service.Services.Logger;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,8 +17,11 @@ public static class PersistenceExtension
         {
             options.UseSqlServer(configuration.GetConnectionString("CinemaDb"));
         });
-        
+
         services.AddScoped<ICinemaRepository, CinemaRepository>();
+        
+        
+        services.AddSingleton<ILoggerManager, LoggerManager>();
         
         return services;
     }
