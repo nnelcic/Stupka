@@ -1,11 +1,13 @@
 ﻿using Cinema.Domain.Models.Entities;
+using Cinema.Persistence.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Persistence.Data;
 
-public class CinemaDbContext : DbContext
+public class RepositoryContext : DbContext
 {
-    public CinemaDbContext(DbContextOptions<CinemaDbContext> options) : base(options) { }
+    public RepositoryContext(DbContextOptions<RepositoryContext> options) : base(options) 
+    { }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -44,24 +46,27 @@ public class CinemaDbContext : DbContext
             .HasOne(t => t.Seat)
             .WithMany()
             .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.ApplyConfiguration(new CinemaConfiguration());
+        modelBuilder.ApplyConfiguration(new RoleConfiguration());
     }
 
-    public DbSet<Domain.Models.Entities.Cinema> Cinemas { get; set; }
-    public DbSet<Favourite> Favourites { get; set; }
-    public DbSet<Genre> Genres { get; set; }
-    public DbSet<Hall> Halls { get; set; }
-    public DbSet<Movie> Movies { get; set; }
-    public DbSet<MovieDetails> MovieDetails { get; set; }
-    public DbSet<MovieType> MovieTypes { get; set; }
-    public DbSet<Phase> Phases { get; set; }
-    public DbSet<Price> Prices { get; set; }
-    public DbSet<Promocode> Promocodes { get; set; }
-    public DbSet<Review> Reviews { get; set; }
-    public DbSet<Role> Roles { get; set; }
-    public DbSet<Seanse> Seanses { get; set; }
-    public DbSet<Seat> Seats { get; set; }
-    public DbSet<SeatType> SeatTypes { get; set; }
-    public DbSet<Ticket> Tickets { get; set; }
-    public DbSet<User> Users { get; set; }
-    public DbSet<UserDetails> UserDetails { get; set; }
+    public DbSet<Domain.Models.Entities.Cinema>? Cinemas { get; set; }
+    public DbSet<Favourite>? Favourites { get; set; }
+    public DbSet<Genre>? Genres { get; set; }
+    public DbSet<Hall>? Halls { get; set; }
+    public DbSet<Movie>? Movies { get; set; }
+    public DbSet<MovieDetails>? MovieDetails { get; set; }
+    public DbSet<MovieType>? MovieTypes { get; set; }
+    public DbSet<Phase>? Phases { get; set; }
+    public DbSet<Price>? Prices { get; set; }
+    public DbSet<Promocode>? Promocodes { get; set; }
+    public DbSet<Review>? Reviews { get; set; }
+    public DbSet<Role>? Roles { get; set; }
+    public DbSet<Seanse>? Seanses { get; set; }
+    public DbSet<Seat>? Seats { get; set; }
+    public DbSet<SeatType>? SeatTypes { get; set; }
+    public DbSet<Ticket>? Tickets { get; set; }
+    public DbSet<User>? Users { get; set; }
+    public DbSet<UserDetails>? UserDetails { get; set; }
 }

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Cinema.Domain.ExceptionModels;
+using Cinema.Domain.Models.Consts;
 using Cinema.Domain.Models.DTOs;
 using Cinema.Domain.Models.ViewModels;
 using Cinema.Persistence.Interfaces;
@@ -8,59 +10,74 @@ namespace Cinema.Service.Services;
 
 public class CinemaService : ICinemaService
 {
-    private readonly ICinemaRepository _cinemaRepository;
+    private readonly IRepositoryManager _repository;
+    private readonly ILoggerManager _loggerManager;
     private readonly IMapper _mapper;
 
-    public CinemaService(ICinemaRepository cinemaRepository, IMapper mapper)
+    public CinemaService(IRepositoryManager repository, IMapper mapper, ILoggerManager loggerManager)
     {
-        _cinemaRepository = cinemaRepository;
+        _repository = repository;
         _mapper = mapper;
+        _loggerManager = loggerManager; 
     }
 
-    public async Task<List<CinemaViewModel>> GetAllAsync()
+    public async Task<IEnumerable<CinemaViewModel>> GetAllAsync()
     {
-        var cinemas = await _cinemaRepository.GetAllAsync();
+        var cinemas = await _repository.Cinema.GetAllCinemaAsync();
+
         return _mapper.Map<List<CinemaViewModel>>(cinemas);
     }
 
-    public async Task<CinemaViewModel?> GetAsync(int id)
+    public async Task<CinemaViewModel> GetAsync(int id)
     {
-        var cinema = await _cinemaRepository.GetAsync(id);
-        
-        if (cinema is null) return default;
+        var cinema = await _repository.Cinema.GetCinemaAsync(id);
+
+        if (cinema is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Cinema), id));
+        }
 
         return _mapper.Map<CinemaViewModel>(cinema);
     }
 
-    public async Task<CinemaViewModel?> AddAsync(AddCinemaRequest addCinemaRequest)
+    public async Task<CinemaViewModel> AddAsync(AddCinemaRequest addCinemaRequest)
     {
-        if (addCinemaRequest is null) return default;
-
         var cinema = _mapper.Map<Domain.Models.Entities.Cinema>(addCinemaRequest);
-        cinema = await _cinemaRepository.AddAsync(cinema);
-        return _mapper.Map<CinemaViewModel>(cinema);
+
+        _repository.Cinema.CreateCinema(cinema);
+        await _repository.SaveAsync();
+
+        var cinemaToReturn = _mapper.Map<CinemaViewModel>(cinema);
+
+        return cinemaToReturn;
     }
 
-    public async Task<CinemaViewModel?> UpdateAsync(int id, UpdateCinemaRequest updateCinemaRequest)
+    public async Task UpdateAsync(int id, UpdateCinemaRequest updateCinemaRequest)
     {
-        if (updateCinemaRequest is null || id <= 0) return default;
+        var cinemaEntity = await _repository.Cinema.GetCinemaAsync(id, true);
 
-        var cinema = _mapper.Map<Domain.Models.Entities.Cinema>(updateCinemaRequest);
-        cinema = await _cinemaRepository.UpdateAsync(id, cinema);
+        if (cinemaEntity is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Cinema), id));
+        }
 
-        if (cinema is null) return default;
-        
-        return _mapper.Map<CinemaViewModel>(cinema);
+        _mapper.Map(updateCinemaRequest, cinemaEntity);
+        await _repository.SaveAsync();
     }
 
-    public async Task<CinemaViewModel?> DeleteAsync(int id)
+    public async Task DeleteAsync(int id)
     {
-        if (id <= 0) return default;
+        var cinema = await _repository.Cinema.GetCinemaAsync(id);
 
-        var cinema = await _cinemaRepository.DeleteAsync(id);
-        
-        if (cinema is null) return default;
+        if (cinema is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Cinema), id));
+        }
 
-        return _mapper.Map<CinemaViewModel>(cinema);
+        _repository.Cinema.DeleteCinema(cinema);
+        await _repository.SaveAsync();
     }
 }

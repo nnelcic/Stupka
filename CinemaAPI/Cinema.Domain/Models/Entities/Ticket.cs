@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Cinema.Domain.Models.Entities;
+﻿namespace Cinema.Domain.Models.Entities;
 
 public class Ticket
 {

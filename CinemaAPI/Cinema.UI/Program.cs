@@ -22,7 +22,10 @@ public class Program
 
         // DI
         builder.Services.AddPersistence(builder.Configuration);
+
+        builder.Services.AddScoped<IServiceManager, ServiceManager>();
         builder.Services.AddScoped<ICinemaService, CinemaService>();
+
 
         // Add AutoMapper
         builder.Services.AddAutoMapper(typeof(Program).Assembly);
@@ -35,7 +38,8 @@ public class Program
 
         var app = builder.Build();
 
-        app.ConfiguteExceptionHandler();
+        var logger = app.Services.GetRequiredService<ILoggerManager>();
+        app.ConfigureExceptionHandler(logger);
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

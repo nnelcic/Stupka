@@ -2,9 +2,8 @@
 
 public interface ICinemaRepository
 {
-    Task<List<Domain.Models.Entities.Cinema>> GetAllAsync();
-    Task<Domain.Models.Entities.Cinema?> GetAsync(int id);
-    Task<Domain.Models.Entities.Cinema?> AddAsync(Domain.Models.Entities.Cinema cinema);
-    Task<Domain.Models.Entities.Cinema?> UpdateAsync(int id, Domain.Models.Entities.Cinema cinema);
-    Task<Domain.Models.Entities.Cinema?> DeleteAsync(int id);
+    Task<List<Domain.Models.Entities.Cinema>> GetAllCinemaAsync();
+    Task<Domain.Models.Entities.Cinema?> GetCinemaAsync(int id, bool trackChanges = false);
+    void CreateCinema(Domain.Models.Entities.Cinema cinema);
+    void DeleteCinema(Domain.Models.Entities.Cinema cinema);
 }

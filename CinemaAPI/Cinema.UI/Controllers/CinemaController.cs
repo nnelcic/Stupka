@@ -4,72 +4,54 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.UI.Controllers;
 
-[Route("[controller]")]
+[Route("api/cinemas")]
 [ApiController]
-public class CinemaController : Controller
+public class CinemaController : ControllerBase
 {
-    private readonly ICinemaService _cinemaService;
+    private readonly IServiceManager _service;
 
-    public CinemaController(ICinemaService cinemaService)
+    public CinemaController(IServiceManager service)
     {
-        _cinemaService = cinemaService;
+        _service = service;
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllCinemasAsync()
+    public async Task<IActionResult> GetAllCinemas()
     {
-        var cinemas = await _cinemaService.GetAllAsync();
+        var cinemas = await _service.CinemaService.GetAllAsync();
+        
         return Ok(cinemas);
     }
 
-    [HttpGet]
-    [Route("{id:int}")]
+    [HttpGet("{id:int}", Name = "CinemaById")]
     public async Task<IActionResult> GetCinemaByIdAsync(int id)
     {
-        if (id <= 0) return BadRequest();
-        
-        var cinema = await _cinemaService.GetAsync(id);
-
-        if (cinema is null) return NotFound();
+        var cinema = await _service.CinemaService.GetAsync(id);
 
         return Ok(cinema);
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCinemaAsync(AddCinemaRequest addCinemaRequest)
+    public async Task<IActionResult> AddCinemaAsync([FromBody] AddCinemaRequest addCinemaRequest)
     {
-        if (addCinemaRequest is null) return BadRequest();
-        
-        var cinema = await _cinemaService.AddAsync(addCinemaRequest);
+        var createdCinema = await _service.CinemaService.AddAsync(addCinemaRequest);
 
-        if (cinema is null) return NotFound();
-
-        return Ok(cinema);
+        return CreatedAtRoute("CinemaById", new { id = createdCinema.Id }, createdCinema);
     }
 
-    [HttpPut]
-    [Route("{id:int}")]
-    public async Task<IActionResult> UpdateCinemaAsync(int id, UpdateCinemaRequest updateCinemaRequest)
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateCinemaAsync(int id, [FromBody] UpdateCinemaRequest updateCinemaRequest)
     {
-        if (updateCinemaRequest is null || id <= 0) return BadRequest();
+        await _service.CinemaService.UpdateAsync(id, updateCinemaRequest);
 
-        var cinema = await _cinemaService.UpdateAsync(id, updateCinemaRequest);
-
-        if (cinema is null) return NotFound();
-
-        return Ok(cinema);
+        return NoContent();
     }
 
-    [HttpDelete]
-    [Route("{id:int}")]
+    [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteCinemaAsync(int id)
     {
-        if (id <= 0) return BadRequest();
+        await _service.CinemaService.DeleteAsync(id);
 
-        var cinema = await _cinemaService.DeleteAsync(id);
-
-        if (cinema is null) return NotFound();
-
-        return Ok(cinema);
+        return NoContent();
     }
 }

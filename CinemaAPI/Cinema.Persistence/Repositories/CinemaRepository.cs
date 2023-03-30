@@ -4,57 +4,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Persistence.Repositories;
 
-public class CinemaRepository : ICinemaRepository
+public class CinemaRepository : RepositoryBase<Domain.Models.Entities.Cinema>, ICinemaRepository
 {
-    private readonly CinemaDbContext _dbContext;
+    public CinemaRepository(RepositoryContext repositoryContext) 
+        : base(repositoryContext)
+    { }
 
-    public CinemaRepository(CinemaDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    public void CreateCinema(Domain.Models.Entities.Cinema cinema)
+        => Create(cinema);
 
-    public async Task<List<Domain.Models.Entities.Cinema>> GetAllAsync()
-    {
-        return await _dbContext.Cinemas.ToListAsync();
-    }
+    public async Task<List<Domain.Models.Entities.Cinema>> GetAllCinemaAsync()
+        => await FindAll().OrderBy(x => x.Name).ToListAsync();
 
-    public async Task<Domain.Models.Entities.Cinema?> GetAsync(int id)
-    {
-        return await _dbContext.Cinemas.FindAsync(id);
-    }
+    public async Task<Domain.Models.Entities.Cinema?> GetCinemaAsync(int id, bool trackChanges = false)
+        => await FindByCondition(x => x.Id == id, trackChanges).SingleOrDefaultAsync();
 
-    public async Task<Domain.Models.Entities.Cinema?> AddAsync(Domain.Models.Entities.Cinema cinema)
-    {
-        if (cinema is null) return default;
-        await _dbContext.Cinemas.AddAsync(cinema);
-        await _dbContext.SaveChangesAsync();
-        return cinema;
-    }
-
-    public async Task<Domain.Models.Entities.Cinema?> UpdateAsync(int id, Domain.Models.Entities.Cinema cinema)
-    {
-        if (cinema is null) return default;
-
-        var cinemaForUpdate = await _dbContext.Cinemas.FindAsync(id);
-        if (cinemaForUpdate is null) return default;
-        
-        cinemaForUpdate.Name = cinema.Name;
-        cinemaForUpdate.Address = cinema.Address;
-        cinemaForUpdate.City = cinema.City;
-        cinemaForUpdate.Email = cinema.Email;
-        cinemaForUpdate.PhoneNumber = cinema.PhoneNumber;
-
-        await _dbContext.SaveChangesAsync();
-        return cinemaForUpdate;
-    }
-
-    public async Task<Domain.Models.Entities.Cinema?> DeleteAsync(int id)
-    {
-        var cinema = await _dbContext.Cinemas.FindAsync(id);
-        if (cinema is null) return default;
-
-        _dbContext.Remove(cinema);
-        await _dbContext.SaveChangesAsync();
-        return cinema;
-    }
+    public void DeleteCinema(Domain.Models.Entities.Cinema cinema)
+        => Delete(cinema);
 }

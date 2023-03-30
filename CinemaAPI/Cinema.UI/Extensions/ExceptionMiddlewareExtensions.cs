@@ -1,4 +1,5 @@
 ﻿using Cinema.Domain.ExceptionModels;
+using Cinema.Service.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
 
@@ -6,7 +7,7 @@ namespace Cinema.UI.Extensions;
 
 public static class ExceptionMiddlewareExtensions
 {
-    public static void ConfiguteExceptionHandler(this WebApplication app)
+    public static void ConfigureExceptionHandler(this WebApplication app, ILoggerManager logger)
     {
         app.UseExceptionHandler(appError =>
         {
@@ -24,6 +25,8 @@ public static class ExceptionMiddlewareExtensions
                         NotFoundException => StatusCodes.Status404NotFound,
                         _ => StatusCodes.Status500InternalServerError
                     };
+
+                    logger.LogError($"Something went wrong: {contextFeature.Error}");
 
                     await context.Response.WriteAsync(new ErrorDetails()
                     {

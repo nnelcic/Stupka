@@ -9,6 +9,7 @@ public class User
     public string LastName { get; set; }
     public DateTime Birthday { get; set; }
     public string PhoneNumber { get; set; }
+    
     // Navigation property
     public int RoleId { get; set; }
     public Role Role { get; set; }

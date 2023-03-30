@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Persistence.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230329193258_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230330182703_cinemaFluentApi")]
+    partial class cinemaFluentApi
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,23 +34,28 @@ namespace Cinema.Persistence.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -329,6 +334,18 @@ namespace Cinema.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            RoleName = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RoleName = 0
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Seanse", b =>

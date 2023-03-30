@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Cinema.Domain.Models.Entities;
+﻿namespace Cinema.Domain.Models.Entities;
 
 public class Favourite
 {
