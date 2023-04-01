@@ -21,6 +21,7 @@ public static class PersistenceExtension
 
         services.AddScoped<IRepositoryManager, RepositoryManager>();
         services.AddScoped<ICinemaRepository, CinemaRepository>();
+        services.AddScoped<ISeanseRepository, SeanseRepository>();
         services.AddSingleton<ILoggerManager, LoggerManager>();
         
         return services;
