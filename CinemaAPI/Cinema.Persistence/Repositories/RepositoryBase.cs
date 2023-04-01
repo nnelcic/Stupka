@@ -14,7 +14,6 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
 
     public void Create(T entity) => _repositoryContext.Set<T>().Add(entity);
     public void Delete(T entity) => _repositoryContext.Set<T>().Remove(entity);
-    public void Update(T entity) => _repositoryContext.Set<T>().Update(entity);
 
     public IQueryable<T> FindAll()
         => _repositoryContext.Set<T>().AsNoTracking();

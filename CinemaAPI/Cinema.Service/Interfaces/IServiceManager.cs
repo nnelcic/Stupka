@@ -3,5 +3,6 @@
 public interface IServiceManager
 {
     ICinemaService CinemaService { get; }
+    IUserService UserService { get; }
     ISeanseService SeanseService { get; }
 }

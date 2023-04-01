@@ -25,7 +25,7 @@ public class Program
 
         builder.Services.AddScoped<IServiceManager, ServiceManager>();
         builder.Services.AddScoped<ICinemaService, CinemaService>();
-
+        builder.Services.AddScoped<IUserService, UserService>();
 
         // Add AutoMapper
         builder.Services.AddAutoMapper(typeof(Program).Assembly);

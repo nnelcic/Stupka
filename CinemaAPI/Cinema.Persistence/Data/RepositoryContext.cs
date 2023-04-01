@@ -49,6 +49,7 @@ public class RepositoryContext : DbContext
 
         modelBuilder.ApplyConfiguration(new CinemaConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new SeanseConfiguration());
     }
 

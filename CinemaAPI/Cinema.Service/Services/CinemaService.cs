@@ -14,11 +14,11 @@ public class CinemaService : ICinemaService
     private readonly ILoggerManager _loggerManager;
     private readonly IMapper _mapper;
 
-    public CinemaService(IRepositoryManager repository, IMapper mapper, ILoggerManager loggerManager)
+    public CinemaService(IRepositoryManager repository, ILoggerManager loggerManager, IMapper mapper)
     {
         _repository = repository;
+        _loggerManager = loggerManager;
         _mapper = mapper;
-        _loggerManager = loggerManager; 
     }
 
     public async Task<IEnumerable<CinemaViewModel>> GetAllAsync()
