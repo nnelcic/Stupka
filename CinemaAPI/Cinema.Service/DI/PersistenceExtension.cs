@@ -23,6 +23,7 @@ public static class PersistenceExtension
         services.AddScoped<ICinemaRepository, CinemaRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ISeanseRepository, SeanseRepository>();
+        services.AddScoped<IPromocodeRepository, PromocodeRepository>();
         services.AddSingleton<ILoggerManager, LoggerManager>();
         
         return services;

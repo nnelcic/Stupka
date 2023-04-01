@@ -15,11 +15,11 @@ public class SeanseService : ISeanseService
     private readonly ILoggerManager _loggerManager;
     private readonly IMapper _mapper;
 
-    public SeanseService(IRepositoryManager repository, IMapper mapper, ILoggerManager loggerManager)
+    public SeanseService(IRepositoryManager repository, ILoggerManager loggerManager, IMapper mapper)
     {
-        _repository = repository;
-        _mapper = mapper;
+        _repository = repository;        
         _loggerManager = loggerManager;
+        _mapper = mapper;
     }
     public async Task<SeanseViewModel> AddAsync(AddSeanseRequest addSeanseRequest)
     {

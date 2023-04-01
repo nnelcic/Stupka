@@ -16,7 +16,7 @@ public class CinemaService : ICinemaService
 
     public CinemaService(IRepositoryManager repository, ILoggerManager loggerManager, IMapper mapper)
     {
-        _repository = repository;
+        _repository = repository;        
         _loggerManager = loggerManager;
         _mapper = mapper;
     }
