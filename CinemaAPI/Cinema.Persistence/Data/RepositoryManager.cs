@@ -23,7 +23,6 @@ public class RepositoryManager : IRepositoryManager
             new UserRepository(repositoryContext));
         _seanseRepository = new Lazy<ISeanseRepository>(() =>
            new SeanseRepository(repositoryContext));
-
         _promocodeRepository = new Lazy<IPromocodeRepository>(() =>
         new PromocodeRepository(repositoryContext));
     }

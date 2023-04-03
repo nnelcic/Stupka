@@ -21,6 +21,7 @@ public class PromocodeService : IPromocodeService
         _loggerManager = loggerManager;
         _mapper = mapper;
     }
+    
     public async Task<PromocodeViewModel> AddAsync(AddPromocodeRequest addPromocodeRequest)
     {
         var promocode = _mapper.Map<Domain.Models.Entities.Promocode>(addPromocodeRequest);

@@ -1,9 +1,14 @@
+using System.Text;
 using Cinema.Service.DI;
 using Cinema.Service.Interfaces;
 using Cinema.Service.Services;
 using Cinema.UI.Extensions;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using NLog;
+using TokenHandler = Cinema.Service.Services.TokenHandler;
 
 namespace Cinema.UI;
 public class Program
@@ -18,14 +23,36 @@ public class Program
         builder.Services.AddControllers();
         
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(options =>
+        {
+            var securityScheme = new OpenApiSecurityScheme()
+            {
+                Name = "JWT Authentication",
+                Description = "Enter a valid JWT  bearer token",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                Reference = new OpenApiReference()
+                {
+                    Id = JwtBearerDefaults.AuthenticationScheme,
+                    Type = ReferenceType.SecurityScheme
+                }
+            };
+    
+            options.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                { securityScheme, new string[] {} }
+            });
+        });
 
         // DI
         builder.Services.AddPersistence(builder.Configuration);
 
         builder.Services.AddScoped<IServiceManager, ServiceManager>();
-        builder.Services.AddScoped<ICinemaService, CinemaService>();
-        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<ITokenHandler, TokenHandler>();
+        builder.Services.AddScoped<IAuthenticatorService, AuthenticatorService>();
 
         // Add AutoMapper
         builder.Services.AddAutoMapper(typeof(Program).Assembly);
@@ -35,6 +62,23 @@ public class Program
         {
             options.RegisterValidatorsFromAssemblyContaining<Program>();
         });
+        
+        // Add Authentication
+        builder.Services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(option => option.TokenValidationParameters 
+                = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                    ValidAudience = builder.Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                }
+            );
 
         var app = builder.Build();
 
@@ -49,6 +93,8 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+
+        app.UseAuthentication();
 
         app.UseAuthorization();
 

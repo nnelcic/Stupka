@@ -1,11 +1,15 @@
 ﻿using Cinema.Domain.Models.DTOs;
+using Cinema.Domain.Models.Enums;
 using Cinema.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Extensions;
 
 namespace Cinema.UI.Controllers;
 
 [Route("api/cinemas")]
 [ApiController]
+[Authorize]
 public class CinemaController : ControllerBase
 {
     private readonly IServiceManager _service;
