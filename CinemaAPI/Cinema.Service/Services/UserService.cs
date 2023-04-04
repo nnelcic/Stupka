@@ -45,10 +45,12 @@ public class UserService : IUserService
     public async Task<UserViewModel> AddAsync(AddUserRequest addUserRequest)
     {
         var user = _mapper.Map<User>(addUserRequest);
+        user.UserDetails = new UserDetails();
 
         _repository.User.CreateUser(user);
         await _repository.SaveAsync();
 
+        user = await _repository.User.GetUserAsync(user.Id);
         var userToReturn = _mapper.Map<UserViewModel>(user);
 
         return userToReturn;
@@ -80,5 +82,18 @@ public class UserService : IUserService
         
         _repository.User.DeleteUser(user);
         await _repository.SaveAsync();
+    }
+
+    public async Task<UserInfoViewModel> GetInfoAsync(int id)
+    {
+        var user = await _repository.User.GetUserInfoAsync(id);
+
+        if (user is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(User), id));
+        }
+
+        return _mapper.Map<UserInfoViewModel>(user);
     }
 }

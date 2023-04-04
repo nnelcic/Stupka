@@ -29,13 +29,5 @@ public class MovieConfiguration : IEntityTypeConfiguration<Movie>
         builder
             .Property(x => x.PosterUrl)
             .HasMaxLength(60);
-
-        builder
-            .HasData
-            (
-                new MovieType { MediaType = MovieTypeEnum._2D, Id = 0},
-                new MovieType { MediaType = MovieTypeEnum._3D, Id = 1},
-                new MovieType { MediaType = MovieTypeEnum.iMax, Id = 2}
-            );
     }
 }

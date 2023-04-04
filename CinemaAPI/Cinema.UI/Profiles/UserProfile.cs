@@ -15,5 +15,9 @@ public class UserProfile : Profile
             .ReverseMap();
         CreateMap<User, UpdateUserRequest>()
             .ReverseMap();
+        CreateMap<User, UserInfoViewModel>()
+            .ReverseMap();
+        CreateMap<UserDetailsViewModel, UserDetails>()
+            .ReverseMap();
     }
 }

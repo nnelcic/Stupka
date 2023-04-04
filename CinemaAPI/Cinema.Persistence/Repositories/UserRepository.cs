@@ -8,8 +8,7 @@ namespace Cinema.Persistence.Repositories;
 public class UserRepository : RepositoryBase<User>, IUserRepository
 {
     public UserRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-    {
-    }
+    { }
 
     public async Task<List<User>> GetAllUsersAsync()
     {
@@ -36,4 +35,13 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
     {
         Delete(user);
     }
+
+    public async Task<User?> GetUserInfoAsync(int id)
+        => await FindByCondition(x => x.Id == id, false)
+            .Include(x => x.Role)
+                .Include(x => x.UserDetails)
+                    .ThenInclude(x => x.Reviews)
+                .Include(x => x.UserDetails)
+                    .ThenInclude(x => x.Favourites)
+            .FirstOrDefaultAsync();
 }

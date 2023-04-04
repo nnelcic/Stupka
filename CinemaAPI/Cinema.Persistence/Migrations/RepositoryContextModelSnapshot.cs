@@ -129,18 +129,21 @@ namespace Cinema.Persistence.Migrations
 
                     b.Property<string>("OriginalTitle")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PosterUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -534,7 +537,8 @@ namespace Cinema.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("UserDetails");
                 });
@@ -714,8 +718,8 @@ namespace Cinema.Persistence.Migrations
             modelBuilder.Entity("Cinema.Domain.Models.Entities.UserDetails", b =>
                 {
                     b.HasOne("Cinema.Domain.Models.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("UserDetails")
+                        .HasForeignKey("Cinema.Domain.Models.Entities.UserDetails", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -747,6 +751,12 @@ namespace Cinema.Persistence.Migrations
             modelBuilder.Entity("Cinema.Domain.Models.Entities.MovieDetails", b =>
                 {
                     b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("Cinema.Domain.Models.Entities.User", b =>
+                {
+                    b.Navigation("UserDetails")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.UserDetails", b =>

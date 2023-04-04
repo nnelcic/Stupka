@@ -1,5 +1,6 @@
 ﻿using Cinema.Domain.Models.DTOs;
 using FluentValidation;
+using System.Text.RegularExpressions;
 
 namespace Cinema.UI.Validators;
 
@@ -16,6 +17,7 @@ public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
                 .WithMessage("Email is invalid!")
             .MaximumLength(50)
                 .WithMessage("50 character limit exceeded!");
+
         RuleFor(x => x.Password)
             .NotNull()
                 .WithMessage("Password could not be null!")
@@ -23,6 +25,7 @@ public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
                 .WithMessage("Password could not be empty!")
             .MaximumLength(50)
                 .WithMessage("50 character limit exceeded!");
+
         RuleFor(x => x.FirstName)
             .NotNull()
                 .WithMessage("FirstName could not be null!")
@@ -30,6 +33,7 @@ public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
                 .WithMessage("FirstName could not be empty!")
             .MaximumLength(50)
                 .WithMessage("50 character limit exceeded!");
+
         RuleFor(x => x.LastName)
             .NotNull()
                 .WithMessage("LastName could not be null!")
@@ -37,6 +41,7 @@ public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
                 .WithMessage("LastName could not be empty!")
             .MaximumLength(50)
                 .WithMessage("50 character limit exceeded!");
+
         RuleFor(x => x.Birthday)
             .NotNull()
                 .WithMessage("LastName could not be null!")
@@ -44,17 +49,29 @@ public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
                 .WithMessage("LastName could not be empty!")
             .Must(x => !x.Equals(default(DateTime)))
                 .WithMessage("Invalid Date!");
+
         RuleFor(x => x.PhoneNumber)
             .NotNull()
                 .WithMessage("PhoneNumber could not be null!")
             .NotEmpty()
                 .WithMessage("PhoneNumber could not be empty!")
             .MaximumLength(50)
-                .WithMessage("50 character limit exceeded!");
+                .WithMessage("50 character limit exceeded!")
+            .Must(IsValidPhoneNumber)
+                .WithMessage("Phone number isn't valid!");
+
         RuleFor(x => x.RoleId)
             .NotNull()
                 .WithMessage("RoleId could not be null!")
             .NotEmpty()
-                .WithMessage("RoleId could not be empty!");
+                .WithMessage("RoleId could not be empty!")
+            .GreaterThan(0)
+                .WithMessage("Role must be greater than 0")
+            .LessThan(3)
+                .WithMessage("Role must be less than 3");
+    }
+    private bool IsValidPhoneNumber(string phoneNumber)
+    {
+        return Regex.IsMatch(phoneNumber, "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
     }
 }

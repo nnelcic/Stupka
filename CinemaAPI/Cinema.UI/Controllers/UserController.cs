@@ -22,7 +22,15 @@ public class UserController : ControllerBase
 
         return Ok(users);
     }
-    
+
+    [HttpGet("[action]/{id:int}")]
+    public async Task<IActionResult> GetUserInfoAsync(int id)
+    {
+        var user = await _service.UserService.GetInfoAsync(id);
+
+        return Ok(user);
+    }
+
     [HttpGet("[action]/{id:int}")]
     [ActionName("GetUserByIdAsync")]
     public async Task<IActionResult> GetUserByIdAsync(int id)
