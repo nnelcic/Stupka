@@ -23,14 +23,14 @@ public class CinemaService : ICinemaService
 
     public async Task<IEnumerable<CinemaViewModel>> GetAllAsync()
     {
-        var cinemas = await _repository.Cinema.GetAllCinemaAsync();
+        var cinemas = await _repository.Cinema.GetAllCinemaInfoAsync();
 
         return _mapper.Map<List<CinemaViewModel>>(cinemas);
     }
 
     public async Task<CinemaViewModel> GetAsync(int id)
     {
-        var cinema = await _repository.Cinema.GetCinemaAsync(id);
+        var cinema = await _repository.Cinema.GetCinemaInfoAsync(id);
 
         if (cinema is null)
         {
@@ -47,6 +47,8 @@ public class CinemaService : ICinemaService
 
         _repository.Cinema.CreateCinema(cinema);
         await _repository.SaveAsync();
+
+        cinema = await _repository.Cinema.GetCinemaInfoAsync(cinema.Id);
 
         var cinemaToReturn = _mapper.Map<CinemaViewModel>(cinema);
 

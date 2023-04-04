@@ -2,7 +2,8 @@
 
 public enum SeatTypeEnum
 {
-    Default,
-    ForKissing,
-    ForDisablers
+    Normal = 0,
+    ForDisablers = 1,
+    ForKissing = 2,
+    VIP = 3
 }

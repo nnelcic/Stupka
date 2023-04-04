@@ -19,6 +19,7 @@ public class SeanseRepository : RepositoryBase<Domain.Models.Entities.Seanse>, I
         => Delete(seanse);
 
     public async Task<List<Seanse>> GetAllSeanseAsync()
+
         => await FindAll()
                 .Include(x => x.MovieId)
                 .OrderBy(x => x.Id)

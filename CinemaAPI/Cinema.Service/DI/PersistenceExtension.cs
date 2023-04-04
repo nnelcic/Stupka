@@ -18,10 +18,16 @@ public static class PersistenceExtension
             options.UseSqlServer(configuration.GetConnectionString("CinemaDb"));
         });
 
-        services.AddScoped<IRepositoryManager, RepositoryManager>();
         services.AddSingleton<ILoggerManager, LoggerManager>();
+        services.AddScoped<IRepositoryManager, RepositoryManager>();
         services.AddScoped<IAuthenticatorRepository, AuthenticatorRepository>();
-        
+        services.AddScoped<ICinemaRepository, CinemaRepository>();
+        services.AddScoped<IPriceRepository, PriceRepository>();
+        services.AddScoped<IHallRepository, HallRepository>();
+        services.AddScoped<ISeatRepository, SeatRepository>();
+        services.AddScoped<IPromocodeRepository, PromocodeRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+
         return services;
     }
 }

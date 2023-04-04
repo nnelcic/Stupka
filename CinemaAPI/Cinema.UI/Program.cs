@@ -51,6 +51,10 @@ public class Program
         builder.Services.AddPersistence(builder.Configuration);
 
         builder.Services.AddScoped<IServiceManager, ServiceManager>();
+        builder.Services.AddScoped<ICinemaService, CinemaService>();
+        builder.Services.AddScoped<IPriceService, PriceService>();
+        builder.Services.AddScoped<IHallService, HallService>();
+        builder.Services.AddScoped<ISeatService, SeatService>();
         builder.Services.AddScoped<ITokenHandler, TokenHandler>();
         builder.Services.AddScoped<IAuthenticatorService, AuthenticatorService>();
 
@@ -61,6 +65,7 @@ public class Program
         builder.Services.AddFluentValidation(options =>
         {
             options.RegisterValidatorsFromAssemblyContaining<Program>();
+            options.ImplicitlyValidateChildProperties = true;
         });
         
         // Add Authentication

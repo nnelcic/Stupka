@@ -12,10 +12,6 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
         builder
             .HasKey(x => x.Id);
 
-        builder
-            .Property(x => x.RoleName)
-            .IsRequired();
-
         builder.HasData
         (
             new Role { RoleName = RoleEnum.Admin, Id = 1 },

@@ -38,21 +38,21 @@ public class RepositoryContext : DbContext
             .WithMany(g => g.MovieGenres)
             .HasForeignKey(mg => mg.GenreId);
 
-        modelBuilder.Entity<Price>()
-            .Property(p => p.Cost)
-            .HasColumnType("decimal(5,2)");
-
         modelBuilder.Entity<Ticket>()
             .HasOne(t => t.Seat)
             .WithMany()
             .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.ApplyConfiguration(new CinemaConfiguration());
+        modelBuilder.ApplyConfiguration(new PriceConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
+        modelBuilder.ApplyConfiguration(new MovieConfiguration());
+        modelBuilder.ApplyConfiguration(new SeatTypeConfigutation());
+        modelBuilder.ApplyConfiguration(new HallConfiguration());
+        modelBuilder.ApplyConfiguration(new SeatConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new SeanseConfiguration());
         modelBuilder.ApplyConfiguration(new PromocodeConfiguration());
-        modelBuilder.ApplyConfiguration(new MovieConfiguration());
     }
 
     public DbSet<Domain.Models.Entities.Cinema>? Cinemas { get; set; }

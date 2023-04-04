@@ -1,11 +1,26 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NavBar from "./components/ui/NavBar";
+import Login from "./pages/Authentication/Login";
+import Signup from "./pages/Authentication/Signup";
+import Home from "./pages/Home/Home";
+import Cinema from "./pages/Admin/Cinema";
+
 function App() {
-  return (
-    <div className='m-5'>
-      <div className='btn btn-success me-5'>Success</div>
-      <div className='btn btn-info me-5'>Info</div>
-      <div className='btn btn-danger me-5'>Danger</div>
-    </div>
-  );
+    return (
+        <div>
+            <BrowserRouter>
+                <NavBar />
+                <div>
+                    <Routes>
+                        <Route path="/" element={<Home />}></Route>
+                        <Route path="/admin/cinema" element={<Cinema />}></Route>
+                        <Route path="/login" element={<Login />}></Route>
+                        <Route path="/signup" element={<Signup />}></Route>
+                    </Routes>
+                </div>
+            </BrowserRouter>
+        </div>
+    );
 }
 
 export default App;

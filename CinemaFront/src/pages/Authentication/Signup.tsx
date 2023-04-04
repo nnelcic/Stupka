@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-const SignUp = () => {
-  return (
-    <div>
-      <h1>My Component</h1>
-    </div> 
-  )
-}
+const Signup: React.FC<{}> = () => {
+    return (
+        <div>
+            <h1>Signup</h1>
+        </div>
+    );
+};
 
-export default SignUp;
+export default Signup;

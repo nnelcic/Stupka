@@ -256,14 +256,10 @@ namespace Cinema.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<int>("SeatTypeId")
-                        .HasColumnType("int");
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SeatTypeId");
 
                     b.ToTable("Prices");
                 });
@@ -278,7 +274,8 @@ namespace Cinema.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Percentage")
                         .HasColumnType("int");
@@ -409,12 +406,42 @@ namespace Cinema.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<decimal>("Price")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("SeatTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Price = 10m,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Price = 15m,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Price = 25m,
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Price = 35m,
+                            Type = 3
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Ticket", b =>
@@ -587,17 +614,6 @@ namespace Cinema.Persistence.Migrations
                     b.Navigation("Genre");
 
                     b.Navigation("Movie");
-                });
-
-            modelBuilder.Entity("Cinema.Domain.Models.Entities.Price", b =>
-                {
-                    b.HasOne("Cinema.Domain.Models.Entities.SeatType", "SeatType")
-                        .WithMany()
-                        .HasForeignKey("SeatTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SeatType");
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Review", b =>
