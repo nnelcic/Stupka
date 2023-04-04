@@ -19,8 +19,13 @@ public class SeanseRepository : RepositoryBase<Domain.Models.Entities.Seanse>, I
         => Delete(seanse);
 
     public async Task<List<Seanse>> GetAllSeanseAsync()
-        => await FindAll().OrderBy(x => x.Id).ToListAsync();
+        => await FindAll()
+                .Include(x => x.MovieId)
+                .OrderBy(x => x.Id)
+                .ToListAsync();
 
     public async Task<Seanse?> GetSeanseAsync(int id, bool trackChanges = false)
-        => await FindByCondition(x => x.Id == id, trackChanges).FirstOrDefaultAsync();
+        => await FindByCondition(x => x.Id == id, trackChanges)
+                .Include(x => x.MovieId)
+                .FirstOrDefaultAsync();
 }

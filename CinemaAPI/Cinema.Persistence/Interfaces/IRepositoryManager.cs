@@ -6,5 +6,6 @@ public interface IRepositoryManager
     IUserRepository User { get; }
     ISeanseRepository Seanse { get; }
     IPromocodeRepository Promocode { get; }
+    IMovieRepository Movie { get; }
     Task SaveAsync();
 }

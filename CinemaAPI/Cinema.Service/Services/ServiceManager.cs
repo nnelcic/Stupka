@@ -10,6 +10,7 @@ public class ServiceManager : IServiceManager
     private readonly Lazy<IUserService> _userService;
     private readonly Lazy<ISeanseService> _seanseService;
     private readonly Lazy<IPromocodeService> _promocodeService;
+    private readonly Lazy<IMovieService> _movieService;
 
     public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger, IMapper autoMapper)
     {
@@ -17,10 +18,12 @@ public class ServiceManager : IServiceManager
         _userService = new Lazy<IUserService>(() => new UserService(repositoryManager, logger, autoMapper));
         _seanseService = new Lazy<ISeanseService>(() => new SeanseService(repositoryManager, logger, autoMapper));
         _promocodeService = new Lazy<IPromocodeService>(() => new PromocodeService(repositoryManager, logger, autoMapper));
+        _movieService = new Lazy<IMovieService>(() => new MovieService(repositoryManager, logger, autoMapper));
     }
 
     public ICinemaService CinemaService => _cinemaService.Value;
     public IUserService UserService => _userService.Value;
     public ISeanseService SeanseService => _seanseService.Value;
     public IPromocodeService PromocodeService => _promocodeService.Value;
+    public IMovieService MovieService => _movieService.Value;
 }

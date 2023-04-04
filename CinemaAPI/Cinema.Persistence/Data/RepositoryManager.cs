@@ -10,6 +10,7 @@ public class RepositoryManager : IRepositoryManager
     private readonly Lazy<IUserRepository> _userRepository;
     private readonly Lazy<ISeanseRepository> _seanseRepository;
     private readonly Lazy<IPromocodeRepository> _promocodeRepository;
+    private readonly Lazy<IMovieRepository> _movieRepository;
 
     // Lazy implementation for all db sets
 
@@ -25,11 +26,14 @@ public class RepositoryManager : IRepositoryManager
            new SeanseRepository(repositoryContext));
         _promocodeRepository = new Lazy<IPromocodeRepository>(() =>
         new PromocodeRepository(repositoryContext));
+        _movieRepository = new Lazy<IMovieRepository>(() =>
+        new MovieRepository(repositoryContext));
     }
 
     public ICinemaRepository Cinema => _cinemaRepository.Value;
     public IUserRepository User => _userRepository.Value;
     public ISeanseRepository Seanse => _seanseRepository.Value;
     public IPromocodeRepository Promocode => _promocodeRepository.Value;
+    public IMovieRepository Movie => _movieRepository.Value;
     public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
 }

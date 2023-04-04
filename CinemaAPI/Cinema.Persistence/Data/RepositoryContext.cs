@@ -52,6 +52,7 @@ public class RepositoryContext : DbContext
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new SeanseConfiguration());
         modelBuilder.ApplyConfiguration(new PromocodeConfiguration());
+        modelBuilder.ApplyConfiguration(new MovieConfiguration());
     }
 
     public DbSet<Domain.Models.Entities.Cinema>? Cinemas { get; set; }
