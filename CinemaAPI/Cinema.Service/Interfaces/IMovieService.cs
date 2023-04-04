@@ -6,6 +6,7 @@ namespace Cinema.Service.Interfaces;
 public interface IMovieService
 {
     Task<IEnumerable<MovieViewModel>> GetAllAsync();
+    Task<MovieDetailsViewModel> GetInfoAsync(int id);
     Task<MovieViewModel> GetAsync(int id);
     Task<MovieViewModel> AddAsync(AddMovieRequest addMovieRequest);
     Task UpdateAsync(int id, UpdateMovieRequest updateMovieRequest);

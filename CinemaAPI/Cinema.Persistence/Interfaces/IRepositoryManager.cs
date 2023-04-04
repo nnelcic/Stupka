@@ -9,6 +9,6 @@ public interface IRepositoryManager
     ISeatRepository Seat { get; }
     IUserRepository User { get; }
     ISeanseRepository Seanse { get; }
-    IPromocodeRepository Promocode { get; }
+    IPromocodeRepository Promocode { get; }    
     Task SaveAsync();
 }

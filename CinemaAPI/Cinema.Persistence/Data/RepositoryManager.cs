@@ -1,4 +1,5 @@
-﻿using Cinema.Persistence.Interfaces;
+﻿using Cinema.Domain.Models.Entities;
+using Cinema.Persistence.Interfaces;
 using Cinema.Persistence.Repositories;
 
 namespace Cinema.Persistence.Data;
@@ -13,7 +14,7 @@ public class RepositoryManager : IRepositoryManager
     private readonly Lazy<ISeatRepository> _seatRepository;
     private readonly Lazy<IUserRepository> _userRepository;
     private readonly Lazy<ISeanseRepository> _seanseRepository;
-    private readonly Lazy<IPromocodeRepository> _promocodeRepository;
+    private readonly Lazy<IPromocodeRepository> _promocodeRepository;    
 
     public RepositoryManager(RepositoryContext repositoryContext)
     {
@@ -41,7 +42,8 @@ public class RepositoryManager : IRepositoryManager
            new SeanseRepository(repositoryContext));
 
         _promocodeRepository = new Lazy<IPromocodeRepository>(() =>
-        new PromocodeRepository(repositoryContext));
+        new PromocodeRepository(repositoryContext));       
+              
     }
 
     public ICinemaRepository Cinema => _cinemaRepository.Value;

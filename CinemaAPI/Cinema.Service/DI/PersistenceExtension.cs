@@ -27,6 +27,7 @@ public static class PersistenceExtension
         services.AddScoped<ISeatRepository, SeatRepository>();
         services.AddScoped<IPromocodeRepository, PromocodeRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IMovieRepository, MovieRepository>();
 
         return services;
     }

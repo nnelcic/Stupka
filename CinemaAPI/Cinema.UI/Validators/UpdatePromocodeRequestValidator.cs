@@ -15,6 +15,8 @@ public class UpdatePromocodeRequestValidator : AbstractValidator<UpdatePromocode
             .MaximumLength(50)
                 .WithMessage("50 character limit exceeded!");
         RuleFor(x => x.Percentage)
+            .GreaterThan(0)
+                .WithMessage("Percentage must be greater than 0.")
             .NotNull()
                 .WithMessage("Percentage couldn't be null!")
             .NotEmpty()

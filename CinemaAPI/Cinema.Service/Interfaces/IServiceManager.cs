@@ -9,5 +9,5 @@ public interface IServiceManager
     ISeatService SeatService { get; }
     IUserService UserService { get; }
     ISeanseService SeanseService { get; }
-    IPromocodeService PromocodeService { get; }
+    IPromocodeService PromocodeService { get; }   
 }

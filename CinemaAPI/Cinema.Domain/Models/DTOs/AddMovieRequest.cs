@@ -8,4 +8,5 @@ public class AddMovieRequest
     public DateTime ReleaseDate { get; set; }
     public string PosterUrl { get; set; }   
     public int MovieTypeId { get; set; }   
+    public ICollection<AddMovieGerneRequest> GenreRequests { get; set; }
 }

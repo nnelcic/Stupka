@@ -28,6 +28,6 @@ public class MovieConfiguration : IEntityTypeConfiguration<Movie>
 
         builder
             .Property(x => x.PosterUrl)
-            .HasMaxLength(60);
+            .HasMaxLength(60);        
     }
 }

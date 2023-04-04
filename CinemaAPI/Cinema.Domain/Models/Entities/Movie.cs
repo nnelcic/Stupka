@@ -11,6 +11,7 @@ public class Movie
     // Navigation property
     public int MovieTypeId { get; set; }
     public MovieType MovieType { get; set; }
+    public MovieDetails MovieDetails { get; set; }
     public ICollection<MovieGenre> MovieGenres { get; set; }
     public ICollection<Favourite> Favourites { get; set; }
 }

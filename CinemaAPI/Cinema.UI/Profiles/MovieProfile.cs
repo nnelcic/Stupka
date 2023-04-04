@@ -14,6 +14,10 @@ public class MovieProfile : Profile
         CreateMap<Movie, AddMovieRequest>()
             .ReverseMap();
         CreateMap<Movie, UpdateMovieRequest>()
-            .ReverseMap();        
+            .ReverseMap();
+        CreateMap<Movie, MovieDetailsViewModel>()
+            .ReverseMap();
+        CreateMap<MovieDetailsViewModel, MovieDetails>()
+            .ReverseMap();
     }
 }

@@ -22,6 +22,8 @@ public class AddMovieRequestValidator : AbstractValidator<AddMovieRequest>
             .MaximumLength(100)
                 .WithMessage("100 character limit exceeded!");
         RuleFor(x => x.Duration)
+            .GreaterThan(0)
+                .WithMessage("Movie duration must be greater than 0.")
             .NotEmpty()
                 .WithMessage("Duration could not be empty!")
             .NotNull()
