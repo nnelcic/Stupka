@@ -43,6 +43,11 @@ public class RepositoryContext : DbContext
             .WithMany()
             .OnDelete(DeleteBehavior.NoAction);
 
+        modelBuilder.Entity<User>()
+            .HasOne(x => x.UserRefreshToken)
+            .WithOne(x => x.User)
+            .HasForeignKey<UserRefreshToken>(x => x.UserId);
+
         modelBuilder.ApplyConfiguration(new CinemaConfiguration());
         modelBuilder.ApplyConfiguration(new PriceConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
@@ -77,4 +82,5 @@ public class RepositoryContext : DbContext
     public DbSet<Ticket>? Tickets { get; set; }
     public DbSet<User>? Users { get; set; }
     public DbSet<UserDetails>? UserDetails { get; set; }
+    public DbSet<UserRefreshToken>? UserRefreshTokens { get; set; }
 }

@@ -8,12 +8,12 @@ public class ServiceManager : IServiceManager
 {
     private readonly Lazy<IMovieService> _movieService;
     private readonly Lazy<ICinemaService> _cinemaService;
+    private readonly Lazy<IUserService> _userService;
+    private readonly Lazy<ISeanseService> _seanseService;
     private readonly Lazy<IPriceService> _priceService;
     private readonly Lazy<IHallService> _hallService;
     private readonly Lazy<ISeatService> _seatService;
-    private readonly Lazy<ISeanseService> _seanseService;
     private readonly Lazy<IPromocodeService> _promocodeService;
-    private readonly Lazy<IUserService> _userService;
 
     public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger, IMapper autoMapper)
     {

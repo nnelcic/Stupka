@@ -12,4 +12,6 @@ public class UserViewModel
     public string PhoneNumber { get; set; }
     public int RoleId { get; set; }
     public Role Role { get; set; }
+    public int UserRefreshTokenId { get; set; }
+    public UserRefreshToken UserRefreshToken { get; set; }
 }

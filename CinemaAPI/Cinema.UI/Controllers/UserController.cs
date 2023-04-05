@@ -15,7 +15,7 @@ public class UserController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("[action]")]
+    [HttpGet]
     public async Task<IActionResult> GetAllUsersAsync()
     {
         var users = await _service.UserService.GetAllAsync();
@@ -31,7 +31,7 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
-    [HttpGet("[action]/{id:int}")]
+    [HttpGet("{id:int}")]
     [ActionName("GetUserByIdAsync")]
     public async Task<IActionResult> GetUserByIdAsync(int id)
     {
@@ -40,7 +40,7 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
-    [HttpPost("[action]")]
+    [HttpPost]
     public async Task<IActionResult> AddUserAsync([FromBody] AddUserRequest addUserRequest)
     {
         var createdUser = await _service.UserService.AddAsync(addUserRequest);
@@ -48,7 +48,7 @@ public class UserController : ControllerBase
         return CreatedAtAction(nameof(GetUserByIdAsync), new { id = createdUser.Id }, createdUser);
     }
 
-    [HttpPut("[action]/{id:int}")]
+    [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateUserAsync(int id, [FromBody] UpdateUserRequest updateUserRequest)
     {
         await _service.UserService.UpdateAsync(id, updateUserRequest);
@@ -56,7 +56,7 @@ public class UserController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("[action]/{id:int}")]
+    [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteUserAsync(int id)
     {
         await _service.UserService.DeleteAsync(id);

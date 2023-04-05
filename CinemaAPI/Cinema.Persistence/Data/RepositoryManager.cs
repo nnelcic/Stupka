@@ -1,5 +1,4 @@
-﻿using Cinema.Domain.Models.Entities;
-using Cinema.Persistence.Interfaces;
+﻿using Cinema.Persistence.Interfaces;
 using Cinema.Persistence.Repositories;
 
 namespace Cinema.Persistence.Data;
@@ -14,7 +13,10 @@ public class RepositoryManager : IRepositoryManager
     private readonly Lazy<ISeatRepository> _seatRepository;
     private readonly Lazy<IUserRepository> _userRepository;
     private readonly Lazy<ISeanseRepository> _seanseRepository;
-    private readonly Lazy<IPromocodeRepository> _promocodeRepository;    
+    private readonly Lazy<IPromocodeRepository> _promocodeRepository;
+    private readonly Lazy<IUserRefreshTokenRepository> _refreshTokenRepository;
+
+    // Lazy implementation for all db sets
 
     public RepositoryManager(RepositoryContext repositoryContext)
     {
@@ -37,13 +39,12 @@ public class RepositoryManager : IRepositoryManager
 
         _userRepository = new Lazy<IUserRepository>(() =>
             new UserRepository(repositoryContext));
-
         _seanseRepository = new Lazy<ISeanseRepository>(() =>
            new SeanseRepository(repositoryContext));
-
         _promocodeRepository = new Lazy<IPromocodeRepository>(() =>
-        new PromocodeRepository(repositoryContext));       
-              
+            new PromocodeRepository(repositoryContext));
+        _refreshTokenRepository = new Lazy<IUserRefreshTokenRepository>(() => 
+            new UserRefreshTokenRepository(repositoryContext));
     }
 
     public ICinemaRepository Cinema => _cinemaRepository.Value;
@@ -54,5 +55,6 @@ public class RepositoryManager : IRepositoryManager
     public IUserRepository User => _userRepository.Value;
     public ISeanseRepository Seanse => _seanseRepository.Value;
     public IPromocodeRepository Promocode => _promocodeRepository.Value;
+    public IUserRefreshTokenRepository RefreshToken => _refreshTokenRepository.Value;
     public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
 }

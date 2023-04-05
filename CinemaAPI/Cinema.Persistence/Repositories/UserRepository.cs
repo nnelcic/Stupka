@@ -14,6 +14,7 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
     {
         return await FindAll()
             .Include(x => x.Role)
+            .Include(x => x.UserRefreshToken)
             .OrderBy(x => x.LastName)
             .ThenBy(x => x.FirstName)
             .ToListAsync();
@@ -23,6 +24,7 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
     {
         return await FindByCondition(x => x.Id == id, trackChanges)
             .Include(x => x.Role)
+            .Include(x => x.UserRefreshToken)
             .FirstOrDefaultAsync();
     }
 

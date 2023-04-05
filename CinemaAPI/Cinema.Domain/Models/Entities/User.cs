@@ -14,4 +14,5 @@ public class User
     public int RoleId { get; set; }
     public Role Role { get; set; }
     public UserDetails UserDetails { get; set; }
+    public UserRefreshToken? UserRefreshToken { get; set; }
 }
