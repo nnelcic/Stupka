@@ -29,5 +29,19 @@ public class CinemaConfiguration : IEntityTypeConfiguration<Domain.Models.Entiti
         builder
             .Property(x => x.City)
             .HasMaxLength(50);
+
+        builder
+            .HasData
+            (
+                new Domain.Models.Entities.Cinema
+                {
+                    Id = 1,
+                    Name = "Stupka",
+                    Email = "stupka@gmail.com",
+                    Address = "Vul. Bogdana Khmelnitskogo",
+                    City = "Kiyv",
+                    PhoneNumber = "380997813842"
+                }
+            );
     }
 }

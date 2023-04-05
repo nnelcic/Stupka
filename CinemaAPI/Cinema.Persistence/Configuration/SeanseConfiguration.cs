@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cinema.Persistence.Configuration;
 
-public class SeanseConfiguration : IEntityTypeConfiguration<Domain.Models.Entities.Seanse>
+public class SeanseConfiguration : IEntityTypeConfiguration<Seanse>
 {
     public void Configure(EntityTypeBuilder<Seanse> builder)
     {

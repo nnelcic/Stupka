@@ -6,16 +6,16 @@ using System;
 
 namespace Cinema.Persistence.Repositories;
 
-public class MovieRepository : RepositoryBase<Domain.Models.Entities.Movie>, IMovieRepository
+public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
 {
     public MovieRepository(RepositoryContext repositoryContext) : base(repositoryContext)
     {}
 
     public async Task<List<Movie>> GetAllMoviesInfoAsync()
     {
-        return await FindAll()
+        return await _repositoryContext.Movies
             .Include(x => x.MovieDetails)
-                .ThenInclude(x => x.PhaseId)
+            .Include(x => x.MovieType)
             .Include(x => x.MovieGenres)
                 .ThenInclude(x => x.Genre)
             .OrderBy(x => x.Title)
@@ -24,12 +24,11 @@ public class MovieRepository : RepositoryBase<Domain.Models.Entities.Movie>, IMo
 
     public async Task<Movie?> GetMovieInfoAsync(int id)
     {
-        return await FindByCondition(x => x.Id == id, false)
+        return await _repositoryContext.Movies
             .Include(x => x.MovieDetails)
-                .ThenInclude(x => x.PhaseId)
             .Include(x => x.MovieGenres)
                 .ThenInclude(x => x.Genre)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Movie?> GetMovieByTittleAsync(string tittle)
@@ -45,11 +44,7 @@ public class MovieRepository : RepositoryBase<Domain.Models.Entities.Movie>, IMo
     }
 
     public void CreateMovie(Movie movie)
-    {
-        Create(movie);
-    }
+        => Create(movie);
     public void DeleteMovie(Movie movie)
-    {
-        Delete(movie);
-    }    
+        => Delete(movie);
 }

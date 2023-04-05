@@ -11,5 +11,13 @@ public class PriceConfiguration : IEntityTypeConfiguration<Price>
         builder
             .Property(x => x.Cost)
                 .HasPrecision(7,2);
+
+        builder
+            .HasData
+            (
+                new Price { Id = 1, Cost = 100 },
+                new Price { Id = 2, Cost = 200 },
+                new Price { Id = 3, Cost = 300 }
+            );
     }
 }

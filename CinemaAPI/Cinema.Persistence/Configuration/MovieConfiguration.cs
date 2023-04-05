@@ -28,6 +28,31 @@ public class MovieConfiguration : IEntityTypeConfiguration<Movie>
 
         builder
             .Property(x => x.PosterUrl)
-            .HasMaxLength(60);        
+            .HasMaxLength(60);
+
+        builder
+            .HasData
+            (
+                new Movie 
+                { 
+                    Id = 1, 
+                    OriginalTitle = "Shrek", 
+                    Title = "Зелений чолов'яга",
+                    Duration = 145,
+                    ReleaseDate = DateTime.Parse("1999-04-01"),
+                    PosterUrl = "www.niceShrekUrl.com",
+                    MovieTypeId = 2,
+                },
+                new Movie
+                {
+                    Id = 2,
+                    OriginalTitle = "Titanic",
+                    Title = "Затонувший корабель",
+                    Duration = 120,
+                    ReleaseDate = DateTime.Parse("1995-01-01"),
+                    PosterUrl = "www.niceTitanicUrl.com",
+                    MovieTypeId = 3,
+                }
+            );
     }
 }

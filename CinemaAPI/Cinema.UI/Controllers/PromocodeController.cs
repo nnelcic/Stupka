@@ -7,7 +7,6 @@ namespace Cinema.UI.Controllers;
 
 [Route("api/promocodes")]
 [ApiController]
-[Authorize]
 public class PromocodeController : ControllerBase
 {
     private readonly IServiceManager _service;

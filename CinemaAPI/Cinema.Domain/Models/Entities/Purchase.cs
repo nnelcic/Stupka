@@ -3,7 +3,8 @@
 public class Purchase
 {
     public int Id { get; set; }
-    public DateTime PurchaseDate { get; set; }
+    public DateTime PurchaseDate { get; set; } = DateTime.UtcNow;
+    public decimal Price { get; set; }
     // Navigation property
     public int UserDetailsId { get; set; }
     public UserDetails UserDetails { get; set; }

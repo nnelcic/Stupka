@@ -13,8 +13,4 @@ public class MovieDetailsViewModel
     public string MovieTrailerUrl { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }    
-    public int MovieId { get; set; }
-    public Movie Movie { get; set; }
-    public int PhaseId { get; set; }
-    public Phase Phase { get; set; }
 }

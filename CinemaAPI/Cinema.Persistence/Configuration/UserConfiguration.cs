@@ -30,9 +30,36 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder
             .Property(x => x.Birthday);
-        
+
         builder
             .Property(x => x.PhoneNumber)
             .HasMaxLength(20);
+
+        builder
+            .HasData
+            (
+                new User
+                {
+                    Id = 1,
+                    RoleId = 1,
+                    Email = "admin@gmail.com",
+                    Password = "admin123",
+                    FirstName = "Admin",
+                    LastName = "Admin",
+                    Birthday = DateTime.Parse("2000-05-08"),
+                    PhoneNumber = "380999999999",
+                },
+                new User
+                {
+                    Id = 2,
+                    RoleId = 2,
+                    Email = "user@gmail.com",
+                    Password = "user123",
+                    FirstName = "User",
+                    LastName = "User",
+                    Birthday = DateTime.Parse("2005-01-01"),
+                    PhoneNumber = "380111111111",
+                }
+            );
     }
 }

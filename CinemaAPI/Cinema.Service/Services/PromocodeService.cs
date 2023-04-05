@@ -2,6 +2,7 @@
 using Cinema.Domain.ExceptionModels;
 using Cinema.Domain.Models.Consts;
 using Cinema.Domain.Models.DTOs;
+using Cinema.Domain.Models.Entities;
 using Cinema.Domain.Models.ViewModels;
 using Cinema.Persistence.Interfaces;
 using Cinema.Service.Interfaces;
@@ -66,6 +67,19 @@ public class PromocodeService : IPromocodeService
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Promocode), id));
+        }
+
+        return _mapper.Map<PromocodeViewModel>(promocode);
+    }
+
+    public async Task<PromocodeViewModel> GetAsync(string promocode)
+    {
+        var existingPromocode = await _repository.Promocode.GetPromocodeAsync(promocode);
+
+        if (existingPromocode is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetInvalidPromocodeException(nameof(Promocode)));
         }
 
         return _mapper.Map<PromocodeViewModel>(promocode);

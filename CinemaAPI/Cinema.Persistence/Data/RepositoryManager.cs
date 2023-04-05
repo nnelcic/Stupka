@@ -15,8 +15,7 @@ public class RepositoryManager : IRepositoryManager
     private readonly Lazy<ISeanseRepository> _seanseRepository;
     private readonly Lazy<IPromocodeRepository> _promocodeRepository;
     private readonly Lazy<IUserRefreshTokenRepository> _refreshTokenRepository;
-
-    // Lazy implementation for all db sets
+    private readonly Lazy<IPurchaseRepository> _purchaseRepository;    
 
     public RepositoryManager(RepositoryContext repositoryContext)
     {
@@ -45,6 +44,8 @@ public class RepositoryManager : IRepositoryManager
             new PromocodeRepository(repositoryContext));
         _refreshTokenRepository = new Lazy<IUserRefreshTokenRepository>(() => 
             new UserRefreshTokenRepository(repositoryContext));
+        _purchaseRepository = new Lazy<IPurchaseRepository>(() =>
+        new PurchaseRepository(repositoryContext));
     }
 
     public ICinemaRepository Cinema => _cinemaRepository.Value;
@@ -56,5 +57,6 @@ public class RepositoryManager : IRepositoryManager
     public ISeanseRepository Seanse => _seanseRepository.Value;
     public IPromocodeRepository Promocode => _promocodeRepository.Value;
     public IUserRefreshTokenRepository RefreshToken => _refreshTokenRepository.Value;
+    public IPurchaseRepository Purchase => _purchaseRepository.Value;
     public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
 }

@@ -24,16 +24,16 @@ public class CinemaRepository : RepositoryBase<Domain.Models.Entities.Cinema>, I
     public async Task<Domain.Models.Entities.Cinema?> GetCinemaInfoAsync(int id)
         => await _repositoryContext.Cinemas
             .Include(x => x.Halls)
-            .ThenInclude(x => x.Seats)
-            .ThenInclude(x => x.SeatType)
+                .ThenInclude(x => x.Seats)
+                    .ThenInclude(x => x.SeatType)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id);
 
     public async Task<List<Domain.Models.Entities.Cinema>> GetAllCinemaInfoAsync()
         => await _repositoryContext.Cinemas
             .Include(x => x.Halls)
-            .ThenInclude(x => x.Seats)
-            .ThenInclude(x => x.SeatType)
+                .ThenInclude(x => x.Seats)
+                    .ThenInclude(x => x.SeatType)
             .AsNoTracking()
             .ToListAsync();
 }

@@ -24,6 +24,7 @@ public class MovieService : IMovieService
     public async Task<IEnumerable<MovieViewModel>> GetAllAsync()
     {
         var movies = await _repository.Movie.GetAllMoviesInfoAsync();
+
         return _mapper.Map<List<MovieViewModel>>(movies);
     }
 

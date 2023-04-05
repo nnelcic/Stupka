@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cinema.Persistence.Migrations
 {
-    public partial class UserDetails : Migration
+    public partial class changedMovieDetailsAndMovies : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,7 +32,7 @@ namespace Cinema.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,19 +50,6 @@ namespace Cinema.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MovieTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Phases",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PhaseName = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Phases", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -222,16 +209,15 @@ namespace Cinema.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Producers = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
+                    Producers = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     AgeLimit = table.Column<int>(type: "int", nullable: false),
                     IndependentRate = table.Column<double>(type: "float", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MovieTrailerUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    MovieTrailerUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MovieId = table.Column<int>(type: "int", nullable: false),
-                    PhaseId = table.Column<int>(type: "int", nullable: false)
+                    MovieId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -240,12 +226,6 @@ namespace Cinema.Persistence.Migrations
                         name: "FK_MovieDetails_Movies_MovieId",
                         column: x => x.MovieId,
                         principalTable: "Movies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MovieDetails_Phases_PhaseId",
-                        column: x => x.PhaseId,
-                        principalTable: "Phases",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -321,39 +301,6 @@ namespace Cinema.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tickets",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SeanseId = table.Column<int>(type: "int", nullable: false),
-                    SeatId = table.Column<int>(type: "int", nullable: false),
-                    PurchaseId = table.Column<int>(type: "int", nullable: false),
-                    PriceId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tickets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Prices_PriceId",
-                        column: x => x.PriceId,
-                        principalTable: "Prices",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Seanses_SeanseId",
-                        column: x => x.SeanseId,
-                        principalTable: "Seanses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Seats_SeatId",
-                        column: x => x.SeatId,
-                        principalTable: "Seats",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Favourites",
                 columns: table => new
                 {
@@ -371,6 +318,34 @@ namespace Cinema.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Favourites_UserDetails_UserDetailsId",
+                        column: x => x.UserDetailsId,
+                        principalTable: "UserDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Purchase",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PurchaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(9,2)", precision: 9, scale: 2, nullable: false),
+                    UserDetailsId = table.Column<int>(type: "int", nullable: false),
+                    PromocodeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Purchase", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Purchase_Promocodes_PromocodeId",
+                        column: x => x.PromocodeId,
+                        principalTable: "Promocodes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Purchase_UserDetails_UserDetailsId",
                         column: x => x.UserDetailsId,
                         principalTable: "UserDetails",
                         principalColumn: "Id",
@@ -405,6 +380,99 @@ namespace Cinema.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Tickets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SeanseId = table.Column<int>(type: "int", nullable: false),
+                    SeatId = table.Column<int>(type: "int", nullable: false),
+                    PurchaseId = table.Column<int>(type: "int", nullable: false),
+                    PriceId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Prices_PriceId",
+                        column: x => x.PriceId,
+                        principalTable: "Prices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Purchase_PurchaseId",
+                        column: x => x.PurchaseId,
+                        principalTable: "Purchase",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Seanses_SeanseId",
+                        column: x => x.SeanseId,
+                        principalTable: "Seanses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Seats_SeatId",
+                        column: x => x.SeatId,
+                        principalTable: "Seats",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "Cinemas",
+                columns: new[] { "Id", "Address", "City", "Email", "Name", "PhoneNumber" },
+                values: new object[] { 1, "Vul. Bogdana Khmelnitskogo", "Kiyv", "stupka@gmail.com", "Stupka", "380997813842" });
+
+            migrationBuilder.InsertData(
+                table: "Genres",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Action" },
+                    { 2, "Adventure" },
+                    { 3, "Comedy" },
+                    { 4, "Drama" },
+                    { 5, "Horror" },
+                    { 6, "Romance" },
+                    { 7, "Science fiction" },
+                    { 8, "Fantasy" },
+                    { 9, "Historical" },
+                    { 10, "Crime" },
+                    { 11, "Thriller" },
+                    { 12, "Western" },
+                    { 13, "Animation" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MovieTypes",
+                columns: new[] { "Id", "MediaType" },
+                values: new object[,]
+                {
+                    { 1, 0 },
+                    { 2, 1 },
+                    { 3, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Prices",
+                columns: new[] { "Id", "Cost" },
+                values: new object[,]
+                {
+                    { 1, 100m },
+                    { 2, 200m },
+                    { 3, 300m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Promocodes",
+                columns: new[] { "Id", "Name", "Percentage" },
+                values: new object[,]
+                {
+                    { 1, "Stupka50", 50 },
+                    { 2, "Stupka20", 20 }
+                });
+
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "RoleName" },
@@ -425,6 +493,58 @@ namespace Cinema.Persistence.Migrations
                     { 4, 35m, 3 }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Halls",
+                columns: new[] { "Id", "CinemaId", "HallNumber" },
+                values: new object[] { 1, 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Movies",
+                columns: new[] { "Id", "Duration", "MovieTypeId", "OriginalTitle", "PosterUrl", "ReleaseDate", "Title" },
+                values: new object[,]
+                {
+                    { 1, 145, 2, "Shrek", "www.niceShrekUrl.com", new DateTime(1999, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Зелений чолов'яга" },
+                    { 2, 120, 3, "Titanic", "www.niceTitanicUrl.com", new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Затонувший корабель" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Birthday", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "RoleId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@gmail.com", "Admin", "Admin", "admin123", "380999999999", 1 },
+                    { 2, new DateTime(2005, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@gmail.com", "User", "User", "user123", "380111111111", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MovieDetails",
+                columns: new[] { "Id", "AgeLimit", "Country", "Description", "EndDate", "IndependentRate", "MovieId", "MovieTrailerUrl", "Producers", "StartDate" },
+                values: new object[,]
+                {
+                    { 1, 5, "USA", "Мирний зелений чолов'яга, намагається релаксувати \r\n                                    в своєму болоті, але спочатку йому заважає цирк, \r\n                                    а потім новий надокучливий друг віслюк", new DateTime(2000, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 9.6999999999999993, 1, "www.shrekMovieTrailerUrl.com", "Mr Producer", new DateTime(2000, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, 16, "USA", "Чувачок потрапив на корабель, корабель затонув\r\n                                    чувачку сподобалась дівчина, там ще була та сцена\r\n                                    на кораблі, і потім він затонув ніби.", new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 9.0999999999999996, 2, "www.TitanicMovieTrailerUrl.com", "Mr Producer", new DateTime(1995, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Seats",
+                columns: new[] { "Id", "HallId", "Row", "SeatNumber", "SeatTypeId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, 1, 1 },
+                    { 2, 1, 1, 2, 2 },
+                    { 3, 1, 2, 1, 3 },
+                    { 4, 1, 2, 2, 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UserDetails",
+                columns: new[] { "Id", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 2 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Favourites_UserDetailsId",
                 table: "Favourites",
@@ -438,12 +558,8 @@ namespace Cinema.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_MovieDetails_MovieId",
                 table: "MovieDetails",
-                column: "MovieId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MovieDetails_PhaseId",
-                table: "MovieDetails",
-                column: "PhaseId");
+                column: "MovieId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_MovieGenre_MovieId",
@@ -454,6 +570,16 @@ namespace Cinema.Persistence.Migrations
                 name: "IX_Movies_MovieTypeId",
                 table: "Movies",
                 column: "MovieTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Purchase_PromocodeId",
+                table: "Purchase",
+                column: "PromocodeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Purchase_UserDetailsId",
+                table: "Purchase",
+                column: "UserDetailsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_MovieDetailsId",
@@ -491,6 +617,11 @@ namespace Cinema.Persistence.Migrations
                 column: "PriceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tickets_PurchaseId",
+                table: "Tickets",
+                column: "PurchaseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_SeanseId",
                 table: "Tickets",
                 column: "SeanseId");
@@ -521,9 +652,6 @@ namespace Cinema.Persistence.Migrations
                 name: "MovieGenre");
 
             migrationBuilder.DropTable(
-                name: "Promocodes");
-
-            migrationBuilder.DropTable(
                 name: "Reviews");
 
             migrationBuilder.DropTable(
@@ -536,10 +664,10 @@ namespace Cinema.Persistence.Migrations
                 name: "MovieDetails");
 
             migrationBuilder.DropTable(
-                name: "UserDetails");
+                name: "Prices");
 
             migrationBuilder.DropTable(
-                name: "Prices");
+                name: "Purchase");
 
             migrationBuilder.DropTable(
                 name: "Seanses");
@@ -548,10 +676,10 @@ namespace Cinema.Persistence.Migrations
                 name: "Seats");
 
             migrationBuilder.DropTable(
-                name: "Phases");
+                name: "Promocodes");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "UserDetails");
 
             migrationBuilder.DropTable(
                 name: "Movies");
@@ -563,13 +691,16 @@ namespace Cinema.Persistence.Migrations
                 name: "SeatTypes");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "MovieTypes");
 
             migrationBuilder.DropTable(
                 name: "Cinemas");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

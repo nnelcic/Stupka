@@ -11,5 +11,6 @@ public interface IRepositoryManager
     ISeanseRepository Seanse { get; }
     IPromocodeRepository Promocode { get; }
     IUserRefreshTokenRepository RefreshToken { get; }
+    IPurchaseRepository Purchase { get; }    
     Task SaveAsync();
 }

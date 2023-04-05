@@ -21,4 +21,7 @@ public class PromocodeRepository : RepositoryBase<Domain.Models.Entities.Promoco
 
     public async Task<Promocode?> GetPromocodeAsync(int id, bool trackChanges = false)
         => await FindByCondition(x => x.Id == id, trackChanges).SingleOrDefaultAsync();
+
+    public async Task<Promocode?> GetPromocodeAsync(string promocode)
+        => await FindByCondition(x => x.Name == promocode, false).SingleOrDefaultAsync();
 }

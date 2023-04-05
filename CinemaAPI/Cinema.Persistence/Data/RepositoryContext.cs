@@ -60,8 +60,9 @@ public class RepositoryContext : DbContext
         modelBuilder.ApplyConfiguration(new PromocodeConfiguration());
         modelBuilder.ApplyConfiguration(new MovieDetailsConfiguration());
         modelBuilder.ApplyConfiguration(new MovieTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new PhaseConfiguration());
-        modelBuilder.ApplyConfiguration(new GerneConfiguration());
+        modelBuilder.ApplyConfiguration(new GenreConfiguration());
+        modelBuilder.ApplyConfiguration(new PurchaseConfiguration());
+        modelBuilder.ApplyConfiguration(new UserDetailsConfiguration());
     }
 
     public DbSet<Domain.Models.Entities.Cinema>? Cinemas { get; set; }
@@ -71,7 +72,6 @@ public class RepositoryContext : DbContext
     public DbSet<Movie>? Movies { get; set; }
     public DbSet<MovieDetails>? MovieDetails { get; set; }
     public DbSet<MovieType>? MovieTypes { get; set; }
-    public DbSet<Phase>? Phases { get; set; }
     public DbSet<Price>? Prices { get; set; }
     public DbSet<Promocode>? Promocodes { get; set; }
     public DbSet<Review>? Reviews { get; set; }
@@ -80,6 +80,7 @@ public class RepositoryContext : DbContext
     public DbSet<Seat>? Seats { get; set; }
     public DbSet<SeatType>? SeatTypes { get; set; }
     public DbSet<Ticket>? Tickets { get; set; }
+    public DbSet<Purchase>? Purchase { get; set; }
     public DbSet<User>? Users { get; set; }
     public DbSet<UserDetails>? UserDetails { get; set; }
     public DbSet<UserRefreshToken>? UserRefreshTokens { get; set; }

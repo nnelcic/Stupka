@@ -14,4 +14,7 @@ public static class ConstError
     
     public static string GetErrorForExistingElement(string type)
         => $"{type} already exists.";
+
+    public static string GetInvalidPromocodeException(string type)
+        => $"{type} is invalid.";
 }

@@ -1,4 +1,6 @@
-﻿namespace Cinema.Domain.Models.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace Cinema.Domain.Models.Entities;
 
 public class MovieDetails
 {
@@ -13,8 +15,7 @@ public class MovieDetails
     public DateTime EndDate { get; set; }
     // Navigation property
     public int MovieId { get; set; }
+    [JsonIgnore]
     public Movie Movie { get; set; }
-    public int PhaseId { get; set; }
-    public Phase Phase { get; set; }
     public ICollection<Review> Reviews { get; set; }
 }

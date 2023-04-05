@@ -7,7 +7,6 @@ namespace Cinema.UI.Controllers;
 
 [Route("api/seanses")]
 [ApiController]
-[Authorize]
 public class SeanseController : ControllerBase
 {
     private readonly IServiceManager _service;

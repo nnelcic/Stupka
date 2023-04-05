@@ -10,5 +10,11 @@ public class HallConfiguration : IEntityTypeConfiguration<Hall>
     { 
         builder
             .HasKey(x => x.Id);
+
+        builder
+            .HasData
+            (
+                new Hall { Id = 1, CinemaId = 1, HallNumber = 1 }
+            );
     }
 }

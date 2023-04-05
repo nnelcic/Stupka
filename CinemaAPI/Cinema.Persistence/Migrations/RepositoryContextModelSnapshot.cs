@@ -4,7 +4,6 @@ using Cinema.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,10 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Persistence.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230404151455_UserDetails")]
-    partial class UserDetails
+    partial class RepositoryContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,6 +58,17 @@ namespace Cinema.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cinemas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Vul. Bogdana Khmelnitskogo",
+                            City = "Kiyv",
+                            Email = "stupka@gmail.com",
+                            Name = "Stupka",
+                            PhoneNumber = "380997813842"
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Favourite", b =>
@@ -87,11 +96,79 @@ namespace Cinema.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Action"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Adventure"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Comedy"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Drama"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Horror"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Romance"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Science fiction"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Fantasy"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Historical"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Crime"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Thriller"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Western"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Animation"
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Hall", b =>
@@ -113,6 +190,14 @@ namespace Cinema.Persistence.Migrations
                     b.HasIndex("CinemaId");
 
                     b.ToTable("Halls");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CinemaId = 1,
+                            HallNumber = 1
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Movie", b =>
@@ -152,6 +237,28 @@ namespace Cinema.Persistence.Migrations
                     b.HasIndex("MovieTypeId");
 
                     b.ToTable("Movies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Duration = 145,
+                            MovieTypeId = 2,
+                            OriginalTitle = "Shrek",
+                            PosterUrl = "www.niceShrekUrl.com",
+                            ReleaseDate = new DateTime(1999, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Зелений чолов'яга"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Duration = 120,
+                            MovieTypeId = 3,
+                            OriginalTitle = "Titanic",
+                            PosterUrl = "www.niceTitanicUrl.com",
+                            ReleaseDate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Затонувший корабель"
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.MovieDetails", b =>
@@ -167,11 +274,13 @@ namespace Cinema.Persistence.Migrations
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -184,25 +293,51 @@ namespace Cinema.Persistence.Migrations
 
                     b.Property<string>("MovieTrailerUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PhaseId")
-                        .HasColumnType("int");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Producers")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MovieId");
-
-                    b.HasIndex("PhaseId");
+                    b.HasIndex("MovieId")
+                        .IsUnique();
 
                     b.ToTable("MovieDetails");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AgeLimit = 5,
+                            Country = "USA",
+                            Description = "Мирний зелений чолов'яга, намагається релаксувати \r\n                                    в своєму болоті, але спочатку йому заважає цирк, \r\n                                    а потім новий надокучливий друг віслюк",
+                            EndDate = new DateTime(2000, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IndependentRate = 9.6999999999999993,
+                            MovieId = 1,
+                            MovieTrailerUrl = "www.shrekMovieTrailerUrl.com",
+                            Producers = "Mr Producer",
+                            StartDate = new DateTime(2000, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AgeLimit = 16,
+                            Country = "USA",
+                            Description = "Чувачок потрапив на корабель, корабель затонув\r\n                                    чувачку сподобалась дівчина, там ще була та сцена\r\n                                    на кораблі, і потім він затонув ніби.",
+                            EndDate = new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IndependentRate = 9.0999999999999996,
+                            MovieId = 2,
+                            MovieTrailerUrl = "www.TitanicMovieTrailerUrl.com",
+                            Producers = "Mr Producer",
+                            StartDate = new DateTime(1995, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.MovieGenre", b =>
@@ -234,22 +369,23 @@ namespace Cinema.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MovieTypes");
-                });
 
-            modelBuilder.Entity("Cinema.Domain.Models.Entities.Phase", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("PhaseName")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Phases");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            MediaType = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            MediaType = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            MediaType = 2
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Price", b =>
@@ -267,6 +403,23 @@ namespace Cinema.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Prices");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cost = 100m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cost = 200m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Cost = 300m
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Promocode", b =>
@@ -288,6 +441,50 @@ namespace Cinema.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Promocodes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Stupka50",
+                            Percentage = 50
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Stupka20",
+                            Percentage = 20
+                        });
+                });
+
+            modelBuilder.Entity("Cinema.Domain.Models.Entities.Purchase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(9, 2)
+                        .HasColumnType("decimal(9,2)");
+
+                    b.Property<int>("PromocodeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserDetailsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PromocodeId");
+
+                    b.HasIndex("UserDetailsId");
+
+                    b.ToTable("Purchase");
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Review", b =>
@@ -401,6 +598,40 @@ namespace Cinema.Persistence.Migrations
                     b.HasIndex("SeatTypeId");
 
                     b.ToTable("Seats");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            HallId = 1,
+                            Row = 1,
+                            SeatNumber = 1,
+                            SeatTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            HallId = 1,
+                            Row = 1,
+                            SeatNumber = 2,
+                            SeatTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            HallId = 1,
+                            Row = 2,
+                            SeatNumber = 1,
+                            SeatTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            HallId = 1,
+                            Row = 2,
+                            SeatNumber = 2,
+                            SeatTypeId = 4
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.SeatType", b =>
@@ -473,6 +704,8 @@ namespace Cinema.Persistence.Migrations
 
                     b.HasIndex("PriceId");
 
+                    b.HasIndex("PurchaseId");
+
                     b.HasIndex("SeanseId");
 
                     b.HasIndex("SeatId");
@@ -524,6 +757,30 @@ namespace Cinema.Persistence.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Birthday = new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "admin@gmail.com",
+                            FirstName = "Admin",
+                            LastName = "Admin",
+                            Password = "admin123",
+                            PhoneNumber = "380999999999",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Birthday = new DateTime(2005, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "user@gmail.com",
+                            FirstName = "User",
+                            LastName = "User",
+                            Password = "user123",
+                            PhoneNumber = "380111111111",
+                            RoleId = 2
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.UserDetails", b =>
@@ -543,6 +800,18 @@ namespace Cinema.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("UserDetails");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            UserId = 2
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Favourite", b =>
@@ -587,20 +856,12 @@ namespace Cinema.Persistence.Migrations
             modelBuilder.Entity("Cinema.Domain.Models.Entities.MovieDetails", b =>
                 {
                     b.HasOne("Cinema.Domain.Models.Entities.Movie", "Movie")
-                        .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Cinema.Domain.Models.Entities.Phase", "Phase")
-                        .WithMany()
-                        .HasForeignKey("PhaseId")
+                        .WithOne("MovieDetails")
+                        .HasForeignKey("Cinema.Domain.Models.Entities.MovieDetails", "MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Movie");
-
-                    b.Navigation("Phase");
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.MovieGenre", b =>
@@ -620,6 +881,25 @@ namespace Cinema.Persistence.Migrations
                     b.Navigation("Genre");
 
                     b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("Cinema.Domain.Models.Entities.Purchase", b =>
+                {
+                    b.HasOne("Cinema.Domain.Models.Entities.Promocode", "Promocode")
+                        .WithMany()
+                        .HasForeignKey("PromocodeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Cinema.Domain.Models.Entities.UserDetails", "UserDetails")
+                        .WithMany("Purchase")
+                        .HasForeignKey("UserDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Promocode");
+
+                    b.Navigation("UserDetails");
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Review", b =>
@@ -687,6 +967,12 @@ namespace Cinema.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Cinema.Domain.Models.Entities.Purchase", null)
+                        .WithMany("Tickets")
+                        .HasForeignKey("PurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Cinema.Domain.Models.Entities.Seanse", "Seanse")
                         .WithMany()
                         .HasForeignKey("SeanseId")
@@ -747,12 +1033,20 @@ namespace Cinema.Persistence.Migrations
                 {
                     b.Navigation("Favourites");
 
+                    b.Navigation("MovieDetails")
+                        .IsRequired();
+
                     b.Navigation("MovieGenres");
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.MovieDetails", b =>
                 {
                     b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("Cinema.Domain.Models.Entities.Purchase", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.User", b =>
@@ -764,6 +1058,8 @@ namespace Cinema.Persistence.Migrations
             modelBuilder.Entity("Cinema.Domain.Models.Entities.UserDetails", b =>
                 {
                     b.Navigation("Favourites");
+
+                    b.Navigation("Purchase");
 
                     b.Navigation("Reviews");
                 });

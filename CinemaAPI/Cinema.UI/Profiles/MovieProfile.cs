@@ -19,5 +19,7 @@ public class MovieProfile : Profile
             .ReverseMap();
         CreateMap<MovieDetailsViewModel, MovieDetails>()
             .ReverseMap();
+        CreateMap<MovieType, MovieTypeViewModel>()
+            .ForMember(x => x.Type, x => x.ToString());
     }
 }

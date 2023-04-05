@@ -23,6 +23,15 @@ public static class PersistenceExtension
         services.AddSingleton<ILoggerManager, LoggerManager>();
         services.AddScoped<IAuthenticatorRepository, AuthenticatorRepository>();
         
+        services.AddScoped<ICinemaRepository, CinemaRepository>();
+        services.AddScoped<IPriceRepository, PriceRepository>();
+        services.AddScoped<IHallRepository, HallRepository>();
+        services.AddScoped<ISeatRepository, SeatRepository>();
+        services.AddScoped<IPromocodeRepository, PromocodeRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IMovieRepository, MovieRepository>();
+        services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+
         return services;
     }
 }
