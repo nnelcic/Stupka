@@ -2,7 +2,6 @@
 using Cinema.Persistence.Interfaces;
 using Cinema.Persistence.Repositories;
 using Cinema.Service.Interfaces;
-using Cinema.Service.Services;
 using Cinema.Service.Services.Logger;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,16 +21,6 @@ public static class PersistenceExtension
         services.AddScoped<IRepositoryManager, RepositoryManager>();
         services.AddSingleton<ILoggerManager, LoggerManager>();
         services.AddScoped<IAuthenticatorRepository, AuthenticatorRepository>();
-        
-        services.AddScoped<ICinemaRepository, CinemaRepository>();
-        services.AddScoped<IPriceRepository, PriceRepository>();
-        services.AddScoped<IHallRepository, HallRepository>();
-        services.AddScoped<ISeatRepository, SeatRepository>();
-        services.AddScoped<IPromocodeRepository, PromocodeRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IMovieRepository, MovieRepository>();
-        services.AddScoped<IPurchaseRepository, PurchaseRepository>();
-
         return services;
     }
 }

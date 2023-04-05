@@ -32,10 +32,19 @@ public class TokenHandler : ITokenHandler
     public async Task<string> CreateTokenAsync(UserViewModel user)
     {
         // Create Claims
+        user.UserRefreshToken ??= new UserRefreshToken
+        {
+            Id = 0,
+            Token = null,
+            Expires = default,
+            UserId = 0,
+            User = null
+        };
+        
         var claims = new List<Claim>
         {
             new("id", user.Id.ToString()),
-            new("refreshTokenId", user.UserRefreshTokenId.ToString()),
+            new("refreshTokenId", user.UserRefreshToken.Id.ToString()),
             new(ClaimTypes.GivenName, user.FirstName),
             new(ClaimTypes.Surname, user.LastName),
             new(ClaimTypes.Email, user.Email),
@@ -59,8 +68,6 @@ public class TokenHandler : ITokenHandler
     public async Task<RefreshResponse> Refresh(string expiredToken)
     {
         UserRefreshToken refreshToken;
-        User? user;
-        string newToken;
         int userId;
         
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -111,7 +118,7 @@ public class TokenHandler : ITokenHandler
             throw new BadRequestException("Invalid token!");
         }
         
-        user = await _repository.User.GetUserAsync(userId);
+        var user = await _repository.User.GetUserAsync(userId);
         
         if (user is null)
         {
@@ -124,7 +131,7 @@ public class TokenHandler : ITokenHandler
         
         var userAfterUpdate = await _repository.User.GetUserAsync(userId);
         var userViewModel = _mapper.Map<UserViewModel>(userAfterUpdate);
-        newToken = await CreateTokenAsync(userViewModel);
+        var newToken = await CreateTokenAsync(userViewModel);
 
         return new RefreshResponse
         {
