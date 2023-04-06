@@ -23,6 +23,13 @@ public class MovieService : IMovieService
     }
     public async Task<IEnumerable<MovieViewModel>> GetAllAsync()
     {
+        var movies = await _repository.Movie.GetAllMoviesAsync();
+
+        return _mapper.Map<List<MovieViewModel>>(movies);
+    }
+
+    public async Task<IEnumerable<MovieViewModel>> GetAllInfoAsync()
+    {
         var movies = await _repository.Movie.GetAllMoviesInfoAsync();
 
         return _mapper.Map<List<MovieViewModel>>(movies);
@@ -98,6 +105,5 @@ public class MovieService : IMovieService
         _repository.Movie.DeleteMovie(movie);
        
         await _repository.SaveAsync();
-    }
-    
+    }    
 }

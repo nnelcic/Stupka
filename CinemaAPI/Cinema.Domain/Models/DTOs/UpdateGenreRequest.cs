@@ -1,6 +1,6 @@
 ﻿namespace Cinema.Domain.Models.DTOs;
 
-public class UpdateGerneRequest
+public class UpdateGenreRequest
 {
     public string Name { get; set; }
 }

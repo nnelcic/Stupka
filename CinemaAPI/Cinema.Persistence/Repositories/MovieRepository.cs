@@ -22,6 +22,17 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
             .ToListAsync();
     }
 
+    public async Task<List<Movie>> GetAllMoviesAsync()
+    {
+        return await FindAll().OrderBy(x => x.Title).ToListAsync();
+    }
+
+    public async Task<Movie?> GetMovieAsync(int id, bool trackChanges = false)
+    {
+        return await FindByCondition(x => x.Id == id, trackChanges)
+            .SingleOrDefaultAsync();
+    }
+
     public async Task<Movie?> GetMovieInfoAsync(int id)
     {
         return await _repositoryContext.Movies
@@ -36,15 +47,10 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
         return await FindByCondition(x => x.Title == tittle, false)
             .SingleOrDefaultAsync();
     }
-
-    public async Task<Movie?> GetMovieAsync(int id, bool trackChanges = false)
-    {
-        return await FindByCondition(x => x.Id == id, trackChanges)
-            .SingleOrDefaultAsync();
-    }
-
+    
     public void CreateMovie(Movie movie)
         => Create(movie);
     public void DeleteMovie(Movie movie)
         => Delete(movie);
+    
 }

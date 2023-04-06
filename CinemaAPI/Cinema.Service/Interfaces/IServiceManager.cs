@@ -10,5 +10,6 @@ public interface IServiceManager
     IUserService UserService { get; }
     ISeanseService SeanseService { get; }
     IPromocodeService PromocodeService { get; }   
-    IPurchaseService PurchaseService { get; }   
+    IPurchaseService PurchaseService { get; }  
+    IMovieGenreService MovieGenreService { get; }
 }
