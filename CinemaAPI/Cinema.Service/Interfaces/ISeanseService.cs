@@ -7,7 +7,7 @@ namespace Cinema.Service.Interfaces;
 public interface ISeanseService
 {
     Task<IEnumerable<SeanseViewModel>> GetAllAsync();
-    Task<SeanseViewModel> GetAsync(int id);
+    Task<SeanseInfoViewModel> GetAsync(int id);
     Task<SeanseViewModel> AddAsync(AddSeanseRequest addSeanseRequest);
     Task UpdateAsync(int id, UpdateSeanseRequest updateSeanseRequest);
     Task DeleteAsync(int id);

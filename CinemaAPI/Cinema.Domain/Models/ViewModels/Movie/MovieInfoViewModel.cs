@@ -1,6 +1,6 @@
 ﻿namespace Cinema.Domain.Models.ViewModels;
 
-public class MovieViewModel
+public class MovieInfoViewModel
 {
     public int Id { get; set; }
     public string OriginalTitle { get; set; }

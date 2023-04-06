@@ -19,11 +19,30 @@ public class PurchaseRepository : RepositoryBase<Purchase>, IPurchaseRepository
 
     public async Task<List<Purchase>> GetAllPurchasesAsync()
         => await FindAll()
-            .AsNoTracking()
+            .Include(x => x.Promocode)
+            .Include(x => x.Tickets)
+                .ThenInclude(x => x.Seat)
+                    .ThenInclude(x => x.SeatType)
+            .Include(x => x.Tickets)
+                .ThenInclude(x => x.Seanse)
+                    .ThenInclude(x => x.Movie)
+            .Include(x => x.Tickets)
+                .ThenInclude(x => x.Seanse)
+                    .ThenInclude(x => x.Price)
             .OrderByDescending(x => x.PurchaseDate)
             .ToListAsync();
 
     public async Task<Purchase?> GetPurchaseAsync(int id, bool trackChanges = false)
         => await FindByCondition(x => x.Id == id, trackChanges)
-            .AsNoTracking().FirstOrDefaultAsync();
+            .Include(x => x.Promocode)
+            .Include(x => x.Tickets)
+                .ThenInclude(x => x.Seat)
+                    .ThenInclude(x => x.SeatType)
+            .Include(x => x.Tickets)
+                .ThenInclude(x => x.Seanse)
+                    .ThenInclude(x => x.Movie)
+            .Include(x => x.Tickets)
+                .ThenInclude(x => x.Seanse)
+                    .ThenInclude(x => x.Price)
+            .FirstOrDefaultAsync();
 }

@@ -32,7 +32,7 @@ public class PurchaseController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCinemaAsync([FromBody] AddPurchaseRequest addPurchaseRequest)
+    public async Task<IActionResult> AddPurchaseAsync([FromBody] AddPurchaseRequest addPurchaseRequest)
     {
         var createdPurchase = await _service.PurchaseService.AddAsync(addPurchaseRequest);
 

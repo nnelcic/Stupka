@@ -9,7 +9,7 @@ public class HallProfile : Profile
 {
     public HallProfile()
     {
-        CreateMap<HallViewModel, Hall>().ReverseMap();
+        CreateMap<HallInfoViewModel, Hall>().ReverseMap();
         CreateMap<AddHallRequest, Hall>();
         CreateMap<UpdateHallRequest, Hall>();
         CreateMap<AddHallWithCinemaIdRequest, Hall>();

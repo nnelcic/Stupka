@@ -56,7 +56,6 @@ public class PromocodeService : IPromocodeService
         var promocode = await _repository.Promocode.GetAllPromocodeAsync();
 
         return _mapper.Map<List<PromocodeViewModel>>(promocode);
-        
     }
 
     public async Task<PromocodeViewModel> GetAsync(int id)
@@ -82,7 +81,7 @@ public class PromocodeService : IPromocodeService
             throw new NotFoundException(ConstError.GetInvalidPromocodeException(nameof(Promocode)));
         }
 
-        return _mapper.Map<PromocodeViewModel>(promocode);
+        return _mapper.Map<PromocodeViewModel>(existingPromocode);
     }
 
     public async Task UpdateAsync(int id, UpdatePromocodeRequest updatePromocodeRequest)

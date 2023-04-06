@@ -21,7 +21,7 @@ public class MovieService : IMovieService
         _loggerManager = loggerManager;
         _mapper = mapper;
     }
-    public async Task<IEnumerable<MovieViewModel>> GetAllAsync()
+    public async Task<IEnumerable<MovieInfoViewModel>> GetAllAsync()
     {
         var movies = await _repository.Movie.GetAllMoviesAsync();
 
@@ -32,10 +32,10 @@ public class MovieService : IMovieService
     {
         var movies = await _repository.Movie.GetAllMoviesInfoAsync();
 
-        return _mapper.Map<List<MovieViewModel>>(movies);
+        return _mapper.Map<List<MovieInfoViewModel>>(movies);
     }
 
-    public async Task<MovieDetailsViewModel> GetInfoAsync(int id)
+    public async Task<MovieInfoViewModel> GetInfoAsync(int id)
     {
         var movie = await _repository.Movie.GetMovieInfoAsync(id);
 
@@ -45,7 +45,7 @@ public class MovieService : IMovieService
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Movie), id));
         }
 
-        return _mapper.Map<MovieDetailsViewModel>(movie);
+        return _mapper.Map<MovieInfoViewModel>(movie);
     
     }
 
@@ -62,7 +62,7 @@ public class MovieService : IMovieService
         return _mapper.Map<MovieViewModel>(movie);        
     }
 
-    public async Task<MovieViewModel> AddAsync(AddMovieRequest addMovieRequest)
+    public async Task<MovieInfoViewModel> AddAsync(AddMovieRequest addMovieRequest)
     {
         var movie = _mapper.Map<Movie>(addMovieRequest);
         movie.MovieDetails = new MovieDetails();        
@@ -72,7 +72,7 @@ public class MovieService : IMovieService
 
         movie = await _repository.Movie.GetMovieAsync(movie.Id);
        
-        var movieToReturn = _mapper.Map<MovieViewModel>(movie);
+        var movieToReturn = _mapper.Map<MovieInfoViewModel>(movie);
 
         return movieToReturn;        
     }

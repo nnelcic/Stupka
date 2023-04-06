@@ -2,6 +2,7 @@
 using Cinema.Domain.ExceptionModels;
 using Cinema.Domain.Models.Consts;
 using Cinema.Domain.Models.DTOs;
+using Cinema.Domain.Models.Entities;
 using Cinema.Domain.Models.ViewModels;
 using Cinema.Persistence.Interfaces;
 using Cinema.Service.Interfaces;
@@ -23,7 +24,7 @@ public class SeanseService : ISeanseService
     }
     public async Task<SeanseViewModel> AddAsync(AddSeanseRequest addSeanseRequest)
     {
-        var seanse = _mapper.Map<Domain.Models.Entities.Seanse>(addSeanseRequest);
+        var seanse = _mapper.Map<Seanse>(addSeanseRequest);
 
         _repository.Seanse.CreateSeanse(seanse);
 
@@ -41,7 +42,7 @@ public class SeanseService : ISeanseService
         if (seanse is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Seanse), id));
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(Seanse), id));
         }
 
         _repository.Seanse.DeleteSeanse(seanse);
@@ -55,17 +56,17 @@ public class SeanseService : ISeanseService
         return _mapper.Map<List<SeanseViewModel>>(seanses);
     }
 
-    public async Task<SeanseViewModel> GetAsync(int id)
+    public async Task<SeanseInfoViewModel> GetAsync(int id)
     {
         var seanse = await _repository.Seanse.GetSeanseAsync(id);
 
         if (seanse == null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Seanse), id));
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(Seanse), id));
         }
 
-        return _mapper.Map<SeanseViewModel>(seanse);
+        return _mapper.Map<SeanseInfoViewModel>(seanse);
     }
 
     public async Task UpdateAsync(int id, UpdateSeanseRequest updateSeanseRequest)
@@ -74,7 +75,7 @@ public class SeanseService : ISeanseService
         if (seanseEntity == null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Seanse), id));
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(Seanse), id));
         }
         _mapper.Map(updateSeanseRequest, seanseEntity);
         await _repository.SaveAsync();

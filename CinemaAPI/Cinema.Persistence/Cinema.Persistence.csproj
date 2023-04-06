@@ -24,8 +24,4 @@
       <ProjectReference Include="..\Cinema.Domain\Cinema.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Compile Remove="Migrations\RepositoryContextModelSnapshot.cs" />
-    </ItemGroup>
-
 </Project>

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore.Query;
+﻿using System.Text.Json.Serialization;
 
 namespace Cinema.Domain.Models.Entities;
 

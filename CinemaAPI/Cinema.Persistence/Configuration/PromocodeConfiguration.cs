@@ -21,8 +21,9 @@ public class PromocodeConfiguration : IEntityTypeConfiguration<Domain.Models.Ent
         builder
             .HasData
             (
-                new Promocode { Id = 1, Name = "Stupka50", Percentage = 50 },
-                new Promocode { Id = 2, Name = "Stupka20", Percentage = 20 }
+                new Promocode { Id = 1, Name = "none", Percentage = 0 },
+                new Promocode { Id = 2, Name = "Stupka50", Percentage = 50 },
+                new Promocode { Id = 3, Name = "Stupka20", Percentage = 20 }
             );
     }
 }

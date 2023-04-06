@@ -13,6 +13,6 @@ public interface IRepositoryManager
     IUserRefreshTokenRepository RefreshToken { get; }
     IPurchaseRepository Purchase { get; } 
     IMovieGenreRepository MovieGenre { get; }
- 
+    ITicketRepository Ticket { get; }    
     Task SaveAsync();
 }

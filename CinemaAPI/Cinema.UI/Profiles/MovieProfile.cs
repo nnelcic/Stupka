@@ -9,6 +9,8 @@ public class MovieProfile : Profile
 {
 	public MovieProfile()
 	{
+        CreateMap<Movie, MovieInfoViewModel>()
+            .ReverseMap();
         CreateMap<Movie, MovieViewModel>()
             .ReverseMap();
         CreateMap<Movie, AddMovieRequest>()

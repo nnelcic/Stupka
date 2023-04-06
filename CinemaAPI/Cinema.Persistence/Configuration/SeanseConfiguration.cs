@@ -14,5 +14,12 @@ public class SeanseConfiguration : IEntityTypeConfiguration<Seanse>
 
         builder
             .Property(x => x.StartTime);
+
+        builder
+            .HasData
+            (
+                new Seanse { Id = 1, HallId = 1, MovieId = 1, PriceId = 1},
+                new Seanse { Id = 2, HallId = 1, MovieId = 2, PriceId = 2 }
+            );
     }
 }

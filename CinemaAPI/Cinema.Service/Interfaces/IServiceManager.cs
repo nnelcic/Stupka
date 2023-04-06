@@ -12,4 +12,5 @@ public interface IServiceManager
     IPromocodeService PromocodeService { get; }   
     IPurchaseService PurchaseService { get; }  
     IMovieGenreService MovieGenreService { get; }
+    ITicketService TicketService { get; }   
 }

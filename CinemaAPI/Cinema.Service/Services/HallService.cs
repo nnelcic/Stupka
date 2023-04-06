@@ -22,7 +22,7 @@ public class HallService : IHallService
         _loggerManager = loggerManager;
     }
 
-    public async Task<HallViewModel> AddAsync(AddHallWithCinemaIdRequest addHallRequest)
+    public async Task<HallInfoViewModel> AddAsync(AddHallWithCinemaIdRequest addHallRequest)
     {
         var hall = _mapper.Map<Hall>(addHallRequest);
 
@@ -46,7 +46,7 @@ public class HallService : IHallService
 
         hall = await _repository.Hall.GetHallInfoAsync(hall.Id);
 
-        var hallToReturn = _mapper.Map<HallViewModel>(hall);
+        var hallToReturn = _mapper.Map<HallInfoViewModel>(hall);
 
         return hallToReturn;
     }
@@ -65,14 +65,14 @@ public class HallService : IHallService
         await _repository.SaveAsync();
     }
 
-    public async Task<IEnumerable<HallViewModel>> GetAllAsync()
+    public async Task<IEnumerable<HallInfoViewModel>> GetAllAsync()
     {
         var halls = await _repository.Hall.GetAllHallInfoAsync();
 
-        return _mapper.Map<List<HallViewModel>>(halls);
+        return _mapper.Map<List<HallInfoViewModel>>(halls);
     }
 
-    public async Task<HallViewModel> GetAsync(int id)
+    public async Task<HallInfoViewModel> GetAsync(int id)
     {
         var hall = await _repository.Hall.GetHallInfoAsync(id);
 
@@ -82,7 +82,7 @@ public class HallService : IHallService
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Hall), id));
         }
 
-        return _mapper.Map<HallViewModel>(hall);
+        return _mapper.Map<HallInfoViewModel>(hall);
     }
 
     public async Task UpdateAsync(int id, UpdateHallWithCinemaIdRequest updateHallRequest)

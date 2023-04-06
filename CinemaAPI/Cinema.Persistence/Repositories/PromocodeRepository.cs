@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Persistence.Repositories;
 
-public class PromocodeRepository : RepositoryBase<Domain.Models.Entities.Promocode>, IPromocodeRepository
+public class PromocodeRepository : RepositoryBase<Promocode>, IPromocodeRepository
 {
     public PromocodeRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-    {}
+    { }
 
     public void CreatePromocode(Promocode promocode)
         => Create(promocode);

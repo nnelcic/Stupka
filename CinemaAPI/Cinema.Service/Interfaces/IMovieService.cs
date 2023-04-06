@@ -9,7 +9,9 @@ public interface IMovieService
     Task<IEnumerable<MovieViewModel>> GetAllInfoAsync();
     Task<MovieViewModel> GetAsync(int id);
     Task<MovieDetailsViewModel> GetInfoAsync(int id);
-    Task<MovieViewModel> AddAsync(AddMovieRequest addMovieRequest);
+    Task<IEnumerable<MovieInfoViewModel>> GetAllAsync();
+    Task<MovieInfoViewModel> GetInfoAsync(int id);
+    Task<MovieInfoViewModel> AddAsync(AddMovieRequest addMovieRequest);
     Task UpdateAsync(int id, UpdateMovieRequest updateMovieRequest);
     Task DeleteAsync(int id);
 }

@@ -36,6 +36,7 @@ public class SeanseController : ControllerBase
     public async Task<IActionResult> AddSeanseAsync([FromBody] AddSeanseRequest addSeanseRequest)
     {
         var createdSeanse = await _service.SeanseService.AddAsync(addSeanseRequest);
+
         return CreatedAtRoute("SeanseById", new { id = createdSeanse.Id }, createdSeanse);
 
     }

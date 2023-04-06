@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Persistence.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230405141352_changedMovieDetailsAndMovies")]
-    partial class changedMovieDetailsAndMovies
+    [Migration("20230405234634_updatedPromocodes")]
+    partial class updatedPromocodes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -319,8 +319,8 @@ namespace Cinema.Persistence.Migrations
                             Id = 1,
                             AgeLimit = 5,
                             Country = "USA",
-                            Description = "Мирний зелений чолов'яга, намагається релаксувати \r\n                                    в своєму болоті, але спочатку йому заважає цирк, \r\n                                    а потім новий надокучливий друг віслюк",
-                            EndDate = new DateTime(2000, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Мирний зелений чолов'яга, намагається релаксувати в своєму болоті, але спочатку йому заважає цирк, а потім новий надокучливий друг віслюк",
+                            EndDate = new DateTime(2010, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IndependentRate = 9.6999999999999993,
                             MovieId = 1,
                             MovieTrailerUrl = "www.shrekMovieTrailerUrl.com",
@@ -332,7 +332,7 @@ namespace Cinema.Persistence.Migrations
                             Id = 2,
                             AgeLimit = 16,
                             Country = "USA",
-                            Description = "Чувачок потрапив на корабель, корабель затонув\r\n                                    чувачку сподобалась дівчина, там ще була та сцена\r\n                                    на кораблі, і потім він затонув ніби.",
+                            Description = "Чувачок потрапив на корабель, корабель затонув чувачку сподобалась дівчина, там ще була та сцена на кораблі, і потім він затонув ніби.",
                             EndDate = new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IndependentRate = 9.0999999999999996,
                             MovieId = 2,
@@ -448,12 +448,18 @@ namespace Cinema.Persistence.Migrations
                         new
                         {
                             Id = 1,
+                            Name = "none",
+                            Percentage = 0
+                        },
+                        new
+                        {
+                            Id = 2,
                             Name = "Stupka50",
                             Percentage = 50
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 3,
                             Name = "Stupka20",
                             Percentage = 20
                         });
@@ -561,6 +567,9 @@ namespace Cinema.Persistence.Migrations
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PriceId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
@@ -570,7 +579,27 @@ namespace Cinema.Persistence.Migrations
 
                     b.HasIndex("MovieId");
 
+                    b.HasIndex("PriceId");
+
                     b.ToTable("Seanses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            HallId = 1,
+                            MovieId = 1,
+                            PriceId = 1,
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            HallId = 1,
+                            MovieId = 2,
+                            PriceId = 2,
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Seat", b =>
@@ -690,10 +719,11 @@ namespace Cinema.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("PriceId")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Price")
+                        .HasPrecision(7, 2)
+                        .HasColumnType("decimal(7,2)");
 
-                    b.Property<int>("PurchaseId")
+                    b.Property<int?>("PurchaseId")
                         .HasColumnType("int");
 
                     b.Property<int>("SeanseId")
@@ -703,8 +733,6 @@ namespace Cinema.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PriceId");
 
                     b.HasIndex("PurchaseId");
 
@@ -814,6 +842,32 @@ namespace Cinema.Persistence.Migrations
                             Id = 2,
                             UserId = 2
                         });
+                });
+
+            modelBuilder.Entity("Cinema.Domain.Models.Entities.UserRefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserRefreshTokens");
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Favourite", b =>
@@ -937,9 +991,17 @@ namespace Cinema.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Cinema.Domain.Models.Entities.Price", "Price")
+                        .WithMany()
+                        .HasForeignKey("PriceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Hall");
 
                     b.Navigation("Movie");
+
+                    b.Navigation("Price");
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Seat", b =>
@@ -963,17 +1025,9 @@ namespace Cinema.Persistence.Migrations
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Ticket", b =>
                 {
-                    b.HasOne("Cinema.Domain.Models.Entities.Price", "Price")
-                        .WithMany()
-                        .HasForeignKey("PriceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Cinema.Domain.Models.Entities.Purchase", null)
                         .WithMany("Tickets")
-                        .HasForeignKey("PurchaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PurchaseId");
 
                     b.HasOne("Cinema.Domain.Models.Entities.Seanse", "Seanse")
                         .WithMany()
@@ -986,8 +1040,6 @@ namespace Cinema.Persistence.Migrations
                         .HasForeignKey("SeatId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Price");
 
                     b.Navigation("Seanse");
 
@@ -1010,6 +1062,17 @@ namespace Cinema.Persistence.Migrations
                     b.HasOne("Cinema.Domain.Models.Entities.User", "User")
                         .WithOne("UserDetails")
                         .HasForeignKey("Cinema.Domain.Models.Entities.UserDetails", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Cinema.Domain.Models.Entities.UserRefreshToken", b =>
+                {
+                    b.HasOne("Cinema.Domain.Models.Entities.User", "User")
+                        .WithOne("UserRefreshToken")
+                        .HasForeignKey("Cinema.Domain.Models.Entities.UserRefreshToken", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1055,6 +1118,8 @@ namespace Cinema.Persistence.Migrations
                 {
                     b.Navigation("UserDetails")
                         .IsRequired();
+
+                    b.Navigation("UserRefreshToken");
                 });
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.UserDetails", b =>

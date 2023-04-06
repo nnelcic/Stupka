@@ -38,11 +38,6 @@ public class RepositoryContext : DbContext
             .WithMany(g => g.MovieGenres)
             .HasForeignKey(mg => mg.GenreId);
 
-        modelBuilder.Entity<Ticket>()
-            .HasOne(t => t.Seat)
-            .WithMany()
-            .OnDelete(DeleteBehavior.NoAction);
-
         modelBuilder.Entity<User>()
             .HasOne(x => x.UserRefreshToken)
             .WithOne(x => x.User)
@@ -63,6 +58,7 @@ public class RepositoryContext : DbContext
         modelBuilder.ApplyConfiguration(new GenreConfiguration());
         modelBuilder.ApplyConfiguration(new PurchaseConfiguration());
         modelBuilder.ApplyConfiguration(new UserDetailsConfiguration());
+        modelBuilder.ApplyConfiguration(new TicketConfiguration());
     }
 
     public DbSet<Domain.Models.Entities.Cinema>? Cinemas { get; set; }

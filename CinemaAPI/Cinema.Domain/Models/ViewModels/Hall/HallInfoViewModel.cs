@@ -1,6 +1,6 @@
 ﻿namespace Cinema.Domain.Models.ViewModels;
 
-public class HallViewModel
+public class HallInfoViewModel
 {
     public int Id { get; set; }
     public int HallNumber { get; set; }

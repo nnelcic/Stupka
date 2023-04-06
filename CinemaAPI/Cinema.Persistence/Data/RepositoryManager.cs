@@ -18,6 +18,7 @@ public class RepositoryManager : IRepositoryManager
     private readonly Lazy<IUserRefreshTokenRepository> _refreshTokenRepository;
     private readonly Lazy<IPurchaseRepository> _purchaseRepository;
     private readonly Lazy<IMovieGenreRepository> _movieGenreRepository;
+    private readonly Lazy<ITicketRepository> _ticketRepository;    
 
     public RepositoryManager(RepositoryContext repositoryContext)
     {
@@ -46,13 +47,18 @@ public class RepositoryManager : IRepositoryManager
 
         _promocodeRepository = new Lazy<IPromocodeRepository>(() =>
             new PromocodeRepository(repositoryContext));
+
         _refreshTokenRepository = new Lazy<IUserRefreshTokenRepository>(() => 
             new UserRefreshTokenRepository(repositoryContext));
+
         _purchaseRepository = new Lazy<IPurchaseRepository>(() =>
-        new PurchaseRepository(repositoryContext));
+            new PurchaseRepository(repositoryContext));
 
         _movieGenreRepository = new Lazy<IMovieGenreRepository>(() =>
         new MovieGenreRepository(repositoryContext));
+
+        _ticketRepository = new Lazy<ITicketRepository>(() =>
+            new TicketRepository(repositoryContext));
         
     }
 
@@ -67,5 +73,6 @@ public class RepositoryManager : IRepositoryManager
     public IUserRefreshTokenRepository RefreshToken => _refreshTokenRepository.Value;
     public IPurchaseRepository Purchase => _purchaseRepository.Value;   
     public IMovieGenreRepository MovieGenre => _movieGenreRepository.Value;
+    public ITicketRepository Ticket => _ticketRepository.Value;
     public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
 }

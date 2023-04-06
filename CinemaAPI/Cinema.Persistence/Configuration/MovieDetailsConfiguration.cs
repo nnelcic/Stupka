@@ -52,7 +52,7 @@ public class MovieDetailsConfiguration : IEntityTypeConfiguration<MovieDetails>
                     Country = "USA",
                     MovieTrailerUrl = "www.shrekMovieTrailerUrl.com",
                     StartDate = DateTime.Parse("2000-05-03"),
-                    EndDate = DateTime.Parse("2000-05-03"),
+                    EndDate = DateTime.Parse("2010-05-03"),
                     MovieId = 1
                 },
                 new MovieDetails

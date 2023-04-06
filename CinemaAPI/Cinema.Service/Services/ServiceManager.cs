@@ -13,9 +13,9 @@ public class ServiceManager : IServiceManager
     private readonly Lazy<ISeatService> _seatService;
     private readonly Lazy<ISeanseService> _seanseService;
     private readonly Lazy<IPromocodeService> _promocodeService;
-    private readonly Lazy<IUserService> _userService;
     private readonly Lazy<IPurchaseService> _purchaseService;
     private readonly Lazy<IMovieGenreService> _movieGenreService;
+    private readonly Lazy<ITicketService> _ticketService;
    
     public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger, IMapper autoMapper)
     {
@@ -29,6 +29,7 @@ public class ServiceManager : IServiceManager
         _promocodeService = new Lazy<IPromocodeService>(() => new PromocodeService(repositoryManager, logger, autoMapper));
         _purchaseService = new Lazy<IPurchaseService>(() => new PurchaseService(repositoryManager, logger, autoMapper, this));
         _movieGenreService = new Lazy<IMovieGenreService> (() => new MovieGenreService(repositoryManager, logger, autoMapper));
+        _ticketService = new Lazy<ITicketService>(() => new TicketService(repositoryManager, logger, autoMapper));
     }
 
     public IMovieService MovieService => _movieService.Value;
@@ -41,4 +42,5 @@ public class ServiceManager : IServiceManager
     public IPromocodeService PromocodeService => _promocodeService.Value;
     public IPurchaseService PurchaseService => _purchaseService.Value;   
     public IMovieGenreService MovieGenreService => _movieGenreService.Value;
+    public ITicketService TicketService => _ticketService.Value;
 }

@@ -1,6 +1,4 @@
-﻿using Cinema.Domain.Models.Entities;
-
-namespace Cinema.Domain.Models.ViewModels;
+﻿namespace Cinema.Domain.Models.ViewModels;
 
 public class SeatViewModel
 {
