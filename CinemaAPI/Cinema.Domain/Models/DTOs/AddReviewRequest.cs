@@ -1,8 +1,7 @@
-﻿namespace Cinema.Domain.Models.ViewModels;
+﻿namespace Cinema.Domain.Models.DTOs;
 
-public class ReviewViewModel
+public class AddReviewRequest
 {
-    public int Id { get; set; }
     public string Description { get; set; }
     public double Rate { get; set; }
     public int MovieDetailsId { get; set; }

@@ -1,6 +1,5 @@
 ﻿using Cinema.Domain.Models.DTOs;
 using Cinema.Service.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.UI.Controllers;

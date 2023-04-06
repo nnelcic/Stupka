@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Cinema.Domain.Models.DTOs;
 using Cinema.Domain.Models.Entities;
 using Cinema.Domain.Models.ViewModels;
 
@@ -8,6 +9,9 @@ public class FavouriteProfile : Profile
 {
     public FavouriteProfile()
     {
-        CreateMap<FavouriteViewModel, Favourite>();
+        CreateMap<Favourite, FavouriteViewModel>()
+            .ReverseMap();
+        CreateMap<Favourite, AddFavouriteRequest>()
+            .ReverseMap();
     }
 }

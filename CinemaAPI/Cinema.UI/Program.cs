@@ -47,7 +47,7 @@ public class Program
                 { securityScheme, new string[] {} }
             });
         });
-
+        
         // DI
         builder.Services.AddPersistence(builder.Configuration);
 

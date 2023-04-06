@@ -2,6 +2,7 @@
 using Cinema.Persistence.Interfaces;
 using Cinema.Persistence.Repositories;
 using Cinema.Service.Interfaces;
+using Cinema.Service.Services;
 using Cinema.Service.Services.Logger;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,7 @@ public static class PersistenceExtension
         services.AddScoped<IRepositoryManager, RepositoryManager>();
         services.AddSingleton<ILoggerManager, LoggerManager>();
         services.AddScoped<IAuthenticatorRepository, AuthenticatorRepository>();
+
         return services;
     }
 }

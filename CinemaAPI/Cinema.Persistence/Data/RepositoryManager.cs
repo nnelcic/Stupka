@@ -1,5 +1,4 @@
-﻿using Cinema.Domain.Models.Entities;
-using Cinema.Persistence.Interfaces;
+﻿using Cinema.Persistence.Interfaces;
 using Cinema.Persistence.Repositories;
 
 namespace Cinema.Persistence.Data;
@@ -17,6 +16,8 @@ public class RepositoryManager : IRepositoryManager
     private readonly Lazy<IPromocodeRepository> _promocodeRepository;
     private readonly Lazy<IUserRefreshTokenRepository> _refreshTokenRepository;
     private readonly Lazy<IPurchaseRepository> _purchaseRepository;
+    private readonly Lazy<IReviewRepository> _reviewRepository;
+    private readonly Lazy<IFavouriteRepository> _favouriteRepository;
     private readonly Lazy<IMovieGenreRepository> _movieGenreRepository;
     private readonly Lazy<ITicketRepository> _ticketRepository;    
 
@@ -26,37 +27,30 @@ public class RepositoryManager : IRepositoryManager
 
         _cinemaRepository = new Lazy<ICinemaRepository>(() =>
             new CinemaRepository(repositoryContext));
-
         _movieRepository = new Lazy<IMovieRepository>(() =>
         new MovieRepository(repositoryContext));
-
         _priceRepository = new Lazy<IPriceRepository>(() =>
             new PriceRepository(repositoryContext));
-
         _hallRepository = new Lazy<IHallRepository>(() =>
             new HallRepository(repositoryContext));
-        
         _seatRepository = new Lazy<ISeatRepository>(() =>
             new SeatRepository(repositoryContext));
-
         _userRepository = new Lazy<IUserRepository>(() =>
             new UserRepository(repositoryContext));
-
         _seanseRepository = new Lazy<ISeanseRepository>(() =>
            new SeanseRepository(repositoryContext));
-
         _promocodeRepository = new Lazy<IPromocodeRepository>(() =>
             new PromocodeRepository(repositoryContext));
-
         _refreshTokenRepository = new Lazy<IUserRefreshTokenRepository>(() => 
             new UserRefreshTokenRepository(repositoryContext));
-
         _purchaseRepository = new Lazy<IPurchaseRepository>(() =>
-            new PurchaseRepository(repositoryContext));
-
+        new PurchaseRepository(repositoryContext));
+        _reviewRepository = new Lazy<IReviewRepository>(() =>
+            new ReviewRepository(repositoryContext));
+        _favouriteRepository = new Lazy<IFavouriteRepository>(() =>
+            new FavouriteRepository(repositoryContext));
         _movieGenreRepository = new Lazy<IMovieGenreRepository>(() =>
         new MovieGenreRepository(repositoryContext));
-
         _ticketRepository = new Lazy<ITicketRepository>(() =>
             new TicketRepository(repositoryContext));
         
@@ -71,7 +65,9 @@ public class RepositoryManager : IRepositoryManager
     public ISeanseRepository Seanse => _seanseRepository.Value;
     public IPromocodeRepository Promocode => _promocodeRepository.Value;
     public IUserRefreshTokenRepository RefreshToken => _refreshTokenRepository.Value;
-    public IPurchaseRepository Purchase => _purchaseRepository.Value;   
+    public IPurchaseRepository Purchase => _purchaseRepository.Value;
+    public IReviewRepository Review => _reviewRepository.Value;
+    public IFavouriteRepository Favourite => _favouriteRepository.Value;
     public IMovieGenreRepository MovieGenre => _movieGenreRepository.Value;
     public ITicketRepository Ticket => _ticketRepository.Value;
     public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();

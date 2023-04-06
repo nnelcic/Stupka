@@ -9,8 +9,10 @@ public interface IServiceManager
     ISeatService SeatService { get; }
     IUserService UserService { get; }
     ISeanseService SeanseService { get; }
-    IPromocodeService PromocodeService { get; }   
-    IPurchaseService PurchaseService { get; }  
+    IPromocodeService PromocodeService { get; }
+    IPurchaseService PurchaseService { get; }
+    IReviewService ReviewService { get; }
+    IFavouriteService FavouriteService { get; }
     IMovieGenreService MovieGenreService { get; }
     ITicketService TicketService { get; }   
 }

@@ -1,6 +1,6 @@
-﻿namespace Cinema.Domain.Models.ViewModels;
+﻿namespace Cinema.Domain.Models.DTOs;
 
-public class FavouriteViewModel
+public class AddFavouriteRequest
 {
     public int UserDetailsId { get; set; }
     public int MovieId { get; set; }

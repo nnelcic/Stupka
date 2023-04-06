@@ -3,6 +3,5 @@
 public class AddGenreRequest
 {
     public string Name { get; set; }
-
     public ICollection<AddMovieGerneRequest> GenreRequests { get; set; }
 }
