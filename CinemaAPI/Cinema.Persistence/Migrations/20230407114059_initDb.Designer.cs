@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Persistence.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230405234634_updatedPromocodes")]
-    partial class updatedPromocodes
+    [Migration("20230407114059_initDb")]
+    partial class initDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -288,7 +288,8 @@ namespace Cinema.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<double>("IndependentRate")
-                        .HasColumnType("float");
+                        .HasPrecision(4, 2)
+                        .HasColumnType("float(4)");
 
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
@@ -505,13 +506,16 @@ namespace Cinema.Persistence.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<int>("MovieDetailsId")
                         .HasColumnType("int");
 
                     b.Property<double>("Rate")
-                        .HasColumnType("float");
+                        .HasMaxLength(10)
+                        .HasPrecision(2, 2)
+                        .HasColumnType("float(2)");
 
                     b.Property<int>("UserDetailsId")
                         .HasColumnType("int");

@@ -62,6 +62,7 @@ public class Program
         builder.Services.AddFluentValidation(options =>
         {
             options.RegisterValidatorsFromAssemblyContaining<Program>();
+            options.ImplicitlyValidateChildProperties = true;
         });
         
         // Add Authentication

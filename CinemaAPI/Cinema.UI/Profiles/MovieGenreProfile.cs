@@ -10,10 +10,10 @@ public class MovieGenreProfile : Profile
 	public MovieGenreProfile()
 	{
         CreateMap<MovieGenre, MovieGenreViewModel>()
-            .ReverseMap();
+            .ForMember(x => x.Genre, x => x.MapFrom(x => x.Genre.Name));
         CreateMap<AddMovieGenreRequest, MovieGenre>()
             .ReverseMap();
         CreateMap<UpdateMovieGenreRequest, MovieGenre>()
-            .ReverseMap();       
+            .ReverseMap();   
     }
 }

@@ -23,7 +23,8 @@ public class MovieDetailsConfiguration : IEntityTypeConfiguration<MovieDetails>
             .Property(x => x.AgeLimit);
 
         builder
-            .Property(x => x.IndependentRate);
+            .Property(x => x.IndependentRate)
+            .HasPrecision(4, 2);
 
         builder
             .Property(x => x.Country)

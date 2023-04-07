@@ -87,12 +87,18 @@ public class HallService : IHallService
 
     public async Task UpdateAsync(int id, UpdateHallWithCinemaIdRequest updateHallRequest)
     {
-        var existingCinema = await _repository.Cinema.GetCinemaAsync(updateHallRequest.CinemaId);
+        var existingCinema = await _repository.Cinema.GetCinemaInfoAsync(updateHallRequest.CinemaId);
         if (existingCinema is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Cinema)
                 , updateHallRequest.CinemaId));
+        }
+
+        if (!existingCinema.Halls.Any(x => x.Id == id))
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetInvalidCinemaException(updateHallRequest.CinemaId));
         }
 
         var hallEntity = await _repository.Hall.GetHallAsync(id, true);

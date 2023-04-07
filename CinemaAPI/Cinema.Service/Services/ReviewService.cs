@@ -69,8 +69,22 @@ public class ReviewService : IReviewService
 
     public async Task<ReviewViewModel> AddAsync(AddReviewRequest addReviewRequest)
     {
+        var movie = await _repository.Movie.GetMovieInfoAsync(addReviewRequest.MovieDetailsId);
+        if (movie is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(Movie), addReviewRequest.MovieDetailsId));
+        }
+
+        var user = await _repository.User.GetUserInfoAsync(addReviewRequest.UserDetailsId);
+        if (user is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(User), addReviewRequest.UserDetailsId));
+        }
+
         var review = _mapper.Map<Review>(addReviewRequest);
-        
+
         _repository.Review.CreateReview(review);
         await _repository.SaveAsync();
 

@@ -12,5 +12,6 @@ public class UserInfoViewModel
     public string PhoneNumber { get; set; }
     public int RoleId { get; set; }
     public Role Role { get; set; }
+    public string RoleName { get; set; }
     public UserDetailsViewModel UserDetails { get; set; }
 }

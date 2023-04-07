@@ -9,18 +9,7 @@ namespace Cinema.Persistence.Repositories;
 public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
 {
     public MovieRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-    {}
-
-    public async Task<List<Movie>> GetAllMoviesInfoAsync()
-    {
-        return await _repositoryContext.Movies
-            .Include(x => x.MovieDetails)
-            .Include(x => x.MovieType)
-            .Include(x => x.MovieGenres)
-                .ThenInclude(x => x.Genre)
-            .OrderBy(x => x.Title)
-            .ToListAsync();
-    }
+    { }
 
     public async Task<List<Movie>> GetAllMoviesAsync()
     {
@@ -37,6 +26,7 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
     {
         return await _repositoryContext.Movies
             .Include(x => x.MovieDetails)
+            .Include(x => x.MovieType)
             .Include(x => x.MovieGenres)
                 .ThenInclude(x => x.Genre)
             .FirstOrDefaultAsync(x => x.Id == id);
@@ -50,7 +40,7 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
     
     public void CreateMovie(Movie movie)
         => Create(movie);
+
     public void DeleteMovie(Movie movie)
         => Delete(movie);
-    
 }

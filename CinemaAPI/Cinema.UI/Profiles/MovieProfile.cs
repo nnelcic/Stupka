@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Cinema.Domain.Models.DTOs;
+using Cinema.Domain.Models.DTOs.Movie;
 using Cinema.Domain.Models.Entities;
 using Cinema.Domain.Models.ViewModels;
 
@@ -15,13 +16,15 @@ public class MovieProfile : Profile
             .ReverseMap();
         CreateMap<Movie, AddMovieRequest>()
             .ReverseMap();
+        CreateMap<MovieDetails, AddMovieDetailsRequest>()
+            .ReverseMap();
         CreateMap<Movie, UpdateMovieRequest>()
             .ReverseMap();
         CreateMap<Movie, MovieDetailsViewModel>()
             .ReverseMap();
         CreateMap<MovieDetailsViewModel, MovieDetails>()
             .ReverseMap();
-        CreateMap<MovieType, MovieTypeViewModel>()
-            .ForMember(x => x.Type, x => x.ToString());
+        CreateMap<MovieType, string>()
+            .ConvertUsing(x => x.MediaType.ToString());
     }
 }

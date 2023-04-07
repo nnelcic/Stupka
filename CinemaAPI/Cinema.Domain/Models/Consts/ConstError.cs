@@ -18,6 +18,9 @@ public static class ConstError
     public static string GetInvalidPromocodeException(string type)
         => $"{type} is invalid.";
     
+    public static string GetInvalidCinemaException(int id)
+        => $"Cinema with {id} doesn't have such hall.";
+    
     public static string GetInvalidTicket(int seatId, int seanseId)
         => $"Ticket for seanse with id {seanseId} and seat with id {seatId} is sold.";
 }

@@ -1,6 +1,6 @@
 ﻿namespace Cinema.Domain.Models.ViewModels;
 
-public class CinemaViewModel
+public class CinemaInfoViewModel
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -8,4 +8,5 @@ public class CinemaViewModel
     public string City { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
+    public ICollection<HallInfoViewModel> Halls { get; set; }
 }

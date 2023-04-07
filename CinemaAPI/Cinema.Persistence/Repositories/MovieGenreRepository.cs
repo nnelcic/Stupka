@@ -8,7 +8,10 @@ namespace Cinema.Persistence.Repositories;
 public class MovieGenreRepository : RepositoryBase<MovieGenre>, IMovieGenreRepository
 {
     public MovieGenreRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-    {}
+    { }
+
+    public void CreateMovieGenres(ICollection<MovieGenre> movieGenres)
+        => _repositoryContext.AddRange(movieGenres);
 
     public void CreateMovieGenre(MovieGenre movieGenre)
         => Create(movieGenre);

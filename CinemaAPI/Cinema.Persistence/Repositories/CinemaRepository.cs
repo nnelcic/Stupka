@@ -21,19 +21,17 @@ public class CinemaRepository : RepositoryBase<Domain.Models.Entities.Cinema>, I
 
     public void DeleteCinema(Domain.Models.Entities.Cinema cinema)
         => Delete(cinema);
-    public async Task<Domain.Models.Entities.Cinema?> GetCinemaInfoAsync(int id)
-        => await _repositoryContext.Cinemas
+    public async Task<Domain.Models.Entities.Cinema?> GetCinemaInfoAsync(int id, bool trackChanges)
+        => await FindByCondition(x => x.Id == id, trackChanges)
             .Include(x => x.Halls)
                 .ThenInclude(x => x.Seats)
                     .ThenInclude(x => x.SeatType)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .FirstOrDefaultAsync();
 
     public async Task<List<Domain.Models.Entities.Cinema>> GetAllCinemaInfoAsync()
-        => await _repositoryContext.Cinemas
+        => await FindAll()
             .Include(x => x.Halls)
                 .ThenInclude(x => x.Seats)
                     .ThenInclude(x => x.SeatType)
-            .AsNoTracking()
             .ToListAsync();
 }

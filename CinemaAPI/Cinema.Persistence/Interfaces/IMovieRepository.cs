@@ -5,7 +5,6 @@ namespace Cinema.Persistence.Interfaces;
 public interface IMovieRepository
 {
     Task<List<Movie>> GetAllMoviesAsync();
-    Task<List<Movie>> GetAllMoviesInfoAsync();
     Task<Movie?> GetMovieAsync(int id, bool trackChanges = false);
     Task<Movie?> GetMovieInfoAsync(int id);    
     Task<Movie?> GetMovieByTittleAsync(string tittle);

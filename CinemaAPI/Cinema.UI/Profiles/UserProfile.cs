@@ -10,14 +10,16 @@ public class UserProfile : Profile
     public UserProfile()
     {
         CreateMap<User, UserViewModel>()
-            .ReverseMap();
+            .ForMember(x => x.RoleName, x => x.MapFrom(x => x.Role));
         CreateMap<User, AddUserRequest>()
             .ReverseMap();
         CreateMap<User, UpdateUserRequest>()
             .ReverseMap();
         CreateMap<User, UserInfoViewModel>()
-            .ReverseMap();
+            .ForMember(x => x.RoleName, x => x.MapFrom(x => x.Role));
         CreateMap<UserDetailsViewModel, UserDetails>()
             .ReverseMap();
+        CreateMap<Role, string>()
+            .ConvertUsing(x => x.RoleName.ToString());
     }
 }

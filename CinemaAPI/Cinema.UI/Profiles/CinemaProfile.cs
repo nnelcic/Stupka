@@ -8,6 +8,7 @@ public class CinemaProfile : Profile
 {
     public CinemaProfile()
     {
+        CreateMap<Domain.Models.Entities.Cinema, CinemaInfoViewModel>().ReverseMap();
         CreateMap<Domain.Models.Entities.Cinema, CinemaViewModel>().ReverseMap();
         CreateMap<AddCinemaRequest, Domain.Models.Entities.Cinema>();
         CreateMap<UpdateCinemaRequest, Domain.Models.Entities.Cinema>();

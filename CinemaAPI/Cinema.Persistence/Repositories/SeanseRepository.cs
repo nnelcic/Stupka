@@ -8,7 +8,7 @@ namespace Cinema.Persistence.Repositories;
 public class SeanseRepository : RepositoryBase<Seanse>, ISeanseRepository
 {
     public SeanseRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-    {}
+    { }
 
     public void CreateSeanse(Seanse seanse)
         => Create(seanse);

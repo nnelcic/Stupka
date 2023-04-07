@@ -1,4 +1,6 @@
-﻿namespace Cinema.Domain.Models.ViewModels;
+﻿using Cinema.Domain.Models.Entities;
+
+namespace Cinema.Domain.Models.ViewModels;
 
 public class MovieViewModel
 {

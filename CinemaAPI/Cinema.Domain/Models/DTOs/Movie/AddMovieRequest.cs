@@ -1,4 +1,6 @@
-﻿namespace Cinema.Domain.Models.DTOs;
+﻿using Cinema.Domain.Models.DTOs.Movie;
+
+namespace Cinema.Domain.Models.DTOs;
 
 public class AddMovieRequest
 {
@@ -8,5 +10,6 @@ public class AddMovieRequest
     public DateTime ReleaseDate { get; set; }
     public string PosterUrl { get; set; }   
     public int MovieTypeId { get; set; }   
-    public ICollection<AddMovieGenreRequest> GenreRequests { get; set; }
+    public AddMovieDetailsRequest MovieDetails { get; set; }
+    public ICollection<AddMovieGenreRequest> MovieGenres { get; set; }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cinema.Persistence.Migrations
 {
-    public partial class updatedPromocodes : Migration
+    public partial class initDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -212,7 +212,7 @@ namespace Cinema.Persistence.Migrations
                     Description = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
                     Producers = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     AgeLimit = table.Column<int>(type: "int", nullable: false),
-                    IndependentRate = table.Column<double>(type: "float", nullable: false),
+                    IndependentRate = table.Column<double>(type: "float(4)", precision: 4, scale: 2, nullable: false),
                     Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     MovieTrailerUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -386,8 +386,8 @@ namespace Cinema.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rate = table.Column<double>(type: "float", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Rate = table.Column<double>(type: "float(2)", maxLength: 10, precision: 2, scale: 2, nullable: false),
                     MovieDetailsId = table.Column<int>(type: "int", nullable: false),
                     UserDetailsId = table.Column<int>(type: "int", nullable: false)
                 },

@@ -63,6 +63,15 @@ public class FavouriteService : IFavouriteService
 
     public async Task<FavouriteViewModel> AddFavourite(AddFavouriteRequest addFavouriteRequest)
     {
+        var existingFavourite = await _repository.Favourite
+            .GetFavouriteAsync(addFavouriteRequest.UserDetailsId, addFavouriteRequest.MovieId);
+
+        if (existingFavourite is not null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForExistingElement(nameof(Favourite)));
+        }
+
         var favourite = _mapper.Map<Favourite>(addFavouriteRequest);
         
         _repository.Favourite.CreateFavourite(favourite);

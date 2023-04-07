@@ -12,5 +12,6 @@ public class PurchaseProfile : Profile
         CreateMap<AddPurchaseRequest, Purchase>()
             .ForMember(x => x.Promocode, opt => opt.Ignore());
         CreateMap<Purchase, PurchaseViewModel>();
+        CreateMap<Purchase, PurchaseViewModelShort>();
     }
 }

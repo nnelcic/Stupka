@@ -58,11 +58,11 @@ public class PurchaseService : IPurchaseService
         await _repository.SaveAsync();
     }
 
-    public async Task<IEnumerable<PurchaseViewModel>> GetAllAsync()
+    public async Task<IEnumerable<PurchaseViewModelShort>> GetAllAsync()
     {
         var purchase = await _repository.Purchase.GetAllPurchasesAsync();
 
-        return _mapper.Map<List<PurchaseViewModel>>(purchase);
+        return _mapper.Map<List<PurchaseViewModelShort>>(purchase);
     }
 
     public async Task<PurchaseViewModel> GetAsync(int id)

@@ -8,8 +8,7 @@ public class MovieInfoViewModel
     public int Duration { get; set; }
     public DateTime ReleaseDate { get; set; }
     public string PosterUrl { get; set; }  
-    public int MovieTypeId { get; set; }
-    public MovieTypeViewModel MovieType { get; set; } 
+    public string MovieType { get; set; } 
     public MovieDetailsViewModel MovieDetails { get; set; }
-    ICollection<MovieGenreViewModel> MovieGenres { get; set;}
+    public ICollection<MovieGenreViewModel> MovieGenres { get; set; }
 }

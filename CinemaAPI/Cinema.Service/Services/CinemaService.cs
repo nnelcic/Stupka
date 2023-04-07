@@ -23,12 +23,12 @@ public class CinemaService : ICinemaService
 
     public async Task<IEnumerable<CinemaViewModel>> GetAllAsync()
     {
-        var cinemas = await _repository.Cinema.GetAllCinemaInfoAsync();
+        var cinemas = await _repository.Cinema.GetAllCinemaAsync();
 
         return _mapper.Map<List<CinemaViewModel>>(cinemas);
     }
 
-    public async Task<CinemaViewModel> GetAsync(int id)
+    public async Task<CinemaInfoViewModel> GetAsync(int id)
     {
         var cinema = await _repository.Cinema.GetCinemaInfoAsync(id);
 
@@ -38,10 +38,10 @@ public class CinemaService : ICinemaService
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Cinema), id));
         }
 
-        return _mapper.Map<CinemaViewModel>(cinema);
+        return _mapper.Map<CinemaInfoViewModel>(cinema);
     }
 
-    public async Task<CinemaViewModel> AddAsync(AddCinemaRequest addCinemaRequest)
+    public async Task<CinemaInfoViewModel> AddAsync(AddCinemaRequest addCinemaRequest)
     {
         var cinema = _mapper.Map<Domain.Models.Entities.Cinema>(addCinemaRequest);
 
@@ -50,7 +50,7 @@ public class CinemaService : ICinemaService
 
         cinema = await _repository.Cinema.GetCinemaInfoAsync(cinema.Id);
 
-        var cinemaToReturn = _mapper.Map<CinemaViewModel>(cinema);
+        var cinemaToReturn = _mapper.Map<CinemaInfoViewModel>(cinema);
 
         return cinemaToReturn;
     }

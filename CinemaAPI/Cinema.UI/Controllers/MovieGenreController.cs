@@ -28,7 +28,7 @@ public class MovieGenreController : ControllerBase
     {
         var createdMovieGenres = await _service.MovieGenreService.AddAsync(addMovieGenreRequest);
         
-        return CreatedAtRoute("MovieGenresByMovieId", new { id = createdMovieGenres.MovieId }, createdMovieGenres);
+        return CreatedAtRoute("MovieGenresByMovieId", new { id = createdMovieGenres.GenreId }, createdMovieGenres);
     }
 
     [HttpPut("{id:int}")]
