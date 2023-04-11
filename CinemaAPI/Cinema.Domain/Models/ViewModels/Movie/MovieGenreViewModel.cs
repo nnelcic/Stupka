@@ -1,7 +1,4 @@
-﻿using Cinema.Domain.Models.Entities;
-using System.Text.Json.Serialization;
-
-namespace Cinema.Domain.Models.ViewModels;
+﻿namespace Cinema.Domain.Models.ViewModels;
 
 public class MovieGenreViewModel
 {

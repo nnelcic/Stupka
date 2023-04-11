@@ -1,6 +1,8 @@
 ﻿using Cinema.Domain.Models.DTOs;
+using Cinema.Domain.RequestFeatures;
 using Cinema.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace Cinema.UI.Controllers;
 
@@ -16,11 +18,13 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet("[action]")]
-    public async Task<IActionResult> GetAllMoviesAsync()
+    public async Task<IActionResult> GetAllMoviesAsync([FromQuery] MovieParameters movieParameters)
     {
-        var movies = await _service.MovieService.GetAllAsync();
-        
-        return Ok(movies);        
+        var pagedResult = await _service.MovieService.GetAllAsync(movieParameters);
+
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedResult.metaData));
+
+        return Ok(pagedResult.movies);        
     }
 
     [HttpGet("[action]/{id:int}")]

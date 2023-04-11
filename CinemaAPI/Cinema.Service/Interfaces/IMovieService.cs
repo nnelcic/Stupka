@@ -1,11 +1,12 @@
 ﻿using Cinema.Domain.Models.DTOs;
 using Cinema.Domain.Models.ViewModels;
+using Cinema.Domain.RequestFeatures;
 
 namespace Cinema.Service.Interfaces;
 
 public interface IMovieService
 {
-    Task<IEnumerable<MovieViewModel>> GetAllAsync();
+    Task<(IEnumerable<MovieViewModel> movies, MetaData metaData)> GetAllAsync(MovieParameters movieParameters);
     Task<MovieViewModel> GetAsync(int id);
     Task<MovieInfoViewModel> GetInfoAsync(int id);
     Task<MovieInfoViewModel> AddAsync(AddMovieRequest addMovieRequest);

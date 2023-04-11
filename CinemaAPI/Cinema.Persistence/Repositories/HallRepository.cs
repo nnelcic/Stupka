@@ -12,30 +12,40 @@ public class HallRepository : RepositoryBase<Hall>, IHallRepository
     { }
 
     public async Task<Hall?> GetHallAsync(int id, bool trackChanges = false)
-        => await FindByCondition(x => x.Id == id, trackChanges).SingleOrDefaultAsync();
+    {
+        return await FindByCondition(x => x.Id == id, trackChanges)
+            .FirstOrDefaultAsync();
+    }
 
     public void CreateHall(Hall hall)
-        => Create(hall);
+    {
+        Create(hall);
+    }
 
     public void DeleteHall(Hall hall)
-        => Delete(hall);
+    {
+        Delete(hall);
+    }
 
     public async Task<List<Hall>> GetAllHallInfoAsync()
-        => await _repositoryContext
-            .Halls
-            .Include(x => x.Seats)
-            .ThenInclude(x => x.SeatType)
-            .AsNoTracking()
+    {
+        return await FindAll()
+                .Include(x => x.Seats)
+                    .ThenInclude(x => x.SeatType)
             .ToListAsync();
+    }
 
     public async Task<Hall?> GetHallInfoAsync(int id)
-        => await _repositoryContext
-            .Halls
+    {
+        return await FindByCondition(x => x.Id == id, false)
             .Include(x => x.Seats)
-            .ThenInclude(x => x.SeatType)
-            .AsNoTracking()
+                .ThenInclude(x => x.SeatType)
             .FirstOrDefaultAsync(x => x.Id == id);
+        }
 
     public async Task<Hall?> GetHallByNumberAsync(int num)
-        => await FindByCondition(x => x.HallNumber == num, false).SingleOrDefaultAsync();
+    {
+        return await FindByCondition(x => x.HallNumber == num, false)
+            .FirstOrDefaultAsync();
+    }
 }

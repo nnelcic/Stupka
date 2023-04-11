@@ -7,19 +7,20 @@ namespace Cinema.Persistence.Repositories;
 
 public class ReviewRepository : RepositoryBase<Review>, IReviewRepository
 {
-    public ReviewRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-    {
-    }
+    public ReviewRepository(RepositoryContext repositoryContext) 
+        : base(repositoryContext)
+    { }
 
     public async Task<List<Review>> GetAllReviewsAsync()
     {
-        return await FindAll().ToListAsync();
+        return await FindAll()
+            .ToListAsync();
     }
 
     public async Task<Review?> GetReviewAsync(int id, bool trackChanges = false)
     {
         return await FindByCondition(x => x.Id == id, trackChanges)
-            .SingleOrDefaultAsync();
+            .FirstOrDefaultAsync();
     }
 
     public async Task<List<Review>?> GetReviewsByUserIdAsync(int id, bool trackChanges = false)

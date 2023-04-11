@@ -15,34 +15,18 @@ public class MovieGenreController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("{id:int}", Name = "MovieGenresByMovieId")]
-    public async Task<IActionResult> GetMovieGenresByMovieIdAsync(int id)
-    {
-        var movieGenres = await _service.MovieGenreService.GetAsync(id);
-       
-        return Ok(movieGenres);
-    }
-
     [HttpPost]
     public async Task<IActionResult> AddMovieGenreAsync([FromBody] AddMovieGenreRequest addMovieGenreRequest)
     {
-        var createdMovieGenres = await _service.MovieGenreService.AddAsync(addMovieGenreRequest);
+        await _service.MovieGenreService.AddAsync(addMovieGenreRequest);
         
-        return CreatedAtRoute("MovieGenresByMovieId", new { id = createdMovieGenres.GenreId }, createdMovieGenres);
+        return Ok();
     }
 
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> UpdateMoviegenreAsync(int id, [FromBody] UpdateMovieGenreRequest updateMovieGenreRequest)
+    [HttpDelete("{movieId:int}&{genreId:int}")]
+    public async Task<IActionResult> DeleteMovieGenreAsync(int movieId, int genreId)
     {
-        await _service.MovieGenreService.UpdateAsync(id, updateMovieGenreRequest);
-
-        return NoContent();
-    }
-
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> DeleteMovieGenreAsync(int id)
-    {
-        await _service.MovieGenreService.DeleteAsync(id);
+        await _service.MovieGenreService.DeleteAsync(movieId, genreId);
 
         return NoContent();
     }

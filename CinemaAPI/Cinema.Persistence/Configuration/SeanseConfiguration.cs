@@ -18,8 +18,8 @@ public class SeanseConfiguration : IEntityTypeConfiguration<Seanse>
         builder
             .HasData
             (
-                new Seanse { Id = 1, HallId = 1, MovieId = 1, PriceId = 1},
-                new Seanse { Id = 2, HallId = 1, MovieId = 2, PriceId = 2 }
+                new Seanse { Id = 1, HallId = 1, MovieId = 1, PriceId = 1 , StartTime = DateTime.Parse("2023-04-12") },
+                new Seanse { Id = 2, HallId = 1, MovieId = 2, PriceId = 2 , StartTime = DateTime.Parse("2023-05-14") }
             );
     }
 }

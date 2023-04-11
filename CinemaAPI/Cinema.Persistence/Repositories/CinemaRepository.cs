@@ -11,27 +11,33 @@ public class CinemaRepository : RepositoryBase<Domain.Models.Entities.Cinema>, I
     { }
 
     public void CreateCinema(Domain.Models.Entities.Cinema cinema)
-        => Create(cinema);
+    {
+        Create(cinema);
+    }
 
     public async Task<List<Domain.Models.Entities.Cinema>> GetAllCinemaAsync()
-        => await FindAll().OrderBy(x => x.Name).ToListAsync();
+    {
+        return await FindAll().OrderBy(x => x.Name)
+            .ToListAsync();
+    }
 
     public async Task<Domain.Models.Entities.Cinema?> GetCinemaAsync(int id, bool trackChanges = false)
-        => await FindByCondition(x => x.Id == id, trackChanges).SingleOrDefaultAsync();
+    {
+        return await FindByCondition(x => x.Id == id, trackChanges)
+            .FirstOrDefaultAsync();
+    }
 
     public void DeleteCinema(Domain.Models.Entities.Cinema cinema)
-        => Delete(cinema);
-    public async Task<Domain.Models.Entities.Cinema?> GetCinemaInfoAsync(int id, bool trackChanges)
-        => await FindByCondition(x => x.Id == id, trackChanges)
+    {
+        Delete(cinema);
+    }
+
+    public async Task<Domain.Models.Entities.Cinema?> GetCinemaInfoAsync(int id)
+    {
+        return await FindByCondition(x => x.Id == id, false)
             .Include(x => x.Halls)
                 .ThenInclude(x => x.Seats)
                     .ThenInclude(x => x.SeatType)
             .FirstOrDefaultAsync();
-
-    public async Task<List<Domain.Models.Entities.Cinema>> GetAllCinemaInfoAsync()
-        => await FindAll()
-            .Include(x => x.Halls)
-                .ThenInclude(x => x.Seats)
-                    .ThenInclude(x => x.SeatType)
-            .ToListAsync();
+    }
 }

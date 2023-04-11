@@ -1,9 +1,12 @@
-﻿namespace Cinema.Persistence.Interfaces;
+﻿using Cinema.Domain.Models.Entities;
+using Cinema.Domain.RequestFeatures;
+
+namespace Cinema.Persistence.Interfaces;
 
 public interface ISeanseRepository
 {
-    Task<List<Domain.Models.Entities.Seanse>> GetAllSeanseAsync();
-    Task<Domain.Models.Entities.Seanse?> GetSeanseAsync(int id, bool trackChanges = false);
-    void CreateSeanse(Domain.Models.Entities.Seanse seanse);
-    void DeleteSeanse(Domain.Models.Entities.Seanse seanse);
+    Task<PagedList<Seanse>> GetAllSeanseAsync(SeanseParameters seanseParameters);
+    Task<Seanse?> GetSeanseAsync(int id, bool trackChanges = false);
+    void CreateSeanse(Seanse seanse);
+    void DeleteSeanse(Seanse seanse);
 }

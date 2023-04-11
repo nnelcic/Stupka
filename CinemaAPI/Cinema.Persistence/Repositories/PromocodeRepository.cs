@@ -7,21 +7,35 @@ namespace Cinema.Persistence.Repositories;
 
 public class PromocodeRepository : RepositoryBase<Promocode>, IPromocodeRepository
 {
-    public PromocodeRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+    public PromocodeRepository(RepositoryContext repositoryContext) 
+        : base(repositoryContext)
     { }
 
     public void CreatePromocode(Promocode promocode)
-        => Create(promocode);
-
+    {
+        Create(promocode);
+    }
     public void DeletePromocode(Promocode promocode)
-        => Delete(promocode);
+    {
+        Delete(promocode);
+    }
 
     public async Task<List<Promocode>> GetAllPromocodeAsync()
-        => await FindAll().OrderBy(x => x.Id).ToListAsync();
+    {
+        return await FindAll()
+            .OrderBy(x => x.Id)
+            .ToListAsync();
+    }
 
     public async Task<Promocode?> GetPromocodeAsync(int id, bool trackChanges = false)
-        => await FindByCondition(x => x.Id == id, trackChanges).SingleOrDefaultAsync();
+    {
+        return await FindByCondition(x => x.Id == id, trackChanges)
+            .FirstOrDefaultAsync();
+    }
 
     public async Task<Promocode?> GetPromocodeAsync(string promocode)
-        => await FindByCondition(x => x.Name == promocode, false).SingleOrDefaultAsync();
+    {
+        return await FindByCondition(x => x.Name == promocode, false)
+            .FirstOrDefaultAsync();
+    }
 }

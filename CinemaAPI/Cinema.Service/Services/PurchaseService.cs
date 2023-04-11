@@ -4,6 +4,7 @@ using Cinema.Domain.Models.Consts;
 using Cinema.Domain.Models.DTOs;
 using Cinema.Domain.Models.Entities;
 using Cinema.Domain.Models.ViewModels;
+using Cinema.Domain.RequestFeatures;
 using Cinema.Persistence.Interfaces;
 using Cinema.Service.Interfaces;
 
@@ -58,11 +59,14 @@ public class PurchaseService : IPurchaseService
         await _repository.SaveAsync();
     }
 
-    public async Task<IEnumerable<PurchaseViewModelShort>> GetAllAsync()
+    public async Task<(IEnumerable<PurchaseViewModelShort> purchases, MetaData metaData)> GetAllAsync(
+        PurchaseParameters purchaseParameters)
     {
-        var purchase = await _repository.Purchase.GetAllPurchasesAsync();
+        var purchasesWithMediaData = await _repository.Purchase.GetAllPurchasesAsync(purchaseParameters);
 
-        return _mapper.Map<List<PurchaseViewModelShort>>(purchase);
+        var purchasesToReturn = _mapper.Map<IEnumerable<PurchaseViewModelShort>>(purchasesWithMediaData);
+
+        return (purchases: purchasesToReturn, metaData: purchasesWithMediaData.MetaData);
     }
 
     public async Task<PurchaseViewModel> GetAsync(int id)

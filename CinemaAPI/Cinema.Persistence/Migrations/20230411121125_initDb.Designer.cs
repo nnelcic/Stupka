@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Persistence.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230407114059_initDb")]
+    [Migration("20230411121125_initDb")]
     partial class initDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -245,7 +245,7 @@ namespace Cinema.Persistence.Migrations
                         {
                             Id = 1,
                             Duration = 145,
-                            MovieTypeId = 2,
+                            MovieTypeId = 1,
                             OriginalTitle = "Shrek",
                             PosterUrl = "www.niceShrekUrl.com",
                             ReleaseDate = new DateTime(1999, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -255,11 +255,51 @@ namespace Cinema.Persistence.Migrations
                         {
                             Id = 2,
                             Duration = 120,
-                            MovieTypeId = 3,
+                            MovieTypeId = 2,
                             OriginalTitle = "Titanic",
                             PosterUrl = "www.niceTitanicUrl.com",
                             ReleaseDate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Затонувший корабель"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Duration = 160,
+                            MovieTypeId = 3,
+                            OriginalTitle = "Borat",
+                            PosterUrl = "www.niceBoratUrl.com",
+                            ReleaseDate = new DateTime(2006, 11, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Смішний казах"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Duration = 170,
+                            MovieTypeId = 1,
+                            OriginalTitle = "Mask",
+                            PosterUrl = "www.niceMaskUrl.com",
+                            ReleaseDate = new DateTime(1999, 12, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Зелений чорт"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Duration = 120,
+                            MovieTypeId = 2,
+                            OriginalTitle = "Kung Fu Panda",
+                            PosterUrl = "www.nicePandaUrl.com",
+                            ReleaseDate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Чорнобілий ведмідь"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Duration = 135,
+                            MovieTypeId = 3,
+                            OriginalTitle = "Avatar",
+                            PosterUrl = "www.niceAvatarUrl.com",
+                            ReleaseDate = new DateTime(2009, 5, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Сині люди"
                         });
                 });
 
@@ -320,7 +360,7 @@ namespace Cinema.Persistence.Migrations
                             Id = 1,
                             AgeLimit = 5,
                             Country = "USA",
-                            Description = "Мирний зелений чолов'яга, намагається релаксувати в своєму болоті, але спочатку йому заважає цирк, а потім новий надокучливий друг віслюк",
+                            Description = "Мирний зелений чолов'яга, намагається релаксувати в своєму болоті, але спочатку йому заважає цирк, а потім новий надокучливий друг віслюк.",
                             EndDate = new DateTime(2010, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IndependentRate = 9.6999999999999993,
                             MovieId = 1,
@@ -340,6 +380,58 @@ namespace Cinema.Persistence.Migrations
                             MovieTrailerUrl = "www.TitanicMovieTrailerUrl.com",
                             Producers = "Mr Producer",
                             StartDate = new DateTime(1995, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AgeLimit = 20,
+                            Country = "USA",
+                            Description = "Борат стає інтервью'єром і напрвляється в Сполучені Штати щоб зустрітися з Памелою Андерсон, по дорозі розкидуючись смішнулічками.",
+                            EndDate = new DateTime(2020, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IndependentRate = 10.0,
+                            MovieId = 3,
+                            MovieTrailerUrl = "www.BoratMovieTrailerUrl.com",
+                            Producers = "Mr Producer",
+                            StartDate = new DateTime(2006, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AgeLimit = 16,
+                            Country = "USA",
+                            Description = "Невдаха Джим Кері знаходить маску на березі моря і вона фіксить всі його проблеми.",
+                            EndDate = new DateTime(2015, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IndependentRate = 7.0999999999999996,
+                            MovieId = 4,
+                            MovieTrailerUrl = "www.MaskMovieTrailerUrl.com",
+                            Producers = "Mr Producer",
+                            StartDate = new DateTime(1999, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AgeLimit = 3,
+                            Country = "USA",
+                            Description = "Божевільна стара черепаха, вибирає по приколу ведмідя-офіціанта в якості воїна ящірки, і він стає ним за 2 дня, знецінюючи працю інших.",
+                            EndDate = new DateTime(2014, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IndependentRate = 3.0,
+                            MovieId = 5,
+                            MovieTrailerUrl = "www.shrekKungFuTrailerUrl.com",
+                            Producers = "Mr Producer",
+                            StartDate = new DateTime(2003, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AgeLimit = 17,
+                            Country = "USA",
+                            Description = "Якісь сині трьох метрові створіння, шось там роблять, я не знаю бо не дивився.",
+                            EndDate = new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IndependentRate = 6.0999999999999996,
+                            MovieId = 6,
+                            MovieTrailerUrl = "www.AvatarMovieTrailerUrl.com",
+                            Producers = "Mr Producer",
+                            StartDate = new DateTime(2009, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -594,7 +686,7 @@ namespace Cinema.Persistence.Migrations
                             HallId = 1,
                             MovieId = 1,
                             PriceId = 1,
-                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartTime = new DateTime(2023, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -602,7 +694,7 @@ namespace Cinema.Persistence.Migrations
                             HallId = 1,
                             MovieId = 2,
                             PriceId = 2,
-                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartTime = new DateTime(2023, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 

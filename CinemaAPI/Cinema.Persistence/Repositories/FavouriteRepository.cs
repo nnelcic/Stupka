@@ -7,9 +7,9 @@ namespace Cinema.Persistence.Repositories;
 
 public class FavouriteRepository : RepositoryBase<Favourite>, IFavouriteRepository
 {
-    public FavouriteRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-    {
-    }
+    public FavouriteRepository(RepositoryContext repositoryContext) 
+        : base(repositoryContext)
+    { }
 
     public async Task<List<Favourite>?> GetFavouritesByUserIdAsync(int id)
     {
@@ -27,7 +27,7 @@ public class FavouriteRepository : RepositoryBase<Favourite>, IFavouriteReposito
     {
         return await FindByCondition(x => 
                 x.MovieId == movieId && x.UserDetailsId == userDetailsId, false)
-            .SingleOrDefaultAsync();
+            .FirstOrDefaultAsync();
     }
 
     public void CreateFavourite(Favourite favourite)

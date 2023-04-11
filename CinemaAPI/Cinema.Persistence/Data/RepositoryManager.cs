@@ -20,6 +20,8 @@ public class RepositoryManager : IRepositoryManager
     private readonly Lazy<IFavouriteRepository> _favouriteRepository;
     private readonly Lazy<IMovieGenreRepository> _movieGenreRepository;
     private readonly Lazy<ITicketRepository> _ticketRepository;    
+    private readonly Lazy<IGenreRepository> _genreRepository;    
+    private readonly Lazy<IUserDetailsRepository> _userDetailsRepository;    
 
     public RepositoryManager(RepositoryContext repositoryContext)
     {
@@ -27,33 +29,51 @@ public class RepositoryManager : IRepositoryManager
 
         _cinemaRepository = new Lazy<ICinemaRepository>(() =>
             new CinemaRepository(repositoryContext));
+
         _movieRepository = new Lazy<IMovieRepository>(() =>
-        new MovieRepository(repositoryContext));
+            new MovieRepository(repositoryContext));
+
         _priceRepository = new Lazy<IPriceRepository>(() =>
             new PriceRepository(repositoryContext));
+
         _hallRepository = new Lazy<IHallRepository>(() =>
             new HallRepository(repositoryContext));
+
         _seatRepository = new Lazy<ISeatRepository>(() =>
             new SeatRepository(repositoryContext));
+
         _userRepository = new Lazy<IUserRepository>(() =>
             new UserRepository(repositoryContext));
+
         _seanseRepository = new Lazy<ISeanseRepository>(() =>
            new SeanseRepository(repositoryContext));
+
         _promocodeRepository = new Lazy<IPromocodeRepository>(() =>
             new PromocodeRepository(repositoryContext));
+
         _refreshTokenRepository = new Lazy<IUserRefreshTokenRepository>(() => 
             new UserRefreshTokenRepository(repositoryContext));
+
         _purchaseRepository = new Lazy<IPurchaseRepository>(() =>
         new PurchaseRepository(repositoryContext));
+
         _reviewRepository = new Lazy<IReviewRepository>(() =>
             new ReviewRepository(repositoryContext));
+
         _favouriteRepository = new Lazy<IFavouriteRepository>(() =>
             new FavouriteRepository(repositoryContext));
+
         _movieGenreRepository = new Lazy<IMovieGenreRepository>(() =>
         new MovieGenreRepository(repositoryContext));
+
         _ticketRepository = new Lazy<ITicketRepository>(() =>
             new TicketRepository(repositoryContext));
-        
+
+        _genreRepository = new Lazy<IGenreRepository>(() =>
+             new GenreRepository(repositoryContext));
+
+        _userDetailsRepository = new Lazy<IUserDetailsRepository>(() =>
+            new UserDetailsRepository(repositoryContext));
     }
 
     public ICinemaRepository Cinema => _cinemaRepository.Value;
@@ -70,5 +90,7 @@ public class RepositoryManager : IRepositoryManager
     public IFavouriteRepository Favourite => _favouriteRepository.Value;
     public IMovieGenreRepository MovieGenre => _movieGenreRepository.Value;
     public ITicketRepository Ticket => _ticketRepository.Value;
+    public IGenreRepository Genre => _genreRepository.Value;
+    public IUserDetailsRepository UserDetails => _userDetailsRepository.Value;
     public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
 }

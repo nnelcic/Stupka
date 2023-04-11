@@ -31,7 +31,6 @@ public class CinemaService : ICinemaService
     public async Task<CinemaInfoViewModel> GetAsync(int id)
     {
         var cinema = await _repository.Cinema.GetCinemaInfoAsync(id);
-
         if (cinema is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
@@ -51,35 +50,34 @@ public class CinemaService : ICinemaService
         cinema = await _repository.Cinema.GetCinemaInfoAsync(cinema.Id);
 
         var cinemaToReturn = _mapper.Map<CinemaInfoViewModel>(cinema);
-
         return cinemaToReturn;
     }
 
     public async Task UpdateAsync(int id, UpdateCinemaRequest updateCinemaRequest)
     {
-        var cinemaEntity = await _repository.Cinema.GetCinemaAsync(id, true);
+        var cinema = await CinemaExists(id, true);
 
-        if (cinemaEntity is null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Cinema), id));
-        }
-
-        _mapper.Map(updateCinemaRequest, cinemaEntity);
+        _mapper.Map(updateCinemaRequest, cinema);
         await _repository.SaveAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var cinema = await _repository.Cinema.GetCinemaAsync(id);
+        var cinema = await CinemaExists(id);
 
+        _repository.Cinema.DeleteCinema(cinema);
+        await _repository.SaveAsync();
+    }
+
+    public async Task<Domain.Models.Entities.Cinema> CinemaExists(int id, bool trackChanges = false)
+    {
+        var cinema = await _repository.Cinema.GetCinemaAsync(id, trackChanges);
         if (cinema is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Cinema), id));
         }
 
-        _repository.Cinema.DeleteCinema(cinema);
-        await _repository.SaveAsync();
+        return cinema;
     }
 }

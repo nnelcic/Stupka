@@ -23,6 +23,14 @@ public class SeatController : ControllerBase
         return Ok(seats);
     }
 
+    [HttpGet("seanse/{seanseId:int}", Name = "SeatsBySeanseId")]
+    public async Task<IActionResult> GetSeatsForSeanse(int seanseId)
+    {
+        var seats = await _service.SeatService.GetAllAvailableSeats(seanseId);
+
+        return Ok(seats);
+    }
+
     [HttpGet("{id:int}", Name = "SeatById")]
     public async Task<IActionResult> GetSeatByIdAsync(int id)
     {

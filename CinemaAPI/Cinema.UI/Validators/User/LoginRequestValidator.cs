@@ -1,8 +1,9 @@
-﻿using FluentValidation;
+﻿using Cinema.Domain.Models.DTOs;
+using FluentValidation;
 
 namespace Cinema.UI.Validators;
 
-public class LoginRequestValidator : AbstractValidator<Domain.Models.DTOs.LoginRequest>
+public class LoginRequestValidator : AbstractValidator<LoginRequest>
 {
     public LoginRequestValidator()
     {
@@ -15,6 +16,7 @@ public class LoginRequestValidator : AbstractValidator<Domain.Models.DTOs.LoginR
                 .WithMessage("Email is invalid!")
             .MaximumLength(50)
                 .WithMessage("50 character limit exceeded!");
+
         RuleFor(x => x.Password)
             .NotNull()
                 .WithMessage("Password could not be null!")

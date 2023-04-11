@@ -16,5 +16,7 @@ public interface IRepositoryManager
     IFavouriteRepository Favourite { get; }
     IMovieGenreRepository MovieGenre { get; }
     ITicketRepository Ticket { get; }
+    IGenreRepository Genre { get; }
+    IUserDetailsRepository UserDetails { get; }
     Task SaveAsync();
 }

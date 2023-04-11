@@ -5,8 +5,6 @@ namespace Cinema.Service.Interfaces;
 
 public interface IMovieGenreService
 {
-    Task<MovieGenreViewModel> GetAsync(int id);
-    Task<MovieGenreViewModel> AddAsync(AddMovieGenreRequest addMovieGenreRequest);
-    Task UpdateAsync(int id, UpdateMovieGenreRequest updateMovieGenreRequest);
-    Task DeleteAsync(int id);
+    Task AddAsync(AddMovieGenreRequest addMovieGenreRequest);
+    Task DeleteAsync(int movieId, int genreId);
 }

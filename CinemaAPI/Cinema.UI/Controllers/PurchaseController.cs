@@ -1,6 +1,8 @@
 ﻿using Cinema.Domain.Models.DTOs;
+using Cinema.Domain.RequestFeatures;
 using Cinema.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace Cinema.UI.Controllers;
 
@@ -16,11 +18,13 @@ public class PurchaseController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllPurchases()
+    public async Task<IActionResult> GetAllPurchases([FromQuery] PurchaseParameters purchaseParameters) 
     {
-        var purchases = await _service.PurchaseService.GetAllAsync();
+        var pagedResult = await _service.PurchaseService.GetAllAsync(purchaseParameters);
 
-        return Ok(purchases);
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedResult.metaData));
+
+        return Ok(pagedResult.purchases);
     }
 
     [HttpGet("{id:int}", Name = "PurchaseById")]

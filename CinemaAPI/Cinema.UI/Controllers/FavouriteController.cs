@@ -1,5 +1,4 @@
 ﻿using Cinema.Domain.Models.DTOs;
-using Cinema.Domain.Models.Entities;
 using Cinema.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,14 +17,15 @@ public class FavouriteController : ControllerBase
     public async Task<IActionResult> GetFavouritesByUserIdAsync(int id)
     {
         var favourites = await _service.FavouriteService.GetByUserIdAsync(id);
+
         return Ok(favourites);
     }
-    
     
     [HttpGet("by-movie-id")]
     public async Task<IActionResult> GetFavouritesByMovieIdAsync(int id)
     {
         var favourites = await _service.FavouriteService.GetByMovieIdAsync(id);
+
         return Ok(favourites);
     }
 
@@ -34,6 +34,7 @@ public class FavouriteController : ControllerBase
     public async Task<IActionResult> GetFavouriteByIdAsync(int userDetailsId, int movieId)
     {
         var favourite = await _service.FavouriteService.GetAsync(userDetailsId, movieId);
+
         return Ok(favourite);
     }
 
@@ -41,6 +42,7 @@ public class FavouriteController : ControllerBase
     public async Task<IActionResult> AddFavouriteAsync(AddFavouriteRequest addFavouriteRequest)
     {
         await _service.FavouriteService.AddFavourite(addFavouriteRequest);
+
         return NoContent();
     }
 
@@ -48,6 +50,7 @@ public class FavouriteController : ControllerBase
     public async Task<IActionResult> DeleteFavouriteAsync(int userDetailsId, int movieId)
     {
         await _service.FavouriteService.DeleteFavourite(userDetailsId, movieId);
+
         return NoContent();
     }
 }

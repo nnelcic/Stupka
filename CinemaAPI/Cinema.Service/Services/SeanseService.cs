@@ -4,6 +4,7 @@ using Cinema.Domain.Models.Consts;
 using Cinema.Domain.Models.DTOs;
 using Cinema.Domain.Models.Entities;
 using Cinema.Domain.Models.ViewModels;
+using Cinema.Domain.RequestFeatures;
 using Cinema.Persistence.Interfaces;
 using Cinema.Service.Interfaces;
 
@@ -27,57 +28,53 @@ public class SeanseService : ISeanseService
         var seanse = _mapper.Map<Seanse>(addSeanseRequest);
 
         _repository.Seanse.CreateSeanse(seanse);
-
         await _repository.SaveAsync();
 
-        var seanseToReturn = _mapper.Map<SeanseViewModel>(seanse);
-
-        return seanseToReturn;
+        return _mapper.Map<SeanseViewModel>(seanse);
     }
 
     public async Task DeleteAsync(int id)
     {
-        var seanse = await _repository.Seanse.GetSeanseAsync(id);
-
-        if (seanse is null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Seanse), id));
-        }
+        var seanse = await SeanseExists(id);
 
         _repository.Seanse.DeleteSeanse(seanse);
         await _repository.SaveAsync();
     }
 
-    public async Task<IEnumerable<SeanseViewModel>> GetAllAsync()
+    public async Task<(IEnumerable<SeanseViewModel> seanses, MetaData metaData)> GetAllAsync(
+        SeanseParameters seanseParameters)
     {
-        var seanses = await _repository.Seanse.GetAllSeanseAsync();
+        var seansesWithMediaData = await _repository.Seanse.GetAllSeanseAsync(seanseParameters);
 
-        return _mapper.Map<List<SeanseViewModel>>(seanses);
+        var seansesToReturn = _mapper.Map<IEnumerable<SeanseViewModel>>(seansesWithMediaData);
+
+        return (seanses: seansesToReturn, metaData: seansesWithMediaData.MetaData);
     }
 
     public async Task<SeanseInfoViewModel> GetAsync(int id)
     {
-        var seanse = await _repository.Seanse.GetSeanseAsync(id);
-
-        if (seanse == null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Seanse), id));
-        }
+        var seanse = await SeanseExists(id);
 
         return _mapper.Map<SeanseInfoViewModel>(seanse);
     }
 
     public async Task UpdateAsync(int id, UpdateSeanseRequest updateSeanseRequest)
     {
-        var seanseEntity = await _repository.Seanse.GetSeanseAsync(id, true);
-        if (seanseEntity == null)
+        var seanse = await SeanseExists(id, true);
+
+        _mapper.Map(updateSeanseRequest, seanse);
+        await _repository.SaveAsync();
+    }
+
+    private async Task<Seanse> SeanseExists(int id, bool trackChanges = false)
+    {
+        var seanse = await _repository.Seanse.GetSeanseAsync(id, trackChanges);
+        if (seanse is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Seanse), id));
         }
-        _mapper.Map(updateSeanseRequest, seanseEntity);
-        await _repository.SaveAsync();
+
+        return seanse;
     }
 }

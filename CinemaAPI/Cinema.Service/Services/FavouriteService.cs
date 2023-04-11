@@ -17,15 +17,14 @@ public class FavouriteService : IFavouriteService
 
     public FavouriteService(IRepositoryManager repository, ILoggerManager loggerManager, IMapper mapper)
     {
-        _repository = repository;        
+        _repository = repository;
         _loggerManager = loggerManager;
         _mapper = mapper;
     }
-    
+
     public async Task<List<FavouriteViewModel>?> GetByUserIdAsync(int id)
     {
         var favourites = await _repository.Favourite.GetFavouritesByUserIdAsync(id);
-        
         if (favourites is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
@@ -38,7 +37,6 @@ public class FavouriteService : IFavouriteService
     public async Task<List<FavouriteViewModel>?> GetByMovieIdAsync(int id)
     {
         var favourites = await _repository.Favourite.GetFavouritesByMovieIdAsync(id);
-        
         if (favourites is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
@@ -50,19 +48,17 @@ public class FavouriteService : IFavouriteService
 
     public async Task<FavouriteViewModel> GetAsync(int userDetailsId, int movieId)
     {
-        var favourite = await _repository.Favourite.GetFavouriteAsync(userDetailsId, movieId);
-        
-        if (favourite is null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Favourite), userDetailsId));
-        }
+        var favourite = await FavouriteExists(userDetailsId, movieId);
 
         return _mapper.Map<FavouriteViewModel>(favourite);
     }
 
     public async Task<FavouriteViewModel> AddFavourite(AddFavouriteRequest addFavouriteRequest)
     {
+        await MovieExists(addFavouriteRequest.MovieId);
+
+        await UserDetailsExists(addFavouriteRequest.UserDetailsId);
+
         var existingFavourite = await _repository.Favourite
             .GetFavouriteAsync(addFavouriteRequest.UserDetailsId, addFavouriteRequest.MovieId);
 
@@ -73,7 +69,7 @@ public class FavouriteService : IFavouriteService
         }
 
         var favourite = _mapper.Map<Favourite>(addFavouriteRequest);
-        
+
         _repository.Favourite.CreateFavourite(favourite);
         await _repository.SaveAsync();
 
@@ -85,15 +81,48 @@ public class FavouriteService : IFavouriteService
 
     public async Task DeleteFavourite(int userDetailsId, int movieId)
     {
+        await MovieExists(movieId);
+
+        await UserDetailsExists(userDetailsId);
+
+        var favourite = await FavouriteExists(userDetailsId, movieId);
+
+        _repository.Favourite.DeleteFavourite(favourite);
+        await _repository.SaveAsync();
+    }
+
+    private async Task<Favourite> FavouriteExists(int userDetailsId, int movieId)
+    {
         var favourite = await _repository.Favourite.GetFavouriteAsync(userDetailsId, movieId);
-        
         if (favourite is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Favourite), userDetailsId));
         }
 
-        _repository.Favourite.DeleteFavourite(favourite);
-        await _repository.SaveAsync();
+        return favourite;
+    }
+
+    private async Task<Movie> MovieExists(int movieId)
+    {
+        var movie = await _repository.Movie.GetMovieAsync(movieId);
+        if (movie is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(Movie), movieId));
+        }
+
+        return movie;
+    }
+    private async Task<UserDetails> UserDetailsExists(int userDetailsId)
+    {
+        var userDetails = await _repository.UserDetails.GetUserDetailsAsync(userDetailsId);
+        if (userDetails is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(UserDetails), userDetailsId));
+        }
+
+        return userDetails;
     }
 }

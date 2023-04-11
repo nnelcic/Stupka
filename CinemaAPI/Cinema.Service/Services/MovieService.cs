@@ -4,6 +4,7 @@ using Cinema.Domain.Models.Consts;
 using Cinema.Domain.Models.DTOs;
 using Cinema.Domain.Models.Entities;
 using Cinema.Domain.Models.ViewModels;
+using Cinema.Domain.RequestFeatures;
 using Cinema.Persistence.Interfaces;
 using Cinema.Service.Interfaces;
 
@@ -21,17 +22,19 @@ public class MovieService : IMovieService
         _loggerManager = loggerManager;
         _mapper = mapper;
     }
-    public async Task<IEnumerable<MovieViewModel>> GetAllAsync()
-    {
-        var movies = await _repository.Movie.GetAllMoviesAsync();
 
-        return _mapper.Map<List<MovieViewModel>>(movies);
+    public async Task<(IEnumerable<MovieViewModel> movies, MetaData metaData)> GetAllAsync(MovieParameters movieParameters)
+    {
+        var moviesWithMediaData = await _repository.Movie.GetAllMoviesAsync(movieParameters);
+
+        var moviesToReturn = _mapper.Map<IEnumerable<MovieViewModel>>(moviesWithMediaData);
+
+        return (movies: moviesToReturn, metaData: moviesWithMediaData.MetaData);
     }
 
     public async Task<MovieInfoViewModel> GetInfoAsync(int id)
     {
         var movie = await _repository.Movie.GetMovieInfoAsync(id);
-
         if (movie == null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
@@ -44,59 +47,50 @@ public class MovieService : IMovieService
 
     public async Task<MovieViewModel> GetAsync(int id)
     {
-        var movie = await _repository.Movie.GetMovieAsync(id);
+        var movie = await MovieExists(id, true);
 
-        if (movie is null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Movie), id));
-        }
-
-        return _mapper.Map<MovieViewModel>(movie);        
+        return _mapper.Map<MovieViewModel>(movie);
     }
 
     public async Task<MovieInfoViewModel> AddAsync(AddMovieRequest addMovieRequest)
     {
-        var movie = _mapper.Map<Movie>(addMovieRequest);       
+        var movie = _mapper.Map<Movie>(addMovieRequest);
 
         _repository.Movie.CreateMovie(movie);
         _repository.MovieGenre.CreateMovieGenres(movie.MovieGenres);
         await _repository.SaveAsync();
 
         movie = await _repository.Movie.GetMovieInfoAsync(movie.Id);
-       
-        var movieToReturn = _mapper.Map<MovieInfoViewModel>(movie);
 
+        var movieToReturn = _mapper.Map<MovieInfoViewModel>(movie);
         return movieToReturn;
     }
 
     public async Task UpdateAsync(int id, UpdateMovieRequest updateMovieRequest)
     {
-        var movie = await _repository.Movie.GetMovieAsync(id, true);
-        
-        if (movie is null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Movie), id));
-        }
+        var movie = await MovieExists(id, true);
 
         _mapper.Map(updateMovieRequest, movie);
-        
         await _repository.SaveAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var movie = await _repository.Movie.GetMovieAsync(id);
-        
+        var movie = await MovieExists(id);
+
+        _repository.Movie.DeleteMovie(movie);
+        await _repository.SaveAsync();
+    }
+
+    private async Task<Movie> MovieExists(int id, bool trackChanges = false)
+    {
+        var movie = await _repository.Movie.GetMovieAsync(id, trackChanges);
         if (movie is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Movie), id));
         }
 
-        _repository.Movie.DeleteMovie(movie);
-       
-        await _repository.SaveAsync();
-    }    
+        return movie;
+    }
 }

@@ -7,7 +7,6 @@ using Cinema.Domain.Models.ViewModels;
 using Cinema.Persistence.Interfaces;
 using Cinema.Service.Interfaces;
 
-
 namespace Cinema.Service.Services;
 
 public class PromocodeService : IPromocodeService
@@ -25,26 +24,21 @@ public class PromocodeService : IPromocodeService
     
     public async Task<PromocodeViewModel> AddAsync(AddPromocodeRequest addPromocodeRequest)
     {
-        var promocode = _mapper.Map<Domain.Models.Entities.Promocode>(addPromocodeRequest);
+        if (await PromocodeExists(addPromocodeRequest.Name) is not null)
+            throw new BadRequestException(ConstError.EXISTING_ENTITY);
+
+        var promocode = _mapper.Map<Promocode>(addPromocodeRequest);
 
         _repository.Promocode.CreatePromocode(promocode);
-       
         await _repository.SaveAsync();
 
         var promocodeToReturn = _mapper.Map<PromocodeViewModel>(promocode);       
-
         return promocodeToReturn;
     }
 
     public async Task DeleteAsync(int id)
     {
-        var promocode = await _repository.Promocode.GetPromocodeAsync(id);
-
-       if (promocode is null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Promocode), id));
-        }
+        var promocode = await PromocodeExists(id);
 
         _repository.Promocode.DeletePromocode(promocode);
         
@@ -60,42 +54,48 @@ public class PromocodeService : IPromocodeService
 
     public async Task<PromocodeViewModel> GetAsync(int id)
     {
-        var promocode = await _repository.Promocode.GetPromocodeAsync(id);
-        
-        if (promocode is null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Promocode), id));
-        }
+        var promocode = await PromocodeExists(id);
 
         return _mapper.Map<PromocodeViewModel>(promocode);
     }
 
-    public async Task<PromocodeViewModel> GetAsync(string promocode)
+    public async Task<PromocodeViewModel> GetAsync(string name)
     {
-        var existingPromocode = await _repository.Promocode.GetPromocodeAsync(promocode);
+        var promocode = await PromocodeExists(name);
 
-        if (existingPromocode is null)
+        return _mapper.Map<PromocodeViewModel>(promocode);
+    }
+
+    public async Task UpdateAsync(int id, UpdatePromocodeRequest updatePromocodeRequest)
+    {
+        var promocode = await PromocodeExists(id, true);
+
+        _mapper.Map(updatePromocodeRequest, promocode);
+
+        await _repository.SaveAsync();
+    }
+
+    private async Task<Promocode> PromocodeExists(int id, bool trackChanges = false)
+    {
+        var promocode = await _repository.Promocode.GetPromocodeAsync(id, trackChanges);
+        if (promocode is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(Promocode), id));
+        }
+
+        return promocode;
+    }
+
+    private async Task<Promocode> PromocodeExists(string name)
+    {
+        var promocode = await _repository.Promocode.GetPromocodeAsync(name);
+        if (promocode is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
             throw new NotFoundException(ConstError.GetInvalidPromocodeException(nameof(Promocode)));
         }
 
-        return _mapper.Map<PromocodeViewModel>(existingPromocode);
-    }
-
-    public async Task UpdateAsync(int id, UpdatePromocodeRequest updatePromocodeRequest)
-    {
-        var promocodeEntity = await _repository.Promocode.GetPromocodeAsync(id, true);
-        
-        if (promocodeEntity is null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Domain.Models.Entities.Promocode), id));
-        }
-
-        _mapper.Map(updatePromocodeRequest, promocodeEntity);
-      
-        await _repository.SaveAsync();
+        return promocode;
     }
 }

@@ -25,18 +25,13 @@ public class ReviewService : IReviewService
     public async Task<IEnumerable<ReviewViewModel>> GetAllAsync()
     {
         var reviews = await _repository.Review.GetAllReviewsAsync();
+
         return _mapper.Map<List<ReviewViewModel>>(reviews);
     }
 
     public async Task<ReviewViewModel> GetAsync(int id)
     {
-        var review = await _repository.Review.GetReviewAsync(id);
-
-        if (review is null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Review), id));
-        }
+        var review = await ReviewExists(id, true);
 
         return _mapper.Map<ReviewViewModel>(review);
     }
@@ -57,7 +52,6 @@ public class ReviewService : IReviewService
     public async Task<IEnumerable<ReviewViewModel>?> GetByMovieIdAsync(int id)
     {
         var reviews = await _repository.Review.GetReviewsByMovieIdAsync(id);
-
         if (reviews is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
@@ -96,29 +90,29 @@ public class ReviewService : IReviewService
 
     public async Task UpdateAsync(int id, UpdateReviewRequest updateReviewRequest)
     {
-        var reviewEntity = await _repository.Review.GetReviewAsync(id, true);
-        
-        if (reviewEntity is null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Review), id));
-        }
+        var review = await ReviewExists(id, true);
 
-        _mapper.Map(updateReviewRequest, reviewEntity);
+        _mapper.Map(updateReviewRequest, review);
         await _repository.SaveAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var review = await _repository.Review.GetReviewAsync(id);
-        
+        var review = await ReviewExists(id);
+
+        _repository.Review.DeleteReview(review);
+        await _repository.SaveAsync();
+    }
+
+    private async Task<Review> ReviewExists(int id, bool trackChanges = false)
+    {
+        var review = await _repository.Review.GetReviewAsync(id, trackChanges);
         if (review is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Review), id));
         }
 
-        _repository.Review.DeleteReview(review);
-        await _repository.SaveAsync();
+        return review;
     }
 }

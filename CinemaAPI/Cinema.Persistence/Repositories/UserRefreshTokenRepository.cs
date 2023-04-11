@@ -7,9 +7,9 @@ namespace Cinema.Persistence.Repositories;
 
 public class UserRefreshTokenRepository : RepositoryBase<UserRefreshToken>, IUserRefreshTokenRepository
 {
-    public UserRefreshTokenRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-    {
-    }
+    public UserRefreshTokenRepository(RepositoryContext repositoryContext) 
+        : base(repositoryContext)
+    { }
 
     public async Task<List<UserRefreshToken>> GetAllRefreshTokensAsync()
     {
@@ -20,7 +20,7 @@ public class UserRefreshTokenRepository : RepositoryBase<UserRefreshToken>, IUse
     public async Task<UserRefreshToken?> GetRefreshTokensAsync(int id, bool trackChanges = false)
     {
         return await FindByCondition(x => x.Id == id, false)
-            .SingleOrDefaultAsync();
+            .FirstOrDefaultAsync();
     }
 
     public void GenerateRefreshTokens(UserRefreshToken refreshToken)

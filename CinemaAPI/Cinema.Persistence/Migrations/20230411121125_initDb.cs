@@ -525,8 +525,12 @@ namespace Cinema.Persistence.Migrations
                 columns: new[] { "Id", "Duration", "MovieTypeId", "OriginalTitle", "PosterUrl", "ReleaseDate", "Title" },
                 values: new object[,]
                 {
-                    { 1, 145, 2, "Shrek", "www.niceShrekUrl.com", new DateTime(1999, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Зелений чолов'яга" },
-                    { 2, 120, 3, "Titanic", "www.niceTitanicUrl.com", new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Затонувший корабель" }
+                    { 1, 145, 1, "Shrek", "www.niceShrekUrl.com", new DateTime(1999, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Зелений чолов'яга" },
+                    { 2, 120, 2, "Titanic", "www.niceTitanicUrl.com", new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Затонувший корабель" },
+                    { 3, 160, 3, "Borat", "www.niceBoratUrl.com", new DateTime(2006, 11, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Смішний казах" },
+                    { 4, 170, 1, "Mask", "www.niceMaskUrl.com", new DateTime(1999, 12, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Зелений чорт" },
+                    { 5, 120, 2, "Kung Fu Panda", "www.nicePandaUrl.com", new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Чорнобілий ведмідь" },
+                    { 6, 135, 3, "Avatar", "www.niceAvatarUrl.com", new DateTime(2009, 5, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "Сині люди" }
                 });
 
             migrationBuilder.InsertData(
@@ -543,8 +547,12 @@ namespace Cinema.Persistence.Migrations
                 columns: new[] { "Id", "AgeLimit", "Country", "Description", "EndDate", "IndependentRate", "MovieId", "MovieTrailerUrl", "Producers", "StartDate" },
                 values: new object[,]
                 {
-                    { 1, 5, "USA", "Мирний зелений чолов'яга, намагається релаксувати в своєму болоті, але спочатку йому заважає цирк, а потім новий надокучливий друг віслюк", new DateTime(2010, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 9.6999999999999993, 1, "www.shrekMovieTrailerUrl.com", "Mr Producer", new DateTime(2000, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, 16, "USA", "Чувачок потрапив на корабель, корабель затонув чувачку сподобалась дівчина, там ще була та сцена на кораблі, і потім він затонув ніби.", new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 9.0999999999999996, 2, "www.TitanicMovieTrailerUrl.com", "Mr Producer", new DateTime(1995, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, 5, "USA", "Мирний зелений чолов'яга, намагається релаксувати в своєму болоті, але спочатку йому заважає цирк, а потім новий надокучливий друг віслюк.", new DateTime(2010, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 9.6999999999999993, 1, "www.shrekMovieTrailerUrl.com", "Mr Producer", new DateTime(2000, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, 16, "USA", "Чувачок потрапив на корабель, корабель затонув чувачку сподобалась дівчина, там ще була та сцена на кораблі, і потім він затонув ніби.", new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 9.0999999999999996, 2, "www.TitanicMovieTrailerUrl.com", "Mr Producer", new DateTime(1995, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, 20, "USA", "Борат стає інтервью'єром і напрвляється в Сполучені Штати щоб зустрітися з Памелою Андерсон, по дорозі розкидуючись смішнулічками.", new DateTime(2020, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 10.0, 3, "www.BoratMovieTrailerUrl.com", "Mr Producer", new DateTime(2006, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, 16, "USA", "Невдаха Джим Кері знаходить маску на березі моря і вона фіксить всі його проблеми.", new DateTime(2015, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 7.0999999999999996, 4, "www.MaskMovieTrailerUrl.com", "Mr Producer", new DateTime(1999, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5, 3, "USA", "Божевільна стара черепаха, вибирає по приколу ведмідя-офіціанта в якості воїна ящірки, і він стає ним за 2 дня, знецінюючи працю інших.", new DateTime(2014, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 3.0, 5, "www.shrekKungFuTrailerUrl.com", "Mr Producer", new DateTime(2003, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 6, 17, "USA", "Якісь сині трьох метрові створіння, шось там роблять, я не знаю бо не дивився.", new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 6.0999999999999996, 6, "www.AvatarMovieTrailerUrl.com", "Mr Producer", new DateTime(2009, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -552,8 +560,8 @@ namespace Cinema.Persistence.Migrations
                 columns: new[] { "Id", "HallId", "MovieId", "PriceId", "StartTime" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, 1, 2, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, 1, 1, 1, new DateTime(2023, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, 1, 2, 2, new DateTime(2023, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(

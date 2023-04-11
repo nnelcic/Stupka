@@ -12,18 +12,33 @@ public class SeatRepository : RepositoryBase<Seat>, ISeatRepository
     { }
 
     public void CreateSeat(Seat seat)
-        => Create(seat);
+    {
+        Create(seat);
+    }
 
     public void DeleteSeat(Seat seat)
-        => Delete(seat);
+    {
+        Delete(seat);
+    }
 
     public async Task<List<Seat>> GetAllSeatsAsync()
-        => await FindAll().OrderBy(x => x.Id).Include(x => x.SeatType).ToListAsync();
+    {
+        return await FindAll()
+            .OrderBy(x => x.Id)
+            .Include(x => x.SeatType)
+            .ToListAsync();
+    }
 
     public async Task<Seat?> GetSeatAsync(int id, bool trackChanges = false)
-        => await FindByCondition(x => x.Id == id, trackChanges)
-        .Include(x => x.SeatType).FirstOrDefaultAsync();
+    {
+        return await FindByCondition(x => x.Id == id, trackChanges)
+            .Include(x => x.SeatType)
+            .FirstOrDefaultAsync();
+    }
 
     public async Task<Seat?> GetSeatByNumberAndRowAsync(int num, int row, int hallId)
-        => await FindByCondition(x => x.Row == row && x.SeatNumber == num && x.HallId == hallId, false).FirstOrDefaultAsync();
+    {
+        return await FindByCondition(x => x.Row == row && x.SeatNumber == num && x.HallId == hallId, false)
+            .FirstOrDefaultAsync();
+    }
 }

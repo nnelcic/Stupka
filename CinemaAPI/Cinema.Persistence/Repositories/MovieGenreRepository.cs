@@ -7,18 +7,28 @@ namespace Cinema.Persistence.Repositories;
 
 public class MovieGenreRepository : RepositoryBase<MovieGenre>, IMovieGenreRepository
 {
-    public MovieGenreRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+    public MovieGenreRepository(RepositoryContext repositoryContext) 
+        : base(repositoryContext)
     { }
 
     public void CreateMovieGenres(ICollection<MovieGenre> movieGenres)
-        => _repositoryContext.AddRange(movieGenres);
+    {
+        _repositoryContext.AddRange(movieGenres);
+    }
 
     public void CreateMovieGenre(MovieGenre movieGenre)
-        => Create(movieGenre);
+    {
+        Create(movieGenre);
+    }
 
     public void DeleteMovieGenre(MovieGenre movieGenre)
-        => Delete(movieGenre);
+    {
+        Delete(movieGenre);
+    }
 
-    public async Task<MovieGenre?> GetMovieGenreAsync(int id, bool trackChanges = false)
-        => await FindByCondition(x => x.MovieId == id, trackChanges).SingleOrDefaultAsync();
+    public async Task<MovieGenre?> GetMovieGenreAsync(int movieId, int genreId)
+    {
+        return await FindByCondition(x => x.MovieId == movieId && x.GenreId == genreId, false)
+            .FirstOrDefaultAsync();
+    }
 }

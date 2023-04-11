@@ -1,5 +1,4 @@
-﻿using Cinema.Domain.Models.Entities;
-using Cinema.Domain.Models.ViewModels;
+﻿using Cinema.Domain.Models.ViewModels;
 
 namespace Cinema.Service.Interfaces;
 

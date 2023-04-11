@@ -1,7 +1,8 @@
 ﻿using Cinema.Domain.Models.DTOs;
+using Cinema.Domain.RequestFeatures;
 using Cinema.Service.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace Cinema.UI.Controllers;
 
@@ -17,11 +18,13 @@ public class SeanseController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllSeanses()
+    public async Task<IActionResult> GetAllSeanses([FromQuery] SeanseParameters seanseParameters)
     {
-        var seanses = await _service.SeanseService.GetAllAsync();
+        var pagedResult = await _service.SeanseService.GetAllAsync(seanseParameters);
 
-        return Ok(seanses);
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedResult.metaData));
+
+        return Ok(pagedResult.seanses);
     }
 
     [HttpGet("{id:int}", Name = "SeanseById")]

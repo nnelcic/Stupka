@@ -12,11 +12,13 @@ public class AddSeanseRequestValidator : AbstractValidator<AddSeanseRequest>
                 .WithMessage("Start Time couldn't be null!")
             .NotEmpty()
                 .WithMessage("Start Time couldn't be empty!");
+
         RuleFor(x => x.MovieId)
             .NotNull()
                 .WithMessage("Movie ID couldn't be null!")
             .NotEmpty()
                 .WithMessage("Movie ID couldn't be empty!");
+
         RuleFor(x => x.HallId)
             .NotNull()
                 .WithMessage("Hall Id couldn't be null!")

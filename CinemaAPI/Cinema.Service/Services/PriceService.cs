@@ -30,19 +30,12 @@ public class PriceService : IPriceService
         await _repository.SaveAsync();
 
         var priceToReturn = _mapper.Map<PriceViewModel>(price);
-
         return priceToReturn;
     }
 
     public async Task DeleteAsync(int id)
     {
-        var price = await _repository.Price.GetPriceAsync(id);
-
-        if (price is null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Price), id));
-        }
+        var price = await PriceExists(id);
 
         _repository.Price.DeletePrice(price);
         await _repository.SaveAsync();
@@ -57,28 +50,28 @@ public class PriceService : IPriceService
 
     public async Task<PriceViewModel> GetAsync(int id)
     {
-        var price = await _repository.Price.GetPriceAsync(id);
-
-        if (price is null)
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetErrorForException(nameof(Price), id));
-        }
+        var price = await PriceExists(id);
 
         return _mapper.Map<PriceViewModel>(price);
     }
 
     public async Task UpdateAsync(int id, UpdatePriceRequest updateCinemaRequest)
     {
-        var priceEntity = await _repository.Price.GetPriceAsync(id, true);
+        var price = await PriceExists(id, true);
 
-        if (priceEntity is null)
+        _mapper.Map(updateCinemaRequest, price);
+        await _repository.SaveAsync();
+    }
+
+    private async Task<Price> PriceExists(int id, bool trackChanges = false)
+    {
+        var price = await _repository.Price.GetPriceAsync(id, trackChanges);
+        if (price is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Price), id));
         }
 
-        _mapper.Map(updateCinemaRequest, priceEntity);
-        await _repository.SaveAsync();
+        return price;
     }
 }
