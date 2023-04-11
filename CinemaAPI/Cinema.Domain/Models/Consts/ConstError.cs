@@ -6,7 +6,7 @@ public static class ConstError
     public const string ERROR_BY_CREDENTIALS = "Error occured in GetAsync method, an attempt to reach an element with an unregistered email and password.";
     public const string EXISTING_ENTITY = "Error occured, an element with same data already exists.";
     public const string EXISTING_EMAIL = "An user with such email is already signed up.";
-    
+    public const string USER_IS_TOO_YOUNG = "User tried to buy movie with age limitation.";
     public static string GetErrorForException(string type, int id)
         => $"{type} with id {id} doesn't exist.";
     
@@ -36,4 +36,7 @@ public static class ConstError
     
     public static string GetInvalidTicket(int seatId, int seanseId)
         => $"Ticket for seanse with id {seanseId} and seat with id {seatId} is sold.";
+
+    public static string GetAgeLimitationException(int id)
+        => $"User with id {id} tried to buy movie with age limitation.";
 }

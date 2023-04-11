@@ -68,7 +68,12 @@ public class MovieService : IMovieService
 
     public async Task UpdateAsync(int id, UpdateMovieRequest updateMovieRequest)
     {
-        var movie = await MovieExists(id, true);
+        var movie = await _repository.Movie.GetMovieInfoAsync(id, true);
+        if (movie is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(Movie), id));
+        }
 
         _mapper.Map(updateMovieRequest, movie);
         await _repository.SaveAsync();

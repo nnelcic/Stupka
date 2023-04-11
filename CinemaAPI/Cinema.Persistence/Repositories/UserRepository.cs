@@ -1,6 +1,7 @@
 ﻿using Cinema.Domain.Models.Entities;
 using Cinema.Domain.RequestFeatures;
 using Cinema.Persistence.Data;
+using Cinema.Persistence.Extensions;
 using Cinema.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
             .Include(x => x.UserRefreshToken)
             .OrderBy(x => x.LastName)
             .ThenBy(x => x.FirstName)
+            .Search(userParameters.SearchTerm)
             .Skip((userParameters.PageNumber - 1) * userParameters.PageSize)
             .Take(userParameters.PageSize)
             .ToListAsync();

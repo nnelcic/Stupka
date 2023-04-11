@@ -1,6 +1,7 @@
 ﻿using Cinema.Domain.Models.Entities;
 using Cinema.Domain.RequestFeatures;
 using Cinema.Persistence.Data;
+using Cinema.Persistence.Extensions;
 using Cinema.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
     {
         var movies = await FindAll()
             .OrderBy(x => x.Title)
+            .Search(movieParameters.SearchTerm)
             .Skip((movieParameters.PageNumber - 1) * movieParameters.PageSize)
             .Take(movieParameters.PageSize)
             .ToListAsync();
@@ -30,9 +32,9 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<Movie?> GetMovieInfoAsync(int id)
+    public async Task<Movie?> GetMovieInfoAsync(int id, bool trackChanges = false)
     {
-        return await FindByCondition(x => x.Id == id, false)
+        return await FindByCondition(x => x.Id == id, trackChanges)
             .Include(x => x.MovieDetails)
             .Include(x => x.MovieType)
             .Include(x => x.MovieGenres)

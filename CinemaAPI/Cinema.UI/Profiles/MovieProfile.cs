@@ -18,6 +18,8 @@ public class MovieProfile : Profile
             .ReverseMap();
         CreateMap<MovieDetails, AddMovieDetailsRequest>()
             .ReverseMap();
+        CreateMap<MovieDetails, UpdateMovieDetailsRequest>()
+            .ReverseMap();
         CreateMap<Movie, UpdateMovieRequest>()
             .ReverseMap();
         CreateMap<Movie, MovieDetailsViewModel>()

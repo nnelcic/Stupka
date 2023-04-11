@@ -30,6 +30,10 @@ public class PurchaseService : IPurchaseService
     {
         await IsValidSeats(addPurchaseRequest);
 
+        var user = await UserExists(addPurchaseRequest.UserDetailsId);
+        var movie = await MovieExists(addPurchaseRequest.Tickets);
+        CheckAge(user, movie);
+
         var purchase = await CalculatePromocode(addPurchaseRequest);
 
         purchase = await CalculateSum(purchase);
@@ -146,6 +150,63 @@ public class PurchaseService : IPurchaseService
                     _loggerManager.LogError(ConstError.ERROR_BY_ID);
                     throw new BadRequestException(ConstError.GetInvalidTicket(item.Seanse.Id, item.Seanse.Id));
                 }
+            }
+        }
+    }
+
+    private async Task<User> UserExists(int userDetailsId)
+    {
+        var userDetails = await _repository.UserDetails.GetUserDetailsAsync(userDetailsId);
+        if (userDetails is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(UserDetails), userDetailsId));
+        }
+
+        var user = await _repository.User.GetUserAsync(userDetails.UserId);
+        if (user is null)
+        { 
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(User), userDetails.UserId));
+        }
+
+        return user;
+    }
+
+    private async Task<List<Movie>> MovieExists(ICollection<AddTicketRequest> tickets)
+    {
+        List<Movie> movies = new List<Movie>();
+        foreach (var ticket in tickets)
+        {
+            var seanse = await _repository.Seanse.GetSeanseAsync(ticket.SeanseId);
+            if (seanse is null)
+            {
+                _loggerManager.LogError(ConstError.ERROR_BY_ID);
+                throw new NotFoundException(ConstError.GetErrorForException(nameof(Seanse), ticket.SeanseId));
+            }
+
+            var movie = await _repository.Movie.GetMovieInfoAsync(seanse.MovieId);
+            if (movie is null)
+            {
+                _loggerManager.LogError(ConstError.ERROR_BY_ID);
+                throw new NotFoundException(ConstError.GetErrorForException(nameof(Movie), seanse.MovieId));
+            }
+
+            movies.Add(movie);
+        }
+
+        return movies;
+    }
+
+    private void CheckAge(User user, List<Movie> movies)
+    {
+        int userAge = DateTime.Now.Year - user.Birthday.Year;
+        foreach (var movie in movies)
+        {
+            if (userAge < movie.MovieDetails.AgeLimit)
+            {
+                _loggerManager.LogError(ConstError.ERROR_BY_ID);
+                throw new BadRequestException(ConstError.GetAgeLimitationException(user.Id));
             }
         }
     }
