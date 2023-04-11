@@ -20,6 +20,10 @@ export const Header: FC<{}> = () => {
                                     Фільми</Link>
                             </li> 
                             <li className="nav-item">
+                                <Link to="/Admin/Main" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
+                                    Admin</Link>
+                            </li> 
+                            <li className="nav-item">
                                 <Link to="/login" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
                                 Кабінет користувача</Link>
                             </li> 
