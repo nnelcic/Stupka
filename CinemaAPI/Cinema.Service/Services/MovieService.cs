@@ -35,7 +35,7 @@ public class MovieService : IMovieService
     public async Task<MovieInfoViewModel> GetInfoAsync(int id)
     {
         var movie = await _repository.Movie.GetMovieInfoAsync(id);
-        if (movie == null)
+        if (movie is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Movie), id));

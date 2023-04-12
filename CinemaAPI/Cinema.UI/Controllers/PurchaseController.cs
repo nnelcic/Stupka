@@ -27,12 +27,28 @@ public class PurchaseController : ControllerBase
         return Ok(pagedResult.purchases);
     }
 
+    [HttpGet("user/{userDetailsId:int}")]
+    public async Task<IActionResult> GetAllByUserDetailsIdPurchases(int userDetailsId)
+    {
+        var purchases = await _service.PurchaseService.GetAllByUserDetailsIdAsync(userDetailsId);
+
+        return Ok(purchases);
+    }
+
     [HttpGet("{id:int}", Name = "PurchaseById")]
-    public async Task<IActionResult> GetPurchaseByIdAsync(int id)
+    public async Task<IActionResult> GetPurchaseByUserIdAsync(int id)
     {
         var purchase = await _service.PurchaseService.GetAsync(id);
 
         return Ok(purchase);
+    }
+
+    [HttpGet("ticket/{id:int}")]
+    public async Task<IActionResult> GetTicket(int id)
+    {
+        var result = await _service.PdfService.GetTicket(id);
+
+        return File(result, "application/pdf", "Ticket.pdf");
     }
 
     [HttpPost]

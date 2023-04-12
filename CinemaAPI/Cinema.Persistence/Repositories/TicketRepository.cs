@@ -27,4 +27,16 @@ public class TicketRepository : RepositoryBase<Ticket>, ITicketRepository
             .Include(x => x.Seat)
             .ToListAsync();
     }
+
+    public async Task<Ticket?> GetTicketAsync(int id)
+    {
+        return await FindByCondition(x => x.Id == id, false)
+            .Include(x => x.Seat)
+                .ThenInclude(x => x.SeatType)
+            .Include(x => x.Seanse)
+                    .ThenInclude(x => x.Movie)
+            .Include(x => x.Seanse)
+                    .ThenInclude(x => x.Price)
+            .FirstOrDefaultAsync();     
+    }
 }

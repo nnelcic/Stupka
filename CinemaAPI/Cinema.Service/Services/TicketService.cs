@@ -24,4 +24,11 @@ public class TicketService : ITicketService
 
         return _mapper.Map<List<TicketViewModel>>(tickets);
     }
+
+    public async Task<TicketViewModel> GetTicketAsync(int id)
+    {
+        var ticket = await _repository.Ticket.GetTicketAsync(id);
+
+        return _mapper.Map<TicketViewModel>(ticket);
+    }
 }

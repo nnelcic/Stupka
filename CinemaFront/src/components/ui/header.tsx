@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 export const Header: FC<{}> = () => {    
     return (
-                     
                 <nav className="navbar navbar-expand-lg bg-black text-white border-bottom" id="main_header">                    
                         <Link to="/">
                             <MainLogo/>
@@ -30,6 +29,10 @@ export const Header: FC<{}> = () => {
                             <li className="nav-item">
                                 <Link to="/signup" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
                                 Зареєструватись</Link>
+                            </li>                    
+                            <li className="nav-item">
+                                <Link to="/ticket" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
+                                Квиток</Link>
                             </li>                    
                         </ul>
                         </div>                                      

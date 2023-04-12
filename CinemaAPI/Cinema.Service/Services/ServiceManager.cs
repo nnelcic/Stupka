@@ -19,6 +19,7 @@ public class ServiceManager : IServiceManager
     private readonly Lazy<IFavouriteService> _favouriteService;
     private readonly Lazy<IMovieGenreService> _movieGenreService;
     private readonly Lazy<ITicketService> _ticketService;
+    private readonly Lazy<IPdfService> _pdfService;
    
     public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger, IMapper autoMapper)
     {
@@ -35,6 +36,7 @@ public class ServiceManager : IServiceManager
         _favouriteService = new Lazy<IFavouriteService>(() => new FavouriteService(repositoryManager, logger, autoMapper));
         _movieGenreService = new Lazy<IMovieGenreService> (() => new MovieGenreService(repositoryManager, logger, autoMapper));
         _ticketService = new Lazy<ITicketService>(() => new TicketService(repositoryManager, logger, autoMapper));
+        _pdfService = new Lazy<IPdfService>(() => new PdfService(repositoryManager, logger, autoMapper));
     }
 
     public IMovieService MovieService => _movieService.Value;
@@ -50,4 +52,5 @@ public class ServiceManager : IServiceManager
     public IFavouriteService FavouriteService => _favouriteService.Value;
     public IMovieGenreService MovieGenreService => _movieGenreService.Value;
     public ITicketService TicketService => _ticketService.Value;
+    public IPdfService PdfService => _pdfService.Value;
 }

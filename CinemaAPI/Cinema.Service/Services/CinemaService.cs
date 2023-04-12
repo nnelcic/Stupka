@@ -69,7 +69,7 @@ public class CinemaService : ICinemaService
         await _repository.SaveAsync();
     }
 
-    public async Task<Domain.Models.Entities.Cinema> CinemaExists(int id, bool trackChanges = false)
+    private async Task<Domain.Models.Entities.Cinema> CinemaExists(int id, bool trackChanges = false)
     {
         var cinema = await _repository.Cinema.GetCinemaAsync(id, trackChanges);
         if (cinema is null)

@@ -6,4 +6,5 @@ public interface ITicketRepository
 {
     Task<List<Ticket>> GetAllTicketsAsync();
     Task<List<Ticket>> GetAllTicketsBySeanseId(int id);
+    Task<Ticket?> GetTicketAsync(int id);
 }

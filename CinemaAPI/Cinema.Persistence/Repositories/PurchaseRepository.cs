@@ -49,4 +49,21 @@ public class PurchaseRepository : RepositoryBase<Purchase>, IPurchaseRepository
                     .ThenInclude(x => x.Price)
             .FirstOrDefaultAsync();
     }
+
+    public async Task<List<Purchase>> GetAllPurchaseByUserDetailsIdAsync(int id)
+    {
+        return await FindAll()
+            .Where(x => x.UserDetailsId == id)
+            .Include(x => x.Promocode)
+            .Include(x => x.Tickets)
+                .ThenInclude(x => x.Seat)
+                    .ThenInclude(x => x.SeatType)
+            .Include(x => x.Tickets)
+                .ThenInclude(x => x.Seanse)
+                    .ThenInclude(x => x.Movie)
+            .Include(x => x.Tickets)
+                .ThenInclude(x => x.Seanse)
+                    .ThenInclude(x => x.Price)
+            .ToListAsync();
+    }
 }

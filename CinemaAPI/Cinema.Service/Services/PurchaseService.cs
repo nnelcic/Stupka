@@ -73,6 +73,13 @@ public class PurchaseService : IPurchaseService
         return (purchases: purchasesToReturn, metaData: purchasesWithMediaData.MetaData);
     }
 
+    public async Task<List<PurchaseViewModel>> GetAllByUserDetailsIdAsync(int id)
+    {
+        var purchases = await _repository.Purchase.GetAllPurchaseByUserDetailsIdAsync(id);
+
+        return _mapper.Map <List<PurchaseViewModel>>(purchases);
+    }
+
     public async Task<PurchaseViewModel> GetAsync(int id)
     {
         var purchase = await _repository.Purchase.GetPurchaseAsync(id);

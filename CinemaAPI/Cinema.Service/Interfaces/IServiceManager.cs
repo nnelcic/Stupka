@@ -15,4 +15,5 @@ public interface IServiceManager
     IFavouriteService FavouriteService { get; }
     IMovieGenreService MovieGenreService { get; }
     ITicketService TicketService { get; }   
+    IPdfService PdfService { get; }
 }

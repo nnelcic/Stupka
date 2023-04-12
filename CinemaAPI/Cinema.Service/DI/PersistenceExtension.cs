@@ -22,6 +22,7 @@ public static class PersistenceExtension
         services.AddScoped<IRepositoryManager, RepositoryManager>();
         services.AddSingleton<ILoggerManager, LoggerManager>();
         services.AddScoped<IAuthenticatorRepository, AuthenticatorRepository>();
+        services.AddScoped<IPdfService, PdfService>();
 
         return services;
     }

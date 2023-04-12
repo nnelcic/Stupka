@@ -1,5 +1,4 @@
 using System.Text;
-using System.Text.Json.Serialization;
 using Cinema.Service.DI;
 using Cinema.Service.Interfaces;
 using Cinema.Service.Services;
@@ -21,6 +20,7 @@ public class Program
         // Logger
         LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
+        builder.Services.AddCors();
         builder.Services.AddControllers();
         
         builder.Services.AddEndpointsApiExplorer();
@@ -83,6 +83,13 @@ public class Program
             );
 
         var app = builder.Build();
+
+        app.UseCors(options =>
+                options
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins("http://localhost:3000")
+            );
 
         var logger = app.Services.GetRequiredService<ILoggerManager>();
         app.ConfigureExceptionHandler(logger);
