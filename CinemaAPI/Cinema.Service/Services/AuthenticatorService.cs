@@ -24,14 +24,14 @@ public class AuthenticatorService : IAuthenticatorService
 
     public async Task<UserViewModel> AuthenticateAsync(LoginRequest loginRequest)
     {
-        var user = await _authenticator.AuthenticateAsync(loginRequest.Login, loginRequest.Password);
+        var user = await _authenticator.AuthenticateAsync(loginRequest.Email, loginRequest.Password);
 
         if (user is null)
         {
             _loggerManager.LogError(ConstError.ERROR_BY_CREDENTIALS);
             throw new NotFoundException
                 (ConstError.GetCredentialsErrorExceptionMessage
-                    (nameof(User), loginRequest.Login, loginRequest.Password));
+                    (nameof(User), loginRequest.Email, loginRequest.Password));
         }
 
         return _mapper.Map<UserViewModel>(user);

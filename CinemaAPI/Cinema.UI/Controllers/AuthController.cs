@@ -19,7 +19,7 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route("login")]
-    public async Task<IActionResult> Index(LoginRequest loginRequest)
+    public async Task<IActionResult> Index([FromBody] LoginRequest loginRequest)
     {
         var user = await _authenticator.AuthenticateAsync(loginRequest);
         var token = await _tokenHandler.CreateTokenAsync(user);

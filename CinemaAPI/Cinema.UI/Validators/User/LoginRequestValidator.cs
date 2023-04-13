@@ -7,7 +7,7 @@ public class LoginRequestValidator : AbstractValidator<LoginRequest>
 {
     public LoginRequestValidator()
     {
-        RuleFor(x => x.Login)
+        RuleFor(x => x.Email)
             .NotNull()
                 .WithMessage("Email could not be null!")
             .NotEmpty()

@@ -59,16 +59,6 @@ public class AddUserRequestValidator : AbstractValidator<AddUserRequest>
                 .WithMessage("50 character limit exceeded!")
             .Must(IsValidPhoneNumber)
                 .WithMessage("Phone number isn't valid!");
-
-        RuleFor(x => x.RoleId)
-            .NotNull()
-                .WithMessage("RoleId could not be null!")
-            .NotEmpty()
-                .WithMessage("RoleId could not be empty!")
-            .GreaterThan(0)
-                .WithMessage("Role must be greater than 0")
-            .LessThan(3)
-                .WithMessage("Role must be less than 3");
     }
     private bool IsValidPhoneNumber(string phoneNumber)
     {

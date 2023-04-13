@@ -39,6 +39,7 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
 
     public void CreateUser(User user)
     {
+        user.RoleId = 2;
         Create(user);
     }
 
