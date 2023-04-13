@@ -7,9 +7,9 @@ const Home: React.FC<{}> = () => {
     return (
         <>          
            
-            <body>
+            <div>
                  <MainBlock />
-            </body>
+            </div>
            
            <footer>
                 <Footer />

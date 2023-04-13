@@ -9,8 +9,8 @@ public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
     public void Configure(EntityTypeBuilder<Ticket> builder)
     {
         builder
-            .HasOne(x => x.Seat)
-            .WithMany()
+            .HasOne(t => t.Seat)
+            .WithOne()
             .OnDelete(DeleteBehavior.NoAction);
 
         builder

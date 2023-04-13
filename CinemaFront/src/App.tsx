@@ -12,6 +12,8 @@ import SearchMovies from "./pages/Admin/SearchMovies";
 import AddNewMovie from "./pages/Admin/AddNewMovie";
 import ChangeMovie from "./pages/Admin/ChangeMovie";
 import DeleteMovieById from "./pages/Admin/DeleteMovieById";
+import Tickets from "./pages/Tickets/Tickets";
+import Users from "./pages/Admin/Users/Users";
 
 function App() {
     return (
@@ -30,8 +32,10 @@ function App() {
                         <Route path="/admin/searchMovies" element={<SearchMovies/>}></Route>   
                         <Route path="/admin/addNewMovie" element={<AddNewMovie/>}></Route> 
                         <Route path="/admin/changeMovie" element={<ChangeMovie/>}></Route> 
+                        <Route path="/admin/users" element={<Users />}></Route>                     
                         <Route path="/admin/deletemoviebyid" element={<DeleteMovieById/>}></Route>                  
                         <Route path="/home/faq" element={<FAQ/>}></Route>                     
+                        <Route path="/ticket" element={<Tickets />}></Route>                     
                     </Routes>
                 </div>               
             </BrowserRouter>

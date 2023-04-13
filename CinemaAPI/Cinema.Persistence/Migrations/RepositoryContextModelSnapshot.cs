@@ -817,7 +817,7 @@ namespace Cinema.Persistence.Migrations
                         .HasPrecision(7, 2)
                         .HasColumnType("decimal(7,2)");
 
-                    b.Property<int?>("PurchaseId")
+                    b.Property<int>("PurchaseId")
                         .HasColumnType("int");
 
                     b.Property<int>("SeanseId")
@@ -832,7 +832,8 @@ namespace Cinema.Persistence.Migrations
 
                     b.HasIndex("SeanseId");
 
-                    b.HasIndex("SeatId");
+                    b.HasIndex("SeatId")
+                        .IsUnique();
 
                     b.ToTable("Tickets");
                 });
@@ -904,6 +905,50 @@ namespace Cinema.Persistence.Migrations
                             Password = "user123",
                             PhoneNumber = "380111111111",
                             RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Birthday = new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "zxc@gmail.com",
+                            FirstName = "Admin",
+                            LastName = "Admin",
+                            Password = "admin123",
+                            PhoneNumber = "380999999999",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Birthday = new DateTime(2005, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "qsd@gmail.com",
+                            FirstName = "User",
+                            LastName = "User",
+                            Password = "user123",
+                            PhoneNumber = "380111111111",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Birthday = new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "asd@gmail.com",
+                            FirstName = "Admin",
+                            LastName = "Admin",
+                            Password = "admin123",
+                            PhoneNumber = "380999999999",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Birthday = new DateTime(2005, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "qwe@gmail.com",
+                            FirstName = "User",
+                            LastName = "User",
+                            Password = "user123",
+                            PhoneNumber = "380111111111",
+                            RoleId = 2
                         });
                 });
 
@@ -935,6 +980,26 @@ namespace Cinema.Persistence.Migrations
                         {
                             Id = 2,
                             UserId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            UserId = 6
                         });
                 });
 
@@ -1119,9 +1184,11 @@ namespace Cinema.Persistence.Migrations
 
             modelBuilder.Entity("Cinema.Domain.Models.Entities.Ticket", b =>
                 {
-                    b.HasOne("Cinema.Domain.Models.Entities.Purchase", null)
+                    b.HasOne("Cinema.Domain.Models.Entities.Purchase", "Purchase")
                         .WithMany("Tickets")
-                        .HasForeignKey("PurchaseId");
+                        .HasForeignKey("PurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Cinema.Domain.Models.Entities.Seanse", "Seanse")
                         .WithMany()
@@ -1130,10 +1197,12 @@ namespace Cinema.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("Cinema.Domain.Models.Entities.Seat", "Seat")
-                        .WithMany()
-                        .HasForeignKey("SeatId")
+                        .WithOne()
+                        .HasForeignKey("Cinema.Domain.Models.Entities.Ticket", "SeatId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Purchase");
 
                     b.Navigation("Seanse");
 

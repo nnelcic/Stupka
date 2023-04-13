@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cinema.Persistence.Migrations
 {
-    public partial class initDb : Migration
+    public partial class dbInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -414,10 +414,10 @@ namespace Cinema.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    PurchaseId = table.Column<int>(type: "int", nullable: false),
                     SeanseId = table.Column<int>(type: "int", nullable: false),
                     SeatId = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
-                    PurchaseId = table.Column<int>(type: "int", nullable: true)
+                    Price = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -426,7 +426,8 @@ namespace Cinema.Persistence.Migrations
                         name: "FK_Tickets_Purchase_PurchaseId",
                         column: x => x.PurchaseId,
                         principalTable: "Purchase",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tickets_Seanses_SeanseId",
                         column: x => x.SeanseId,
@@ -539,7 +540,11 @@ namespace Cinema.Persistence.Migrations
                 values: new object[,]
                 {
                     { 1, new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@gmail.com", "Admin", "Admin", "admin123", "380999999999", 1 },
-                    { 2, new DateTime(2005, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@gmail.com", "User", "User", "user123", "380111111111", 2 }
+                    { 2, new DateTime(2005, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@gmail.com", "User", "User", "user123", "380111111111", 2 },
+                    { 3, new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "zxc@gmail.com", "Admin", "Admin", "admin123", "380999999999", 2 },
+                    { 4, new DateTime(2005, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "qsd@gmail.com", "User", "User", "user123", "380111111111", 2 },
+                    { 5, new DateTime(2000, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "asd@gmail.com", "Admin", "Admin", "admin123", "380999999999", 2 },
+                    { 6, new DateTime(2005, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "qwe@gmail.com", "User", "User", "user123", "380111111111", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -581,7 +586,11 @@ namespace Cinema.Persistence.Migrations
                 values: new object[,]
                 {
                     { 1, 1 },
-                    { 2, 2 }
+                    { 2, 2 },
+                    { 3, 3 },
+                    { 4, 4 },
+                    { 5, 5 },
+                    { 6, 6 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -668,7 +677,8 @@ namespace Cinema.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_SeatId",
                 table: "Tickets",
-                column: "SeatId");
+                column: "SeatId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserDetails_UserId",

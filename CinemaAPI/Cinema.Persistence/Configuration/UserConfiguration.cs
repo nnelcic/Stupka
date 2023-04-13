@@ -1,5 +1,4 @@
-﻿using System.Reflection.Emit;
-using Cinema.Domain.Models.Entities;
+﻿using Cinema.Domain.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,6 +8,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
+        builder
+            .HasOne(x => x.UserRefreshToken)
+            .WithOne(x => x.User)
+            .HasForeignKey<UserRefreshToken>(x => x.UserId);
+
         builder
             .HasKey(x => x.Id);
 
@@ -54,6 +58,50 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                     Id = 2,
                     RoleId = 2,
                     Email = "user@gmail.com",
+                    Password = "user123",
+                    FirstName = "User",
+                    LastName = "User",
+                    Birthday = DateTime.Parse("2005-01-01"),
+                    PhoneNumber = "380111111111",
+                },
+                new User
+                {
+                    Id = 3,
+                    RoleId = 2,
+                    Email = "zxc@gmail.com",
+                    Password = "admin123",
+                    FirstName = "Admin",
+                    LastName = "Admin",
+                    Birthday = DateTime.Parse("2000-05-08"),
+                    PhoneNumber = "380999999999",
+                },
+                new User
+                {
+                    Id = 4,
+                    RoleId = 2,
+                    Email = "qsd@gmail.com",
+                    Password = "user123",
+                    FirstName = "User",
+                    LastName = "User",
+                    Birthday = DateTime.Parse("2005-01-01"),
+                    PhoneNumber = "380111111111",
+                },
+                new User
+                {
+                    Id = 5,
+                    RoleId = 2,
+                    Email = "asd@gmail.com",
+                    Password = "admin123",
+                    FirstName = "Admin",
+                    LastName = "Admin",
+                    Birthday = DateTime.Parse("2000-05-08"),
+                    PhoneNumber = "380999999999",
+                },
+                new User
+                {
+                    Id = 6,
+                    RoleId = 2,
+                    Email = "qwe@gmail.com",
                     Password = "user123",
                     FirstName = "User",
                     LastName = "User",

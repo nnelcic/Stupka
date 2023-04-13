@@ -55,25 +55,23 @@ export interface ISeatType {
 }
 
 const Tickets: React.FC<{}> = () => {
-    const [purchase, setPurchase] = useState<IPurchase[]>([]);
+    const [purchases, setPurchase] = useState<IPurchase[]>([]);
 
-    async function fetchProducts() {
+    async function fetchPurchase() {
         const response = await axios.get<IPurchase[]>("https://localhost:7282/api/purchase/user/1");
         setPurchase(response.data);
     }
 
     useEffect(() => {
-        fetchProducts();
+        fetchPurchase();
     }, []);
-
-    
 
     return (
         <div>
             {
-            purchase && 
+            purchases && 
                 <Container>
-                    {purchase.map(x => <Purchase purchase={x} key={x.id} />)}
+                    {purchases.map(x => <Purchase purchase={x} key={x.id} />)}
                 </Container>
             }
         </div>

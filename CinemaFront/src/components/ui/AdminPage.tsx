@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Button } from "react-bootstrap";
 
 const AdminPage: React.FC<{}> = () => {
    
@@ -66,18 +67,9 @@ const AdminPage: React.FC<{}> = () => {
                             
                         </Nav>
 
-                        <Nav>
-                            <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title="Користувачі"
-                            menuVariant="dark"
-                            >
-                            <NavDropdown.Item href="#action/3.1">Знайти користувача</NavDropdown.Item>              
-                                        
-                            <NavDropdown.Item href="#action/3.3">Квитки</NavDropdown.Item>      
-                            <NavDropdown.Item href="#action/3.3">Промокоди</NavDropdown.Item>           
-                            </NavDropdown>
-                        </Nav>
+                        <Link to="/admin/users">
+                            <Button>Users</Button>
+                        </Link>
 
                 </Navbar.Collapse>
             </Container>

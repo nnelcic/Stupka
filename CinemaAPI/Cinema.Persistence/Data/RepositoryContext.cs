@@ -16,38 +16,8 @@ public class RepositoryContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Favourite>()
-            .HasKey(f => new { f.MovieId, f.UserDetailsId });
-        modelBuilder.Entity<Favourite>()
-            .HasOne(f => f.Movie)
-            .WithMany(m => m.Favourites)
-            .HasForeignKey(f => f.MovieId);
-        modelBuilder.Entity<Favourite>()
-            .HasOne(f => f.UserDetails)
-            .WithMany(ud => ud.Favourites)
-            .HasForeignKey(f => f.UserDetailsId);
-        
-        modelBuilder.Entity<MovieGenre>()
-            .HasKey(mg => new { mg.GenreId, mg.MovieId });
-        modelBuilder.Entity<MovieGenre>()
-            .HasOne(mg => mg.Movie)
-            .WithMany(m => m.MovieGenres)
-            .HasForeignKey(mg => mg.MovieId);
-        modelBuilder.Entity<MovieGenre>()
-            .HasOne(mg => mg.Genre)
-            .WithMany(g => g.MovieGenres)
-            .HasForeignKey(mg => mg.GenreId);
-
-        modelBuilder.Entity<Ticket>()
-            .HasOne(t => t.Seat)
-            .WithMany()
-            .OnDelete(DeleteBehavior.NoAction);
-
-        modelBuilder.Entity<User>()
-            .HasOne(x => x.UserRefreshToken)
-            .WithOne(x => x.User)
-            .HasForeignKey<UserRefreshToken>(x => x.UserId);
-
+        modelBuilder.ApplyConfiguration(new MovieGenreConfiguration());
+        modelBuilder.ApplyConfiguration(new FavouriteConfiguration());
         modelBuilder.ApplyConfiguration(new CinemaConfiguration());
         modelBuilder.ApplyConfiguration(new PriceConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
