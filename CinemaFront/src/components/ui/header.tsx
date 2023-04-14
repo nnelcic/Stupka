@@ -31,6 +31,10 @@ export const Header: FC<{}> = () => {
                         <Link to="/Movies/Movies" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
                             Фільми</Link>
                     </li> 
+                    <li className="nav-item">
+                        <Link to="/Admin/Main" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
+                            Admin</Link>
+                    </li> 
                     {token
                     ?
                         role === "Admin"

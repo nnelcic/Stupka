@@ -1,11 +1,11 @@
 export default interface IMovieDetails {
+    id: number,
     description: string,
     producer: string,
-    age_Limit: number,
-    phase: "" | "" | "",
+    age_Limit: number,    
     independent_rate: number,
     country: string,
-    movie_trailer_url: string,
-    start_date: Date,
-    end_date: Date,
+    movieTrailerUrl: string,
+    start_date: string,
+    end_date: string,
 }

@@ -8,9 +8,8 @@ export const MainLogo: FC<{}> = () => {
         <div>
              <Link to="/" className="nav-link px-2 text-white">
                     <img src={logo} alt="main logo" height='110'/>
-             </Link>           
-             <p id='head'>Національний Український кінотеатр</p>     
-              
+             </Link>         
+     
         </div>        
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Movies = () => {
+const MoviePosters = () => {
   return (
     <div>
       <h1>Movies</h1>
@@ -8,4 +8,4 @@ const Movies = () => {
   )
 }
 
-export default Movies;
+export default MoviePosters;
