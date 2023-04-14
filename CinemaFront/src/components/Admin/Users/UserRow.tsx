@@ -1,13 +1,16 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { User } from "../../../types/User";
+import { User } from "../../../types/userTypes/User";
 
 interface UserRowProps {
     user: User;
-    deleteUser: (id: number) => void;
+    modal: boolean;
+    open: () => void;
+    setCurrentUserId: (num: number) => void;
+    setCurrentOption: (option: string) => void;
+    setSize: (size: string) => void;
 }
 
-const UserRow: React.FC<UserRowProps> = ({ user, deleteUser }) => {
-
+const UserRow: React.FC<UserRowProps> = ({ user, open, setCurrentUserId, setCurrentOption, setSize }) => {
     return (
         <tr>
             <td>{user.id}</td>
@@ -21,15 +24,41 @@ const UserRow: React.FC<UserRowProps> = ({ user, deleteUser }) => {
                 <Container>
                     <Row>
                         <Col>
-                            <Button variant="light">Info</Button>
+                            <Button variant="light" onClick={() => {
+                                setCurrentUserId(user.id);
+                                open();
+                                setCurrentOption('showUser');
+                                setSize('lg');
+                            }}>
+                                Інформація
+                            </Button>
                         </Col>
                         <Col>
-                            <Button variant="warning">Edit</Button>
+                            <Button variant="success" onClick={() => {
+                                setCurrentUserId(user.id);
+                                open();
+                                setCurrentOption('purchasesUser');
+                                setSize('xl');
+                            }}>
+                                Покупки
+                            </Button>
                         </Col>
                         <Col>
-                            <Button variant="danger"
-                                onClick={() => deleteUser(user.id)}>
-                                Delete
+                            <Button variant="warning" onClick={() => {
+                                setCurrentUserId(user.id);
+                                open();
+                                setCurrentOption('updateUser');
+                                setSize('lg');
+                            }}>Редагувати</Button>
+                        </Col>
+                        <Col>
+                            <Button variant="danger" onClick={() => {
+                                    setCurrentUserId(user.id);
+                                    open();
+                                    setCurrentOption('deleteUser');
+                                    setSize('sm');
+                                }}>
+                                Видалити
                             </Button>
                         </Col>
                     </Row>

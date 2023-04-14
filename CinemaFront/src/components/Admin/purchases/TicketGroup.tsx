@@ -1,8 +1,8 @@
 import { Card } from 'react-bootstrap'
-import { ITicket } from './Tickets'
+import { Ticket } from '../../../types/purchaseTypes/Ticket';
 
 interface TicketGroupProps {
-    ticket: ITicket
+    ticket: Ticket
 }
 
 const pdf = "https://localhost:7282/api/purchase/ticket/";
@@ -22,9 +22,12 @@ const pdf = "https://localhost:7282/api/purchase/ticket/";
     }
 
 export default function TicketGroup({ticket}: TicketGroupProps) {
+  const seatType = ticket.seat.seatType.type === 'Normal' ? 'Звичайний'
+    : ticket.seat.seatType.type === 'ForDisablers' ? 'Для інвалідів' 
+    : ticket.seat.seatType.type === 'ForKissing' ? 'Для поцілунків' : "VIP";
+
   return (
-    <>
-      <Card>
+      <Card className='m-5 text-center'>
         <Card.Img variant="top" src={ticket.seanse.movie.posterUrl} />
           <Card.Body>
             <Card.Title>
@@ -45,11 +48,10 @@ export default function TicketGroup({ticket}: TicketGroupProps) {
             <small className="text-muted">
               Місце: Ряд {ticket.seat.row} |
               Номер {ticket.seat.seatNumber} |
-              Тип місця {ticket.seat.seatType.type}
+              Тип місця {seatType}
             </small>
             <button className='ms-5' onClick={() => downloadFileAtUrl(pdf + ticket.id)}>Download</button>
           </Card.Footer>
       </Card>
-    </>
   )
 }

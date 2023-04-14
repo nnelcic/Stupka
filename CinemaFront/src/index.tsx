@@ -4,13 +4,17 @@ import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { ModalState } from './context/ModalContext';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
   <React.StrictMode>
-         <App />   
+      <ModalState>
+        <App />
+      </ModalState>
   </React.StrictMode>
 );
 

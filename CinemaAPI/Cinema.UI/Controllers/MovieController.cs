@@ -44,6 +44,14 @@ public class MovieController : ControllerBase
         return Ok(movie);
     }
 
+    [HttpGet("[action]/{movieDetailsId:int}")]
+    public async Task<IActionResult> GetMovieByMovieDetailsIdAsync(int movieDetailsId)
+    {
+        var movie = await _service.MovieService.GetByMovieDetailsIdAsync(movieDetailsId);
+
+        return Ok(movie);
+    }
+
     [HttpPost("[action]")]
     public async Task<IActionResult> AddMovieAsync([FromBody] AddMovieRequest addMovieRequest)
     {

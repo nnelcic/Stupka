@@ -4,7 +4,6 @@ using Cinema.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,10 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Persistence.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230413155906_dbInit")]
-    partial class dbInit
+    partial class RepositoryContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,8 +221,8 @@ namespace Cinema.Persistence.Migrations
 
                     b.Property<string>("PosterUrl")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
@@ -247,7 +245,7 @@ namespace Cinema.Persistence.Migrations
                             Duration = 145,
                             MovieTypeId = 1,
                             OriginalTitle = "Shrek",
-                            PosterUrl = "www.niceShrekUrl.com",
+                            PosterUrl = "https://i.etsystatic.com/27475238/r/il/f9eed6/3758942437/il_fullxfull.3758942437_9564.jpg",
                             ReleaseDate = new DateTime(1999, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Зелений чолов'яга"
                         },
@@ -257,7 +255,7 @@ namespace Cinema.Persistence.Migrations
                             Duration = 120,
                             MovieTypeId = 2,
                             OriginalTitle = "Titanic",
-                            PosterUrl = "www.niceTitanicUrl.com",
+                            PosterUrl = "https://i.ebayimg.com/images/g/MHIAAOSwsMhiib8p/s-l1600.jpg",
                             ReleaseDate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Затонувший корабель"
                         },
@@ -267,7 +265,7 @@ namespace Cinema.Persistence.Migrations
                             Duration = 160,
                             MovieTypeId = 3,
                             OriginalTitle = "Borat",
-                            PosterUrl = "www.niceBoratUrl.com",
+                            PosterUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/1777765/5ff5b5b3-d231-4c60-b25c-9dac42f3c991/1920x",
                             ReleaseDate = new DateTime(2006, 11, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Смішний казах"
                         },
@@ -277,7 +275,7 @@ namespace Cinema.Persistence.Migrations
                             Duration = 170,
                             MovieTypeId = 1,
                             OriginalTitle = "Mask",
-                            PosterUrl = "www.niceMaskUrl.com",
+                            PosterUrl = "https://m.media-amazon.com/images/M/MV5BOWExYjI5MzktNTRhNi00Nzg2LThkZmQtYWVkYjRlYWI2MDQ4XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg",
                             ReleaseDate = new DateTime(1999, 12, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Зелений чорт"
                         },
@@ -287,7 +285,7 @@ namespace Cinema.Persistence.Migrations
                             Duration = 120,
                             MovieTypeId = 2,
                             OriginalTitle = "Kung Fu Panda",
-                            PosterUrl = "www.nicePandaUrl.com",
+                            PosterUrl = "https://static.posters.cz/image/1300/poster/kung-fu-panda-i13408.jpg",
                             ReleaseDate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Чорнобілий ведмідь"
                         },
@@ -297,7 +295,7 @@ namespace Cinema.Persistence.Migrations
                             Duration = 135,
                             MovieTypeId = 3,
                             OriginalTitle = "Avatar",
-                            PosterUrl = "www.niceAvatarUrl.com",
+                            PosterUrl = "https://i.ebayimg.com/images/g/URcAAOSwC31jZQ11/s-l500.jpg",
                             ReleaseDate = new DateTime(2009, 5, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Сині люди"
                         });

@@ -56,5 +56,12 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
     public void DeleteMovie(Movie movie)
     {
         Delete(movie);
-    }   
+    }
+
+    public async Task<Movie?> GetMovieByMovieDetailsIdAsync(int movieDetailsId)
+    {
+        return await FindByCondition(x => x.MovieDetails.Id == movieDetailsId, false)
+            .Include(x => x.MovieDetails)
+            .FirstOrDefaultAsync();
+    }
 }

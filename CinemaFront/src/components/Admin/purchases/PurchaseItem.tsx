@@ -1,12 +1,12 @@
-import { IPurchase } from './Tickets'
-import { Button, Card, CardGroup, Col, Row } from 'react-bootstrap';
+import { Card, CardGroup, Col, Row } from 'react-bootstrap';
 import TicketGroup from './TicketGroup';
+import { Purchase } from '../../../types/purchaseTypes/Purchase';
 
-interface PropsPurchase {
-    purchase: IPurchase;
+interface PropsPurchaseItem {
+    purchase: Purchase;
 }
 
-function Purchase({purchase}: PropsPurchase) {
+function PurchaseItem({purchase}: PropsPurchaseItem) {
   return (
     <>
         <Row>
@@ -33,4 +33,4 @@ function Purchase({purchase}: PropsPurchase) {
   )
 }
 
-export default Purchase
+export default PurchaseItem;

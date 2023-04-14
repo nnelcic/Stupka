@@ -98,4 +98,11 @@ public class MovieService : IMovieService
 
         return movie;
     }
+
+    public async Task<MovieViewModel> GetByMovieDetailsIdAsync(int movieDetailsId)
+    {
+        var movie = await _repository.Movie.GetMovieByMovieDetailsIdAsync(movieDetailsId);
+
+        return _mapper.Map<MovieViewModel>(movie);
+    }
 }

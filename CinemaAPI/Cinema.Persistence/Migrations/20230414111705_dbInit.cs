@@ -136,7 +136,7 @@ namespace Cinema.Persistence.Migrations
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Duration = table.Column<int>(type: "int", nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PosterUrl = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    PosterUrl = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: false),
                     MovieTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -526,12 +526,12 @@ namespace Cinema.Persistence.Migrations
                 columns: new[] { "Id", "Duration", "MovieTypeId", "OriginalTitle", "PosterUrl", "ReleaseDate", "Title" },
                 values: new object[,]
                 {
-                    { 1, 145, 1, "Shrek", "www.niceShrekUrl.com", new DateTime(1999, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Зелений чолов'яга" },
-                    { 2, 120, 2, "Titanic", "www.niceTitanicUrl.com", new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Затонувший корабель" },
-                    { 3, 160, 3, "Borat", "www.niceBoratUrl.com", new DateTime(2006, 11, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Смішний казах" },
-                    { 4, 170, 1, "Mask", "www.niceMaskUrl.com", new DateTime(1999, 12, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Зелений чорт" },
-                    { 5, 120, 2, "Kung Fu Panda", "www.nicePandaUrl.com", new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Чорнобілий ведмідь" },
-                    { 6, 135, 3, "Avatar", "www.niceAvatarUrl.com", new DateTime(2009, 5, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "Сині люди" }
+                    { 1, 145, 1, "Shrek", "https://i.etsystatic.com/27475238/r/il/f9eed6/3758942437/il_fullxfull.3758942437_9564.jpg", new DateTime(1999, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Зелений чолов'яга" },
+                    { 2, 120, 2, "Titanic", "https://i.ebayimg.com/images/g/MHIAAOSwsMhiib8p/s-l1600.jpg", new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Затонувший корабель" },
+                    { 3, 160, 3, "Borat", "https://avatars.mds.yandex.net/get-kinopoisk-image/1777765/5ff5b5b3-d231-4c60-b25c-9dac42f3c991/1920x", new DateTime(2006, 11, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Смішний казах" },
+                    { 4, 170, 1, "Mask", "https://m.media-amazon.com/images/M/MV5BOWExYjI5MzktNTRhNi00Nzg2LThkZmQtYWVkYjRlYWI2MDQ4XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg", new DateTime(1999, 12, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Зелений чорт" },
+                    { 5, 120, 2, "Kung Fu Panda", "https://static.posters.cz/image/1300/poster/kung-fu-panda-i13408.jpg", new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Чорнобілий ведмідь" },
+                    { 6, 135, 3, "Avatar", "https://i.ebayimg.com/images/g/URcAAOSwC31jZQ11/s-l500.jpg", new DateTime(2009, 5, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "Сині люди" }
                 });
 
             migrationBuilder.InsertData(
