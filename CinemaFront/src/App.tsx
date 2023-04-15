@@ -1,11 +1,20 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "./components/ui/header";
+import Login from "./pages/Authentication/Login";
+import Signup from "./pages/Authentication/Signup";
 import Home from "./pages/Home/Home";
 import Cinema from "./pages/Admin/Cinema";
 import News from "./pages/News/News";
 import MoviePosters from "./pages/Movies/MoviePosters";
 import { FAQ } from "./pages/Home/FAQ";
 import AdminMain from "./pages/Admin/Main"
+import SearchMovies from "./pages/Admin/SearchMovies";
+import AddNewMovie from "./pages/Admin/AddNewMovie";
+import ChangeMovie from "./pages/Admin/ChangeMovie";
+import DeleteMovieById from "./pages/Admin/DeleteMovieById";
+import AuthButton from "./components/ui/AuthButton";
+import RegisterButton from "./components/ui/RegisterButton";
+import Account from "./pages/Authentication/Account";
 import AuthButton from "./components/ui/AuthButton";
 import RegisterButton from "./components/ui/RegisterButton";
 import Account from "./pages/Authentication/Account";

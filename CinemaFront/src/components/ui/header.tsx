@@ -5,16 +5,8 @@ import AuthButton from './AuthButton';
 import RegisterButton from './RegisterButton';
 
 export const Header: FC<{}> = () => {
-    const [token, setToken] = useState("");
-    const [role, setRole] = useState("");
-
-    const handleLogin = (token: string) => {
-        setToken(token);
-    }
-    
-    const handleRole = (role: string) => {
-        setRole(role);
-    }
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
       
     return (     
         <nav className="navbar navbar-expand-lg bg-black text-white border-bottom" id="main_header">                    
@@ -30,10 +22,6 @@ export const Header: FC<{}> = () => {
                     <li className="nav-item">
                         <Link to="/Movies/Movies" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
                             Фільми</Link>
-                    </li> 
-                    <li className="nav-item">
-                        <Link to="/Admin/Main" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
-                            Admin</Link>
                     </li> 
                     {token
                     ?
@@ -59,7 +47,7 @@ export const Header: FC<{}> = () => {
                     :
                         <>
                             <li>
-                                <AuthButton onLogin={ handleLogin } onRole={handleRole} />
+                                <AuthButton />
                             </li>
                             <li>
                                 <RegisterButton />

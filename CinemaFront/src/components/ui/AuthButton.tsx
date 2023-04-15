@@ -3,13 +3,12 @@ import { Button, Form, Modal} from 'react-bootstrap';
 import { DecodedToken, verifyAuthToken } from '../../hooks/verifyAuthToken';
 import axios from 'axios';
 
-interface AuthButtonProps {
-  onLogin: (token: string) => void;
-  onRole: (role: string) => void;
+interface AuthButtonProps{
+  openCondition?: boolean;
 }
 
-const AuthButton: React.FC<AuthButtonProps> = ({ onLogin, onRole }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const AuthButton: React.FC<AuthButtonProps> = ({openCondition}) => {
+  const [isModalOpen, setIsModalOpen] = useState(openCondition);
 
   function handleOpenModal(): void {
     setIsModalOpen(true);
@@ -34,14 +33,13 @@ const AuthButton: React.FC<AuthButtonProps> = ({ onLogin, onRole }) => {
 
       localStorage.setItem('token', token);
 
-      onLogin(token);
-
       const tokenInfo = verifyAuthToken();
       if (tokenInfo){
         const decodedToken = tokenInfo as DecodedToken;
-        onRole(decodedToken.role);
-        console.log(decodedToken.role);
+        localStorage.setItem('role', decodedToken.role);
       }
+      sessionStorage.clear()
+      window.location.href = "/Account";
     }
     catch {
       // If authentication fails, show an error message
@@ -86,4 +84,3 @@ const AuthButton: React.FC<AuthButtonProps> = ({ onLogin, onRole }) => {
   };
   
   export default AuthButton;
-

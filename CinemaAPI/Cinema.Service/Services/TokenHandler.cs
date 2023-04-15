@@ -48,7 +48,7 @@ public class TokenHandler : ITokenHandler
             new(ClaimTypes.GivenName, user.FirstName),
             new(ClaimTypes.Surname, user.LastName),
             new(ClaimTypes.Email, user.Email),
-            new(ClaimTypes.Role, user.Role.RoleName.ToString())
+            new("role", user.Role.RoleName.ToString())
         };
 
         // Token creation
