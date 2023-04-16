@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal} from 'react-bootstrap';
-import { DecodedToken, verifyAuthToken } from '../../hooks/verifyAuthToken';
+import { DecodedToken, verifyAuthToken } from '../../hooks/VerifyAuthToken';
 import axios from 'axios';
 
 interface AuthButtonProps{

@@ -25,7 +25,6 @@ public class HallService : IHallService
     public async Task<HallInfoViewModel> AddAsync(AddHallWithCinemaIdRequest addHallRequest)
     {
         var cinema = await CinemaExists(addHallRequest.CinemaId);
-        await HallNumberExists(addHallRequest.HallNumber);
 
         if (cinema.Halls.Any(x => x.HallNumber == addHallRequest.HallNumber))
         {
@@ -58,6 +57,13 @@ public class HallService : IHallService
         return _mapper.Map<List<HallInfoViewModel>>(halls);
     }
 
+    public async Task<IEnumerable<HallInfoViewModel>> GetAllHallByCinemaIdAsync(int cinemaId)
+    {
+        var halls = await _repository.Hall.GetAllHallByCinemaIdAsync(cinemaId);
+
+        return _mapper.Map<List<HallInfoViewModel>>(halls);
+    }
+
     public async Task<HallInfoViewModel> GetAsync(int id)
     {
         var hall = await _repository.Hall.GetHallInfoAsync(id);
@@ -73,16 +79,15 @@ public class HallService : IHallService
     public async Task UpdateAsync(int id, UpdateHallWithCinemaIdRequest updateHallRequest)
     {
         var existingCinema = await CinemaExists(updateHallRequest.CinemaId);
+        var existingHall = await HallExists(id, true);
 
-        if (!existingCinema.Halls.Any(x => x.Id == id))
+        if (existingCinema.Halls.Any(x => x.HallNumber == updateHallRequest.HallNumber))
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetInvalidCinemaException(updateHallRequest.CinemaId));
+            throw new BadRequestException(ConstError.GetErrorForExistingElement(nameof(Hall)));
         }
 
-        var hall = await HallExists(id, true);
-
-        _mapper.Map(updateHallRequest, hall);
+        _mapper.Map(updateHallRequest, existingHall);
         await _repository.SaveAsync();
     }
 
@@ -93,18 +98,6 @@ public class HallService : IHallService
         {
             _loggerManager.LogError(ConstError.ERROR_BY_ID);
             throw new NotFoundException(ConstError.GetErrorForException(nameof(Hall), id));
-        }
-
-        return hall;
-    }
-
-    private async Task<Hall?> HallNumberExists(int num)
-    {
-        var hall = await _repository.Hall.GetHallByNumberAsync(num);
-        if (hall is not null)
-        {
-            _loggerManager.LogError(ConstError.EXISTING_ENTITY);
-            throw new BadRequestException(ConstError.GetErrorForExistingElement(nameof(Hall)));
         }
 
         return hall;

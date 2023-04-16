@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Review } from "../../../types/reviewTypes/Review";
+import Review from "../../../types/reviewTypes/Review";
 import axios from "axios";
 import { Alert, Card, Col, Row } from "react-bootstrap";
-import { Movie } from "../../../types/movieTypes/Movie";
+import Movie from "../../../types/movieTypes/Movie";
 
 interface ReviewItemProps { 
     review: Review;

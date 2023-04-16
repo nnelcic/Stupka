@@ -1,5 +1,4 @@
 import {FC, useState} from 'react';
-import { MainLogo } from './logo';
 import { Link } from 'react-router-dom';
 import AuthButton from './AuthButton';
 import RegisterButton from './RegisterButton';
@@ -10,9 +9,9 @@ export const Header: FC<{}> = () => {
       
     return (     
         <nav className="navbar navbar-expand-lg bg-black text-white border-bottom" id="main_header">                    
-            <Link to="/">
+            {/* <Link to="/">
                 <MainLogo/>
-            </Link>                        
+            </Link> */}
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav text-white" id="header_list">
                     <li className="nav-item text-white">

@@ -1,8 +1,8 @@
-import { CustomError } from '../types/CustomError';
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from 'axios';
 import ISeanse from '../types/Seanse';
 import http from '../http-common';
+import CustomError from "../types/errorTypes/CustomError";
 
 export function useSeanses() {
     const defaultError: CustomError = { Message: "", StatusCode: 200 };

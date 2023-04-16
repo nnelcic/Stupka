@@ -1,5 +1,5 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { User } from "../../../types/userTypes/User";
+import User from "../../../types/userTypes/User";
 
 interface UserRowProps {
     user: User;

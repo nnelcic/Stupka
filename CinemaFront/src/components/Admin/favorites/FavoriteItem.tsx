@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Favourite } from "../../../types/favouriteTypes/Favourite";
+import Favourite from "../../../types/favouriteTypes/Favourite";
 import MovieItem from "../movies/MovieItem";
 import { Col, Row } from "react-bootstrap";
-import { Movie } from "../../../types/movieTypes/Movie";
+import Movie from "../../../types/movieTypes/Movie";
 
 interface FavouriteItemProps { 
     favourite: Favourite;

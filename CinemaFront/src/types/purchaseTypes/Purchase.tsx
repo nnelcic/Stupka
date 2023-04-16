@@ -1,6 +1,6 @@
-import { Ticket } from "./Ticket";
+import Ticket from "./Ticket";
 
-export interface Purchase {
+export default interface Purchase {
     id: number;
     price: number;
     promocode: string;

@@ -60,6 +60,14 @@ public class UserController : ControllerBase
         return NoContent();
     }
 
+    [HttpPut("[action]/{id:int}/{roleId:int}")]
+    public async Task<IActionResult> UpdateUserRoleAsync(int id, int roleId)
+    {
+        await _service.UserService.UpdateRoleAsync(id, roleId);
+
+        return NoContent();
+    }
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteUserAsync(int id)
     {

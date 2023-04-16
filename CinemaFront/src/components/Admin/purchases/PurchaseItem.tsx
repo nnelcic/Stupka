@@ -1,6 +1,6 @@
 import { Card, CardGroup, Col, Row } from 'react-bootstrap';
 import TicketGroup from './TicketGroup';
-import { Purchase } from '../../../types/purchaseTypes/Purchase';
+import Purchase from '../../../types/purchaseTypes/Purchase';
 
 interface PropsPurchaseItem {
     purchase: Purchase;
@@ -17,7 +17,9 @@ function PurchaseItem({purchase}: PropsPurchaseItem) {
                 <Card.Body>
                     <Card.Title>Дата покупки: {purchase.purchaseDate}</Card.Title>
                     <Card.Text>
-                        Ціна {purchase.price} ₴ | Кількість квитків: {purchase.tickets.length}
+                        Ціна {purchase.price} ₴ 
+                        {purchase.tickets.length > 0 && <div>
+                        | Кількість квитків: {purchase.tickets.length}</div>}
                     </Card.Text>
                 </Card.Body>
                 </Card>

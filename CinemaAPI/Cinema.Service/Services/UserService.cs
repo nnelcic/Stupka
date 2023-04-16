@@ -63,6 +63,15 @@ public class UserService : IUserService
         _mapper.Map(updateUserRequest, user);
         await _repository.SaveAsync();
     }
+    
+
+    public async Task UpdateRoleAsync(int id, int roleId)
+    {
+        var user = await UserExists(id, true);
+
+        user.RoleId = roleId;
+        await _repository.SaveAsync();
+    }
 
     public async Task DeleteAsync(int id)
     {

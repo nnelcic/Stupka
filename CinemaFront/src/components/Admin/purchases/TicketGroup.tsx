@@ -1,5 +1,5 @@
 import { Card } from 'react-bootstrap'
-import { Ticket } from '../../../types/purchaseTypes/Ticket';
+import Ticket from '../../../types/purchaseTypes/Ticket';
 
 interface TicketGroupProps {
     ticket: Ticket

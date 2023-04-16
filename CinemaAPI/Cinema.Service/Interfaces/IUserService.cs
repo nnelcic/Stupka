@@ -12,5 +12,6 @@ public interface IUserService
     Task<UserViewModel> GetAsync(int id);
     Task<UserViewModel> AddAsync(AddUserRequest addUserRequest);
     Task UpdateAsync(int id, UpdateUserRequest updateUserRequest);
+    Task UpdateRoleAsync(int id, int roleId);
     Task DeleteAsync(int id);
 }

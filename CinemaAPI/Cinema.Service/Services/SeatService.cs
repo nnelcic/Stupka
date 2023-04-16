@@ -63,12 +63,7 @@ public class SeatService : ISeatService
     public async Task UpdateAsync(int id, UpdateSeatWithHallIdRequest updateSeatRequest)
     {
         var hall = await HallExists(updateSeatRequest.HallId);
-
-        if (!hall.Seats.Any(x => x.Id == id))
-        {
-            _loggerManager.LogError(ConstError.ERROR_BY_ID);
-            throw new NotFoundException(ConstError.GetInvalidHallException(id));
-        }
+        await SeatByNumberAndRowExists(updateSeatRequest.SeatNumber, updateSeatRequest.Row, updateSeatRequest.HallId);
 
         var seat = await SeatExists(id, true);
 

@@ -7,5 +7,4 @@ public class AddCinemaRequest
     public string City { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
-    public ICollection<AddHallRequest> Halls { get; set; }
 }

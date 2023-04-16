@@ -1,7 +1,7 @@
-import { Seanse } from "../seanseTypes/Seanse";
-import { Seat } from "../seatTypes/Seat";
+import Seanse from "../seanseTypes/Seanse";
+import Seat from "../seatTypes/Seat";
 
-export interface Ticket {
+export default interface Ticket {
     id: number;
     price: number;
     seanse: Seanse;

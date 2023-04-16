@@ -31,6 +31,14 @@ public class HallController : ControllerBase
         return Ok(hall);
     }
 
+    [HttpGet("[action]/{cinemaId:int}")]
+    public async Task<IActionResult> GetHallsByCinemaIdAsync(int cinemaId)
+    {
+        var hall = await _service.HallService.GetAllHallByCinemaIdAsync(cinemaId);
+
+        return Ok(hall);
+    }
+
     [HttpPost]
     public async Task<IActionResult> AddHallAsync([FromBody] AddHallWithCinemaIdRequest addHallRequest)
     {

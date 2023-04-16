@@ -1,8 +1,8 @@
 import IMovie from '../types/Movie';
-import { CustomError } from '../types/CustomError';
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from 'axios';
 import http from '../http-common';
+import CustomError from '../types/errorTypes/CustomError';
 
 export function useMovies() {
     const defaultError: CustomError = { Message: "", StatusCode: 200 };

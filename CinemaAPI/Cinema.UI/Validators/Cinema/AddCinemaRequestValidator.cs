@@ -41,12 +41,6 @@ public class AddCinemaRequestValidator : AbstractValidator<AddCinemaRequest>
                 .WithMessage("Phone number couldn't be empty!")
             .Must(IsValidPhoneNumber)
                 .WithMessage("Phone number isn't valid!");
-
-        RuleFor(x => x.Halls)
-            .NotNull()
-                .WithMessage("The cinema must have at least 1 hall!")
-            .NotEmpty()
-                .WithMessage("The cinema must have at least 1 hall!");
     }
 
     private bool IsValidPhoneNumber(string phoneNumber)

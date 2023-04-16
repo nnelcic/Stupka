@@ -1,5 +1,5 @@
-import { Favourite } from "../favouriteTypes/Favourite";
-import { Review } from "../reviewTypes/Review";
+import Favourite from "../favouriteTypes/Favourite";
+import Review from "../reviewTypes/Review";
 
 export interface UserDetails {
     id: number;

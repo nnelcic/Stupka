@@ -30,8 +30,14 @@ public class HallRepository : RepositoryBase<Hall>, IHallRepository
     public async Task<List<Hall>> GetAllHallInfoAsync()
     {
         return await FindAll()
-                .Include(x => x.Seats)
-                    .ThenInclude(x => x.SeatType)
+            .Include(x => x.Seats)
+                .ThenInclude(x => x.SeatType)
+            .ToListAsync();
+    }
+
+    public async Task<List<Hall>> GetAllHallByCinemaIdAsync(int cinemaId)
+    {
+        return await FindByCondition(x => x.CinemaId == cinemaId, false)
             .ToListAsync();
     }
 

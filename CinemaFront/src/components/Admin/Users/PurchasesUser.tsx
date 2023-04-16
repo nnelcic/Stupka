@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { Purchase } from "../../../types/purchaseTypes/Purchase";
+import Purchase from "../../../types/purchaseTypes/Purchase";
 import PurchaseItem from "../purchases/PurchaseItem";
 
 interface PurchasesUserProps {

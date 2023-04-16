@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { UserInfo } from "../../../types/userTypes/UserInfo";
+import UserInfo from "../../../types/userTypes/UserInfo";
 import { Accordion, Alert, Container } from "react-bootstrap";
 import ReviewItem from "../reviews/ReviewItem";
 import FavouriteItem from "../favorites/FavoriteItem";

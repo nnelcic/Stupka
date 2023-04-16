@@ -1,5 +1,5 @@
 import Alert from "react-bootstrap/Alert";
-import { CustomError } from "../../types/errorTypes/CustomError";
+import CustomError from "../../types/errorTypes/CustomError";
 
 interface ButtonProps {
   func: (show: boolean) => void;

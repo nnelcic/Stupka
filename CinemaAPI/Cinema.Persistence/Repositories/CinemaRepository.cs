@@ -17,7 +17,7 @@ public class CinemaRepository : RepositoryBase<Domain.Models.Entities.Cinema>, I
 
     public async Task<List<Domain.Models.Entities.Cinema>> GetAllCinemaAsync()
     {
-        return await FindAll().OrderBy(x => x.Name)
+        return await FindAll()
             .ToListAsync();
     }
 

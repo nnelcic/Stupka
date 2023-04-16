@@ -4,9 +4,10 @@ interface DeleteUserProps {
     userId: number; 
     deleteUser: (id: number) => void;
     close: () => void;
+    setRerender: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 }
 
-const DeleteUser: React.FC<DeleteUserProps> = ({userId, deleteUser, close}) => {
+const DeleteUser: React.FC<DeleteUserProps> = ({ setRerender, userId, deleteUser, close }) => {
 
     return (
         <>
@@ -18,9 +19,10 @@ const DeleteUser: React.FC<DeleteUserProps> = ({userId, deleteUser, close}) => {
                         <Button variant="danger" className="btn-lg" onClick={() => {
                             deleteUser(userId);
                             close();
-                        }}>
-                            Видалити
-                        </Button>
+                            setTimeout(() => {
+                                setRerender(x => !x)
+                            }, 1000);
+                        }}>Видалити</Button>
                     </Col>
                     <Col></Col>
                 </Row>

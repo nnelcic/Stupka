@@ -1,4 +1,4 @@
-export interface Price {
+export default interface Price {
     id: number;
     cost: number;
 }

@@ -1,4 +1,4 @@
-export interface Favourite { 
+export default interface Favourite { 
     userDetailsId: number;
     movieId: number;
 }
