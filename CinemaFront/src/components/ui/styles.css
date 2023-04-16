@@ -1,4 +1,4 @@
-#main {
+#main, #admin {
     min-height: 1000px;
     width: 100%;  
     background-size: cover;
@@ -7,8 +7,9 @@
 #about_cinema {
     width: 500px;   
     color: white;
-    padding: 40px;
-    margin-left: 40px;
+   margin-top: 20px;
+    padding-top: 40px;
+    margin-left: 10px;
     font-size: 18px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: justify;
@@ -64,5 +65,14 @@ button {
 li {
     padding-top: 4px;
     margin-top: 0;
+}
+
+#slide {
+    width: 70%;
+    height: 70%;
+    border: 3pt rgb(113, 8, 8) solid;
+    margin: 20px;
+    margin-top: 130px;
+    padding: 0;
 }
 

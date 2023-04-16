@@ -4,8 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
 export function AddMovie() {
-    const [show, setShow] = useState(false);
-  
+    const [show, setShow] = useState(false);  
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
@@ -44,16 +43,7 @@ export function AddMovie() {
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>URL постеру</Form.Label>
               <Form.Control type="text"/>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Опублікувати на головній сторінці" />
-            </Form.Group>
-
-
-            <Button variant="primary" type="submit">
-              Додати деталі фільму
-            </Button>
+            </Form.Group>         
           </Form>
 
           </Modal.Body>
@@ -68,6 +58,5 @@ export function AddMovie() {
         </Modal>
       </>
     );
-  }
-  
- // render(<AddMovie />);
+  }  
+ 

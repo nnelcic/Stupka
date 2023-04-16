@@ -7,7 +7,7 @@ const Home: React.FC<{}> = () => {
     return (
         <>          
         <MainBlock />
-        <Footer />
+       
        </>
     );
 };

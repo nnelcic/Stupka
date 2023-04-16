@@ -1,3 +1,4 @@
+
 export default interface Movie {
     id: number;
     duration: number;
@@ -6,3 +7,4 @@ export default interface Movie {
     releaseDate: Date;
     title: string;
 }
+

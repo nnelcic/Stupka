@@ -1,9 +1,10 @@
-export default interface IMovie {
+
+export default interface Movie {
     id: number,
     originalTitle: string,
     title: string,
     duration: number,  
-    movieType: string,  
+    movieTypeId: number,  
     releaseDate: string,  
     posterUrl: string,  
 }
