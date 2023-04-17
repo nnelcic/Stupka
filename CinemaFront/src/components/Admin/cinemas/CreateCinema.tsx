@@ -86,8 +86,8 @@ const CreateCinema: React.FC<CreateCinemaFormProps> = ({ setOccuredError, setSho
 
             {error && <Alert variant="danger">{error}</Alert>}
 
-            <div className="d-grid gap-2">
-                <Button variant="primary" type="submit">
+            <div>
+                <Button variant="primary" size="sm" type="submit">
                     Створити
                 </Button>
             </div>

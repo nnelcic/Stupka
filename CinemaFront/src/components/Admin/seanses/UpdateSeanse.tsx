@@ -13,10 +13,10 @@ type UpdateSeanseFormProps = {
 };
 
 const UpdateSeanse: React.FC<UpdateSeanseFormProps> = ({ setOccuredError, setShowError, close, seanse, setRerender }) => {
-    const [startTime, setStartTime] = useState('');
-    const [hallId, setHallId] = useState(0);
-    const [movieId, setMovieId] = useState(0);
-    const [priceId, setPriceId] = useState(0);   
+    const [startTime, setStartTime] = useState(seanse.startTime);
+    const [hallId, setHallId] = useState(seanse.hallId);
+    const [movieId, setMovieId] = useState(seanse.movie.id);
+    const [priceId, setPriceId] = useState(seanse.price.id);   
     const [error, setError] = useState("");
     const { updateSeanse } = useSeanses();
 
@@ -81,7 +81,7 @@ const UpdateSeanse: React.FC<UpdateSeanseFormProps> = ({ setOccuredError, setSho
             {error && <Alert variant="danger">{error}</Alert>}
 
             <div className="d-grid gap-2">
-                <Button variant="primary" type="submit">
+                <Button variant="outline-dark" type="submit">
                     Редагувати
                 </Button>
             </div>

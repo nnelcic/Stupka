@@ -1,19 +1,19 @@
 import { useEffect } from "react";
-import MovieDetails from "../../../types/MovieDetails";
 import MovieInfo from "../../../types/MovieInfo";
+import MovieDetails from "../../../types/MovieDetails";
 import { Card, Container, Row } from "react-bootstrap";
 
 interface GetMovieInfoProps {
-    movieId: number; 
-    movie: MovieInfo;
-    info: MovieDetails;
-    getMovie: (id: number) => void;
+    
+    movie: MovieInfo; 
+    movieDetails: MovieDetails;  
+    getMovie: (movieId: number) => void;
 }
 
-const GetMovieInfo: React.FC<GetMovieInfoProps> = ({movieId, getMovie, movie, info}) => {
+const GetMovieInfo: React.FC<GetMovieInfoProps> = ({ getMovie, movie, movieDetails}) => {
     
     useEffect(() => {
-        getMovie(movieId);
+        getMovie(movie.id);
     }, []);
 
     return (
@@ -28,13 +28,13 @@ const GetMovieInfo: React.FC<GetMovieInfoProps> = ({movieId, getMovie, movie, in
                         <Card style={{ width: '28rem' }}>               
                         <Card.Title>{movie.title}</Card.Title>  
                         <Card.Body>
-                                <Card.Text>{info.description}</Card.Text>                                                  
+                                <Card.Text>{movieDetails.description}</Card.Text>                                                  
                             </Card.Body>
                             <Card.Footer>
-                                <Card.Text>Країна: {info.country}</Card.Text> 
-                                <Card.Text>Продюсер: {info.producer}</Card.Text> 
-                                <Card.Text>Вікові обмеження: {info.age_Limit}</Card.Text>
-                                <Card.Text>Рейтинг: {info.independent_rate}</Card.Text>                                                   
+                                <Card.Text>Країна: {movieDetails.country}</Card.Text> 
+                                <Card.Text>Продюсер: {movieDetails.producer}</Card.Text> 
+                                <Card.Text>Вікові обмеження: {movieDetails.age_Limit}</Card.Text>
+                                <Card.Text>Рейтинг: {movieDetails.independent_rate}</Card.Text>                                                   
                             </Card.Footer>
                         </Card>      
                          

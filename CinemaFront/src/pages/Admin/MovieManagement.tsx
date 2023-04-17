@@ -2,6 +2,7 @@ import useMovie from "../../hooks/MovieHook";
 import AdminPage from "../../components/ui/AdminPage";
 import Movie from "./Movie"
 import image from "../../assets/Main.png";
+import SearchTitle from "../../components/forms/SearchTitle";
 
 const MovieManagement: React.FC<{}> = () => {
     const { showMovie, setShowMovie } = useMovie();       
@@ -9,6 +10,7 @@ const MovieManagement: React.FC<{}> = () => {
     return (
         <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100">
             <AdminPage/>
+        
             {showMovie && <Movie setShowMovie={setShowMovie} />}            
         </div>
     );

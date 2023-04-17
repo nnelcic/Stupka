@@ -9,15 +9,25 @@ export default function useMovie() {
     const [movies, setMovies] = useState<MovieInfo[]>([]);
     const [movie, setMovie] = useState<MovieInfo>(defaultMovieInfo);
     const [showMovie, setShowMovie] = useState<boolean>(true);
+    const [movieItem, setMovieItem] = useState<MovieInfo[]>();
 
     async function fetchMovies() {
         const response = await http.get<MovieInfo[]>('/movies/GetAllMovies');
         setMovies(response.data);
     }
 
+    async function addMovieItem(movieId: number) {
+        const response = await http.get<MovieInfo>(`/movies/GetMoviesByIdAsync/${movieId}`);
+        setMovie(response.data);
+      }
+
+    async function findByTitle(title: string) {
+        const response = await http.get<MovieInfo[]>(`/movies/GetAllMovies?SearchTerm=${title}`);
+        return response.data;
+    }
+
     async function updateMovie(id: number, originalTitle: string, title: string, duration: number, type: number,
-                                releaseDate: string,
-                                posterUrl: string, description: string, producer: string, ageLimit: number,
+                                releaseDate: string, posterUrl: string, description: string, producer: string, ageLimit: number,
                                 rate: number, country: string, movieTrailerUrl: string, genreId: number, movieId: number, 
                                 startDate: string, endDate: string, setShowError: (value: boolean) => void, setOccuredError: (value: CustomError) => void) {
         try {
@@ -81,10 +91,12 @@ export default function useMovie() {
         movie, 
         showMovie, 
         setShowMovie,
+        addMovieItem,
         deleteMovie,
         fetchMovies,
         updateMovie,
         createMovie,
+        findByTitle,
         getMovie
     };
 }

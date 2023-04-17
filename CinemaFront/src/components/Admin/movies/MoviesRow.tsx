@@ -1,8 +1,9 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import MovieInfo from "../../../types/MovieInfo";
+import MovieDetails from "../../../types/MovieDetails";
 
 interface MoviesRowProps {
-    movie: MovieInfo;
+    movie: MovieInfo;   
     modal: boolean;
     open: () => void;
     setCurrentMovieId: (num: number) => void;
@@ -22,10 +23,22 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, movie, op
             <td>{movie.duration}</td>            
             <td>
                 <Container>
-                    <Row>
+                    <Row> 
                          <Col>
-                            <Button variant="light" onClick={() => {
-                                setCurrentMovieId(movie.id);                               
+                            <Button variant="outline-dark" className="text-white" onClick={() => {
+                                setCurrentMovieId(movie.id); 
+                                                         
+                                open();                               
+                                setCurrentOption('publishMovie');
+                                setSize('lg');
+                            }}>
+                                Опублікувати
+                            </Button>
+                        </Col>                           
+                         <Col>
+                            <Button variant="outline-dark" className="text-white" onClick={() => {
+                                setCurrentMovieId(movie.id); 
+                                console.log(movie.id);                                                           
                                 open();                               
                                 setCurrentOption('showMovie');
                                 setSize('lg');
@@ -34,7 +47,7 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, movie, op
                             </Button>
                         </Col>     
                         <Col>
-                        <Button variant="light" onClick={() => {
+                        <Button variant="outline-dark" className="text-white" onClick={() => {
                                 setCurrentMovieId(movie.id);
                                 setMovie(movie);
                                 open();                               
@@ -46,7 +59,7 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, movie, op
                         </Button>
                         </Col>
                         <Col>
-                         <Button variant="danger"  onClick={() => {
+                         <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentMovieId(movie.id);
                                 open();
                                 setCurrentOption('deleteMovie');

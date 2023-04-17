@@ -18,7 +18,7 @@ function SlideShow() {
             
           </Carousel.Caption>
         </Carousel.Item>
-        <Carousel.Item interval={500}>
+        <Carousel.Item interval={700}>
           <img
             className="d-block w-100"
             src={second}

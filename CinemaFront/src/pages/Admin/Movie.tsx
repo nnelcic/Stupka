@@ -12,6 +12,10 @@ import { ModalContext } from "../../context/ModalContext";
 import MovieInfo, {defaultMovieInfo} from "../../types/MovieInfo";
 import CustomError, { defaultError } from "../../types/errorTypes/CustomError";
 import MovieDetails, {defaultMovieDetails} from "../../types/MovieDetails";
+import MovieGenre, {defaultGenre} from "../../types/movieGenre";
+import MovieItem from "../../components/Admin/movies/MovieItem";
+import PublishMovieItem from "../../components/Admin/movies/PublishMovieItem";
+import SearchTitle from "../../components/forms/SearchTitle";
 
 interface MoviesProps {
     setShowMovie: (flag: boolean) => void;  
@@ -21,52 +25,55 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
     const { modal, open, close } = useContext(ModalContext);
     const [currentOption, setCurrentOption] = useState<string>('');
     const [size, setSize] = useState<string>('');
-    const [currentMovieId, setCurrentMovieId] = useState<number>(0);
-    const [movie, setMovie] = useState<MovieInfo>(defaultMovieInfo);
-    const [info, setInfo] = useState<MovieDetails>(defaultMovieDetails);
-    const title: string = currentOption === 'updateMovie' ? `Редагувати фільм Id ${currentMovieId}` :
-        currentOption === 'createMovie'? `Створити фільм` : `Видалити фільм Id ${currentMovieId}`
-    
+    const [currentMovieId, setCurrentMovieId] = useState<number>();
+    const [getTitle, setGetTitle] = useState("");
+    const [movie, setMovie] = useState<MovieInfo>(defaultMovieInfo);  
+    const [info, setInfo] = useState<MovieDetails>(defaultMovieDetails); 
+    const [genre, setGenre] = useState<MovieGenre>(defaultGenre);      
     const [showError, setShowError] = useState(false);
     const [occuredError, setOccuredError] = useState<CustomError>(defaultError);
-
     const [rerender, setRerender] = useState(false);
     const { movies, fetchMovies, getMovie } = useMovie();
 
     useEffect(() => {
         fetchMovies();
-    }, [rerender]);
+    }, []);
 
    
     return ( 
-        <Container fluid className="p-5 pt-2 text-center">
+        
+        <Container fluid className="p-5 pt-2 text-center">   
+           
             {showError && <AlertDismissible func={setShowError} error={occuredError}/>}
             
-            {modal && <ModalWindow title={title} 
+            {modal && <ModalWindow title="Заповніть форму" 
                 close={close}
                 modal={modal}
                 size={size}>
                 {
                     currentOption === 'showMovie' 
-                    ? <GetMovieInfo movieId={currentMovieId} getMovie={getMovie} movie={movie} info={info} />
+                    ? <GetMovieInfo  getMovie={getMovie} movie={movie} movieDetails={info} />
+                    : currentOption === 'publishMovie' 
+                    ? <PublishMovieItem movieItem={movie} getMovie={getMovie} close={close} movieId={movie.id}/>
                     : currentOption ===  'updateMovie' 
                     ? <UpdateMovie setShowError={setShowError} setOccuredError={setOccuredError} 
-                    close={close} movie={movie} setRerender={setRerender} /> 
-                    : currentOption ===  'createMovie' ?
-                    <CreateMovie setShowError={setShowError} setOccuredError={setOccuredError}
+                    close={close} movie={movie} setRerender={setRerender} movieDetails={info} movieGenre={genre}/> 
+                    : currentOption ===  'createMovie'
+                    ? <CreateMovie setShowError={setShowError} setOccuredError={setOccuredError}
                     close={close} movie={movie} setRerender={setRerender} /> 
                     : <DeleteMovie setShowError={setShowError} setOccuredError={setOccuredError}
-                    close={close} movieId={currentMovieId} setRerender={setRerender} />}
+                    close={close} movieId={movie.id} setRerender={setRerender} />}
             </ModalWindow>}
 
-            <Button variant="success" size="lg" onClick={() => {
+            <Button variant="outline-danger" size="lg" onClick={() => {
                 setCurrentOption('createMovie');
                 setMovie(movie);
                 setShowMovie(true);
                 open();
                 setSize('lg');
-            }}>Створити фільм</Button>
-               
+            }}>Створити новий фільм</Button>
+              
+            
         <Table striped bordered hover className="mt-2" variant="dark" responsive>
             <thead>
                 <tr>
@@ -82,15 +89,17 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
                 {movies.map(x => 
                 <MoviesRow 
                     setMovie={setMovie}                  
-                    setShowMovie={setShowMovie}
-                    movie={x}
-                    key={x.id} 
+                    setShowMovie={setShowMovie}                   
+                    movie={x}                                
+                    key={x.posterUrl} 
                     open={open}
                     modal={modal}
                     setCurrentMovieId={setCurrentMovieId}
                     setCurrentOption={setCurrentOption}
                     setSize={setSize}
-                />)}
+                />               
+                
+                )}
             </tbody>
         </Table>
         </Container>

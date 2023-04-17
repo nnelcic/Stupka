@@ -1,3 +1,7 @@
+
+import MovieDetails from "./MovieDetails";
+import MovieGenre from "./movieGenre";
+
 export default interface MovieInfo {
     id: number;
     originalTitle: string;
@@ -6,21 +10,8 @@ export default interface MovieInfo {
     movieTypeId: number;  
     releaseDate: string; 
     posterUrl: string;
-    movieDetails: {
-        id: number;
-        description: string;
-        producer: string;
-        age_Limit: number;  
-        independent_rate: number;
-        country: string;
-        movieTrailerUrl: string;
-        start_date: string;
-        end_date: string;
-    }
-    movieGerne: {
-        movieId: number,
-        genreId: number
-    } 
+    movieDetails: MovieDetails;
+    movieGerne: MovieGenre 
 
 }
 
@@ -29,7 +20,7 @@ export const defaultMovieInfo: MovieInfo = {
     originalTitle: '',
     title: '',
     duration: 0,  
-    movieTypeId: 0,  
+    movieTypeId: 0,
     releaseDate: '',  
     posterUrl: '',  
     movieDetails: {

@@ -1,41 +1,38 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
-import Seanse from "../../../types/seanseTypes/Seanse";
+import Price from "../../../types/priceTypes/Price";
 
-interface SeanseRowProps {
-    seanse: Seanse;
+interface PriceRowProps {
+    price: Price;
     modal: boolean;
     open: () => void;
-    setCurrentSeanseId: (num: number) => void;
+    setCurrentPriceId: (num: number) => void;
     setCurrentOption: (option: string) => void;
     setSize: (size: string) => void;    
-    setShowSeanse: (flag: boolean) => void;  
-    setSeanse: (seanse: Seanse) => void;
+    setShowPrice: (flag: boolean) => void;  
+    setPrice: (price: Price) => void;
 }
 
-const SeanseRow: React.FC<SeanseRowProps> = ({ setSeanse, setShowSeanse, seanse, open, setCurrentSeanseId, setCurrentOption, setSize }) => {
+const PriceRow: React.FC<PriceRowProps> = ({ setPrice, setShowPrice, price, open, setCurrentPriceId, setCurrentOption, setSize }) => {
     return (
         <tr>
-            <td>{seanse.id}</td>
-            <td>{seanse.startTime}</td>
-            <td>{seanse.hallId}</td>
-            <td>{seanse.movie.title}</td>
-            <td>{seanse.price.cost}</td>         
+            <td>{price.id}</td>
+            <td>{price.cost}</td>         
             <td>
                 <Container>
                     <Row>                       
                         <Col>
                             <Button variant="outline-dark" className="text-white" onClick={() => {
-                                setCurrentSeanseId(seanse.id);
-                                setSeanse(seanse);
-                                setCurrentOption('updateSeanse');
+                                setCurrentPriceId(price.id);
+                                setPrice(price);
+                                setCurrentOption('updatePrice');
                                 setSize('lg');
                                 open();
                             }}>Редагувати</Button>
                         </Col>
                         <Col>
                             <Button variant="outline-danger" className="text-white" onClick={() => {
-                                setCurrentSeanseId(seanse.id);
-                                setCurrentOption('deleteSeanse');
+                                setCurrentPriceId(price.id);
+                                setCurrentOption('deletePrice');
                                 setSize('sm');
                                 open();
                             }}>Видалити</Button>
@@ -47,4 +44,4 @@ const SeanseRow: React.FC<SeanseRowProps> = ({ setSeanse, setShowSeanse, seanse,
     );
 };
 
-export default SeanseRow;
+export default PriceRow;

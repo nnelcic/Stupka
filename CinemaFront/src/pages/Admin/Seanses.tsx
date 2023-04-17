@@ -52,12 +52,18 @@ const Seanses: React.FC<SeansesProps> = ({ setShowSeanse }) => {
                 close={close} seanseId={currentSeanseId} setRerender={setRerender} />}
             </ModalWindow>}
 
-            <Button variant="success" size="lg" onClick={() => {
-                setCurrentOption('createSeanse');
-                setSeanse(seanse);
-                open();
-                setSize('lg');
-            }}>Створити</Button>
+            <Container fluid className="p-1">
+                <Row>
+                    <Col>
+                    <Button variant="outline-danger" size="lg" onClick={() => {
+                    setCurrentOption('createSeanse');
+                    setSeanse(seanse);
+                    open();
+                    setSize('lg');
+                    }}>Створити новий сеанс</Button>
+                    </Col>
+                </Row>
+            </Container>
                
         <Table striped bordered hover className="mt-2" variant="dark" responsive>
             <thead>

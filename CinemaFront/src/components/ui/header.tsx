@@ -19,9 +19,15 @@ export const Header: FC<{}> = () => {
                             Новини</Link>                           
                     </li> 
                     <li className="nav-item">
-                        <Link to="/Movies/Movies" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
+                        <Link to="/Movies/MoviePosters" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
                             Фільми</Link>
-                    </li> 
+                    </li>                     
+                    <li>
+                                <AuthButton />
+                            </li>
+                            <li>
+                                <RegisterButton />
+                            </li>
                     {token
                     ?
                         role === "Admin"

@@ -1,24 +1,16 @@
-const SearchTittle = () => {
-    return (
-        <div className="input-group mb-3">
-            <input
-            type="text"
-            className="form-control"
-            placeholder="Пошук по назві"
-            //value=""
-            //onChange={this.onChangeSearchTitle}
-            />
-            <div className="input-group-append">
-            <button
-                className="btn btn-outline-secondary"
-                type="button"
-                //onClick={this.searchTitle}
-            >
-                Пошук
-            </button>
-        </div>
-            </div>           
-    )
-}
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Stack from 'react-bootstrap/Stack';
 
-export default SearchTittle;
+
+function SearchTitle() {
+    return (
+      <Stack direction="horizontal" gap={3}>
+        <Form.Control className="me-auto" placeholder="Add your item here..." />
+        <Button variant="outline-dark"className='text-white'>Пошук</Button>
+        <div className="vr" />       
+      </Stack>
+    );
+  }
+  
+  export default SearchTitle;
