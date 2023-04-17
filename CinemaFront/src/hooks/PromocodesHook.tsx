@@ -1,21 +1,22 @@
 import { useState } from "react";
 import CustomError from '../types/errorTypes/CustomError';
 import axios, { AxiosError } from 'axios';
-import Seanse from '../types/seanseTypes/Seanse';
 import http from '../http-common';
+import { Promocode } from "../types/promocodeTypes/Promocode";
 
-export default function useSeanses() {
-    const [seanses, setSeanses] = useState<Seanse[]>([]);
-    const [showSeanse, setShowSeanse] = useState<boolean>(true);
+export default function usePromocodes() {
+    const [promocodes, setPromocodes] = useState<Promocode[]>([]);
+    const [showPromocode, setShowPromocode] = useState<boolean>(true);
 
-    async function fetchSeanses() {
-        const response = await http.get<Seanse[]>('/seanses');
-        setSeanses(response.data);
+    async function fetchPromocodes() {
+        
+        const response = await http.get<Promocode[]>('/promocodes');
+        setPromocodes(response.data);
     }
 
-    async function updateSeanse(seanseId: number, startTime: string, hallId: number, movieId: number, priceId: number, setShowError: (value: boolean) => void, setOccuredError: (value: CustomError) => void) {
+    async function updatePromocode(promocodeId: number, name: string, percentage: number, setShowError: (value: boolean) => void, setOccuredError: (value: CustomError) => void) {
         try {
-            await http.put(`/seanses/${seanseId}`, {startTime, hallId, movieId, priceId});
+            await http.put(`/promocodes/${promocodeId}`, {name , percentage});
         
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -28,10 +29,10 @@ export default function useSeanses() {
         }
     }
 
-    async function createSeanse(startTime: string, hallId: number, movieId: number, priceId: number,
+    async function createPromocode(name: string, percentage: number,
         setShowError: (value: boolean) => void, setOccuredError: (value: CustomError) => void) {
         try {
-            await http.post("/seanses", {startTime, hallId, movieId, priceId});
+            await http.post("/promocodes", {name, percentage});
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 const serverError = error as AxiosError<CustomError>;
@@ -43,11 +44,10 @@ export default function useSeanses() {
         }
     }
 
-    async function deleteSeanse(seanseId: number, setShowError: (value: boolean) => void, 
+    async function deletePromocode(promocodeId: number, setShowError: (value: boolean) => void, 
     setOccuredError: (value: CustomError) => void) {
         try {
-            await http.delete(`/seanses/${seanseId}`);
-            setSeanses(seanses.filter(x => x.id !== seanseId));
+            await http.delete(`/promocodes/${promocodeId}`);
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 const serverError = error as AxiosError<CustomError>;
@@ -60,12 +60,12 @@ export default function useSeanses() {
     }
 
     return { 
-        seanses, 
-        showSeanse, 
-        setShowSeanse,
-        deleteSeanse,
-        fetchSeanses,
-        updateSeanse,
-        createSeanse
+        promocodes, 
+        showPromocode, 
+        setShowPromocode,
+        deletePromocode,
+        fetchPromocodes,
+        updatePromocode,
+        createPromocode
     };
 }

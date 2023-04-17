@@ -24,7 +24,8 @@ public class PromocodeService : IPromocodeService
     
     public async Task<PromocodeViewModel> AddAsync(AddPromocodeRequest addPromocodeRequest)
     {
-        if (await PromocodeExists(addPromocodeRequest.Name) is not null)
+        var existingPromocode = await _repository.Promocode.GetPromocodeAsync(addPromocodeRequest.Name);
+        if (existingPromocode is not null)
             throw new BadRequestException(ConstError.EXISTING_ENTITY);
 
         var promocode = _mapper.Map<Promocode>(addPromocodeRequest);

@@ -7,7 +7,7 @@ const MovieManagement: React.FC<{}> = () => {
     const { showMovie, setShowMovie } = useMovie();       
    
     return (
-        <div style={{ backgroundImage: `url(${image})`}}>
+        <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100">
             <AdminPage/>
             {showMovie && <Movie setShowMovie={setShowMovie} />}            
         </div>

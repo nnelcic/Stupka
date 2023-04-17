@@ -4,7 +4,7 @@ import "./styles.css";
 
 export const Footer: FC<{}> = () => {
     return (
-        <footer>
+        <footer className="fixed-bottom">
             <div className="p-3 bg-black border-top" id="footer">
                 <ul
                     className="nav col-12 col-lg-auto me-lg-auto mb-2 jusitfy-content-center mb-md-0"
@@ -48,11 +48,8 @@ export const Footer: FC<{}> = () => {
                     </li>
                 </ul>
             </div>
-
-            <div
-                className="p-3 bg-black text-white border-top text-center"
-                id="copyright"
-            >
+            <div className="p-3 bg-black text-white border-top text-center"
+                id="copyright">
                 <p>© 2023 Stupka cinema. All Rights Reserved.</p>
             </div>
         </footer>

@@ -4,7 +4,7 @@ function AdminPage() {
   return (
     <Nav justify variant="tabs" defaultActiveKey="/home" className='bg-black'>
       <Nav.Item>
-      <Nav.Link href="/admin/cinema">Кінотеатри</Nav.Link>
+      <Nav.Link href="/admin/cinemamanagement">Кінотеатри</Nav.Link>
       </Nav.Item>
       <Nav.Item>
       <Nav.Link href="/admin/seansemanagement">Сеанси</Nav.Link>
@@ -14,6 +14,9 @@ function AdminPage() {
       </Nav.Item>
       <Nav.Item>
       <Nav.Link href="/admin/users">Користувачі</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+      <Nav.Link href="/admin/promocodes">Промокоди</Nav.Link>
       </Nav.Item>
     </Nav>
   );

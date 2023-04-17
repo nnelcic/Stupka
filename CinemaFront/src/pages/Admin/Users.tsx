@@ -8,6 +8,8 @@ import ModalWindow from "../../components/shared/ModalWindow";
 import PurchasesUser from "../../components/Admin/users/PurchasesUser";
 import DeleteUser from "../../components/Admin/users/DeleteUser";
 import UpdateUserRole from "../../components/Admin/users/UpdateUserRole";
+import AdminPage from "../../components/ui/AdminPage";
+import image from "../../assets/Main.png";
 
 const Users: React.FC<{}> = () => {
     
@@ -23,7 +25,8 @@ const Users: React.FC<{}> = () => {
     }, [rerender]);
 
     return (
-        <div>
+        <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100">
+        <AdminPage />
             {users &&
                 <Container fluid className="p-5 pt-3 text-center">
                     

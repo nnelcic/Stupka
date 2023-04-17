@@ -7,10 +7,9 @@ const SeanseManagement: React.FC<{}> = () => {
     const { showSeanse, setShowSeanse } = useSeanses();       
    
     return (
-        <div style={{ backgroundImage: `url(${image})`}}>
+        <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100">
             <AdminPage/>
             {showSeanse && <Seanses setShowSeanse={setShowSeanse} />}
-            
         </div>
     );
 };
