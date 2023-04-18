@@ -39,7 +39,7 @@ const UpdateUserRole: React.FC<UpdateUserProps> = ({ userId, close, setRerender 
             {error && <Alert variant="danger">{error}</Alert>}
 
             <div className="d-grid gap-2 mt-4">
-                <Button variant="primary" type="submit">
+                <Button variant="dark" type="submit">
                     Редагувати
                 </Button>
             </div>

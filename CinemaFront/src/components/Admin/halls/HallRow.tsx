@@ -25,14 +25,14 @@ const HallRow: React.FC<HallRowProps> = ({ setHall, setHallId, hall, open, setCu
                 <Container>
                     <Row>
                         <Col>
-                            <Button variant="light" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setShowHall(false);
                                 setShowSeat(true);
                                 setHallId(hall.id);
                                 }}>Місця</Button>
                         </Col>
                         <Col>
-                            <Button variant="warning" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setHall(hall);
                                 setCurrentHallId(hall.id);
                                 setCurrentOption('updateHall');
@@ -41,7 +41,7 @@ const HallRow: React.FC<HallRowProps> = ({ setHall, setHallId, hall, open, setCu
                             }}>Редагувати</Button>
                         </Col>
                         <Col>
-                            <Button variant="danger" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentHallId(hall.id);
                                 setCurrentOption('deleteHall');
                                 setSize('sm');

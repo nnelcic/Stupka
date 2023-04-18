@@ -10,6 +10,7 @@ import { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../context/ModalContext";
 import Price, {defaultPrice} from "../../types/priceTypes/Price";
 import CustomError, { defaultError } from "../../types/errorTypes/CustomError";
+import image from "../../assets/Main.png";
 
 interface PricesProps {    
     setShowPrice: (flag: boolean) => void;   
@@ -35,7 +36,7 @@ const Prices: React.FC<PricesProps> = ({ setShowPrice }) => {
     }, [rerender]);
 
     return ( 
-        <Container fluid className="p-5 pt-2 text-center">
+        <Container fluid className="p-5 pt-2 text-center min-vh-100" style={{ backgroundImage: `url(${image})`}}>
             {showError && <AlertDismissible func={setShowError} error={occuredError}/>}
             
             {modal && <ModalWindow title={title} 

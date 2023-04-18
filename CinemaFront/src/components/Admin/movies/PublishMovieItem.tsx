@@ -64,7 +64,7 @@ const PublishMovieItem: React.FC<PublishMovieItemEvent> =({close, movieItem, mov
             <Row>
                 <Col>
                     <div className="d-grid gap-1">
-                        <Button variant="outline-dark" type="submit">
+                        <Button variant="dark" type="submit">
                             Публікація в афіші
                         </Button>
                     </div>
@@ -72,7 +72,7 @@ const PublishMovieItem: React.FC<PublishMovieItemEvent> =({close, movieItem, mov
 
                 <Col>
                     <div className="d-grid gap-1">
-                        <Button variant="outline-dark" type="submit">
+                        <Button variant="dark" type="submit">
                             Скоро у прокаті
                         </Button>
                     </div>

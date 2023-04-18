@@ -60,12 +60,12 @@ const Halls: React.FC<HallsProps> = ({ setHallId, cinemaId, setShowSeat, setShow
                 close={close} hallId={currentHallId} setRerender={setRerender} />}
             </ModalWindow>}
 
-        <Button variant="dark" size="lg" className="me-5" onClick={() => {
+        <Button variant="outline-danger" size="lg" className="me-5" onClick={() => {
             setShowHall(false);
             setShowCinema(true);
         }}>Кінотеатри</Button>
 
-        <Button variant="success" size="lg" onClick={() => {
+        <Button variant="outline-danger" size="lg" onClick={() => {
             setCurrentOption('createHall');
             open();
             setSize('lg');

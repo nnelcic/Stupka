@@ -21,7 +21,7 @@ const PromocodeRow: React.FC<PromocodeRowProps> = ({ setPromocode, promocode, op
                 <Container>
                     <Row>                       
                         <Col>
-                            <Button variant="warning" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentPromocodeId(promocode.id);
                                 setPromocode(promocode);
                                 setCurrentOption('updatePromocode');
@@ -30,7 +30,7 @@ const PromocodeRow: React.FC<PromocodeRowProps> = ({ setPromocode, promocode, op
                             }}>Редагувати</Button>
                         </Col>
                         <Col>
-                            <Button variant="danger" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentPromocodeId(promocode.id);
                                 setCurrentOption('deletePromocode');
                                 setSize('sm');

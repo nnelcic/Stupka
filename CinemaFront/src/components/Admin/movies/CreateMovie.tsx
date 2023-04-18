@@ -278,8 +278,8 @@ const CreateMovie: React.FC<CreateMovieFormProps> = ({ setOccuredError, setShowE
 
             {error && <Alert variant="danger">{error}</Alert>}
 
-            <div>
-                <Button variant="outline-dark" size="lg" type="submit">
+            <div className="d-grid gap-2">
+                <Button variant="dark" size="lg" type="submit">
                     Створити
                 </Button>
             </div>

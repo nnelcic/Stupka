@@ -48,7 +48,7 @@ const UpdatePrice: React.FC<UpdatePriceFormProps> = ({ setOccuredError, setShowE
             {error && <Alert variant="danger">{error}</Alert>}
 
             <div className="d-grid gap-2">
-                <Button variant="outline-dark" type="submit">
+                <Button variant="dark" type="submit">
                     Редагувати
                 </Button>
             </div>

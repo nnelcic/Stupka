@@ -21,7 +21,7 @@ const DeleteMovie: React.FC<DeleteMovieProps> = ({ setOccuredError, setShowError
                     <Col></Col>
                     <Col>
                         <Button
-                            variant="outline-danger" size="lg"
+                            variant="danger" size="lg"
                             className="btn-lg"
                             onClick={() => {
                                 deleteMovie(movieId, setShowError, setOccuredError);

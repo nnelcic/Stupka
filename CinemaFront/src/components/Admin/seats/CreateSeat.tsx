@@ -66,7 +66,7 @@ const CreateSeat: React.FC<CreateSeatFormProps> = ({ setOccuredError, setShowErr
             {error && <Alert variant="danger">{error}</Alert>}
 
             <div className="d-grid gap-2">
-                <Button variant="primary" type="submit">
+                <Button variant="dark" type="submit">
                     Редагувати
                 </Button>
             </div>

@@ -24,7 +24,7 @@ const SeanseRow: React.FC<SeanseRowProps> = ({ setSeanse, setShowSeanse, seanse,
                 <Container>
                     <Row>                       
                         <Col>
-                            <Button variant="outline-dark" className="text-white" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentSeanseId(seanse.id);
                                 setSeanse(seanse);
                                 setCurrentOption('updateSeanse');

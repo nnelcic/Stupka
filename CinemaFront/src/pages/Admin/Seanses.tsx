@@ -10,6 +10,8 @@ import { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../context/ModalContext";
 import Seanse, {defaultSeanse} from "../../types/seanseTypes/Seanse";
 import CustomError, { defaultError } from "../../types/errorTypes/CustomError";
+import { ChildProcess } from "child_process";
+import { GetAllPrices } from "../../components/Admin/seanses/GetAllPrices";
 
 interface SeansesProps {    
     setShowSeanse: (flag: boolean) => void;   
@@ -52,18 +54,13 @@ const Seanses: React.FC<SeansesProps> = ({ setShowSeanse }) => {
                 close={close} seanseId={currentSeanseId} setRerender={setRerender} />}
             </ModalWindow>}
 
-            <Container fluid className="p-1">
-                <Row>
-                    <Col>
-                    <Button variant="outline-danger" size="lg" onClick={() => {
+                    <Button variant="outline-danger" size="lg" className="me-5" onClick={() => {
                     setCurrentOption('createSeanse');
                     setSeanse(seanse);
                     open();
                     setSize('lg');
                     }}>Створити новий сеанс</Button>
-                    </Col>
-                </Row>
-            </Container>
+                    <GetAllPrices />
                
         <Table striped bordered hover className="mt-2" variant="dark" responsive>
             <thead>

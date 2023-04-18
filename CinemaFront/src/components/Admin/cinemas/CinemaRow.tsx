@@ -27,7 +27,7 @@ const CinemaRow: React.FC<CinemaRowProps> = ({ setCinema, setCinemaId, setShowHa
                 <Container>
                     <Row>
                         <Col>
-                            <Button variant="light" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setShowHall(true);
                                 setShowCinema(false);
                                 setCurrentCinemaId(cinema.id);
@@ -35,7 +35,7 @@ const CinemaRow: React.FC<CinemaRowProps> = ({ setCinema, setCinemaId, setShowHa
                             }}>Зали</Button>
                         </Col>
                         <Col>
-                            <Button variant="warning" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentCinemaId(cinema.id);
                                 setCinema(cinema);
                                 setCurrentOption('updateCinema');
@@ -44,7 +44,7 @@ const CinemaRow: React.FC<CinemaRowProps> = ({ setCinema, setCinemaId, setShowHa
                             }}>Редагувати</Button>
                         </Col>
                         <Col>
-                            <Button variant="danger" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentCinemaId(cinema.id);
                                 setCurrentOption('deleteCinema');
                                 setSize('sm');

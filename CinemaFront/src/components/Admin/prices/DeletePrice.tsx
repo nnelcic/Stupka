@@ -20,7 +20,7 @@ const DeletePrice: React.FC<DeletePriceProps> = ({ setOccuredError, setShowError
                 <Row>
                     <Col></Col>
                     <Col>
-                        <Button variant="outline-danger" className="btn-lg" onClick={() => {
+                        <Button variant="danger" className="btn-lg" onClick={() => {
                             deletePrice(priceId, setShowError, setOccuredError);
                             close();
                             setTimeout(() => {

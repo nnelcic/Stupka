@@ -54,7 +54,7 @@ const Cinemas: React.FC<CinemasProps> = ({ setCinemaId, setShowHall, setShowCine
                 close={close} cinemaId={currentCinemaId} setRerender={setRerender} />}
             </ModalWindow>}
 
-            <Button variant="success" size="lg" onClick={() => {
+            <Button variant="outline-danger" size="lg" onClick={() => {
                 setCurrentOption('createCinema');
                 open();
                 setSize('lg');

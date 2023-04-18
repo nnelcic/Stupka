@@ -23,7 +23,7 @@ const SeatRow: React.FC<SeatRowProps> = ({ setSeat, seat, open, setCurrentSeatId
                 <Container>
                     <Row>
                         <Col>
-                            <Button variant="warning" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setSeat(seat);
                                 setCurrentSeatId(seat.id);
                                 setCurrentOption('updateSeat');
@@ -32,7 +32,7 @@ const SeatRow: React.FC<SeatRowProps> = ({ setSeat, seat, open, setCurrentSeatId
                             }}>Редагувати</Button>
                         </Col>
                         <Col>
-                            <Button variant="danger" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentSeatId(seat.id);
                                 setCurrentOption('deleteSeat');
                                 setSize('sm');

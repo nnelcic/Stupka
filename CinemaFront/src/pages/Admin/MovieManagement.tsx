@@ -2,7 +2,6 @@ import useMovie from "../../hooks/MovieHook";
 import AdminPage from "../../components/ui/AdminPage";
 import Movie from "./Movie"
 import image from "../../assets/Main.png";
-import SearchTitle from "../../components/forms/SearchTitle";
 
 const MovieManagement: React.FC<{}> = () => {
     const { showMovie, setShowMovie } = useMovie();       

@@ -6,7 +6,7 @@ export function GetAllPrices() {
     return (
     
       <Link to="/admin/pricemanagement">
-          <Button variant="outline-danger" className='text-white'>Подивитись всі ціни</Button> 
+          <Button variant="outline-danger"  size="lg">Подивитись всі ціни</Button> 
       </Link>    
     );
   }

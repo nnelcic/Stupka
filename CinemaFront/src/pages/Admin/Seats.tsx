@@ -56,12 +56,12 @@ const Seats: React.FC<SeatsProps> = ({ hallId, setShowSeat, setShowHall }) => {
                 <DeleteSeat setShowError={setShowError} setOccuredError={setOccuredError} close={close} seatId={currentSeatId} setRerender={setRerender} />}
             </ModalWindow>}
 
-        <Button variant="dark" size="lg" className="me-5" onClick={() => {
+        <Button variant="outline-danger" className="me-5" size="lg" onClick={() => {
             setShowSeat(false);
             setShowHall(true);
         }}>Зали</Button>
 
-        <Button variant="success" size="lg" onClick={() => {
+        <Button variant="outline-danger" size="lg" onClick={() => {
             setCurrentOption('createSeat');
             setSize('lg');
             open();

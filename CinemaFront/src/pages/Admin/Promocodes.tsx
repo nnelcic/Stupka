@@ -52,7 +52,7 @@ const Promocodes: React.FC<{}> = () => {
                 close={close} promocodeId={currentPromocodeId} setRerender={setRerender} />}
             </ModalWindow>}
 
-            <Button variant="success" size="lg" onClick={() => {
+            <Button variant="outline-danger" size="lg" onClick={() => {
                 setCurrentOption('createPromocode');
                 setPromocode(promocode);
                 open();

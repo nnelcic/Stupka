@@ -25,7 +25,7 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, movie, op
                 <Container>
                     <Row> 
                          <Col>
-                            <Button variant="outline-dark" className="text-white" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentMovieId(movie.id); 
                                                          
                                 open();                               
@@ -36,9 +36,9 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, movie, op
                             </Button>
                         </Col>                           
                          <Col>
-                            <Button variant="outline-dark" className="text-white" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentMovieId(movie.id); 
-                                console.log(movie.id);                                                           
+                                setMovie(movie);
                                 open();                               
                                 setCurrentOption('showMovie');
                                 setSize('lg');
@@ -47,25 +47,24 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, movie, op
                             </Button>
                         </Col>     
                         <Col>
-                        <Button variant="outline-dark" className="text-white" onClick={() => {
-                                setCurrentMovieId(movie.id);
-                                setMovie(movie);
-                                open();                               
-                                setCurrentOption('updateMovie');
-                                setShowMovie(true);
-                                setSize('lg');
-                            }}>
-                                Редагувати
+                        <Button variant="outline-danger" className="text-white" onClick={() => {
+                            setCurrentMovieId(movie.id);
+                            setMovie(movie);
+                            open();                               
+                            setCurrentOption('updateMovie');
+                            setShowMovie(true);
+                            setSize('lg');
+                            }}>Редагувати
                         </Button>
                         </Col>
                         <Col>
                          <Button variant="outline-danger" className="text-white" onClick={() => {
-                                setCurrentMovieId(movie.id);
-                                open();
-                                setCurrentOption('deleteMovie');
-                                setSize('sm');
-                                }}>
-                                Видалити
+                            setCurrentMovieId(movie.id);
+                            open();
+                            setCurrentOption('deleteMovie');
+                            setSize('sm');
+                            }}>
+                            Видалити
                           </Button>
                         </Col>
                     </Row>

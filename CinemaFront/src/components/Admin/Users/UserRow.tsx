@@ -24,27 +24,23 @@ const UserRow: React.FC<UserRowProps> = ({ user, open, setCurrentUserId, setCurr
                 <Container>
                     <Row>
                         <Col>
-                            <Button variant="light" onClick={() => {
+                            <Button variant="outline-danger" className="text-white"  onClick={() => {
                                 setCurrentUserId(user.id);
                                 open();
                                 setCurrentOption('showUser');
                                 setSize('lg');
-                            }}>
-                                Інформація
-                            </Button>
+                            }}>Інформація</Button>
                         </Col>
                         <Col>
-                            <Button variant="success" onClick={() => {
+                            <Button variant="outline-danger" className="text-white"  onClick={() => {
                                 setCurrentUserId(user.id);
                                 open();
                                 setCurrentOption('purchasesUser');
                                 setSize('xl');
-                            }}>
-                                Покупки
-                            </Button>
+                            }}>Покупки</Button>
                         </Col>
                         <Col>
-                            <Button variant="warning" onClick={() => {
+                            <Button variant="outline-danger" className="text-white"  onClick={() => {
                                 setCurrentUserId(user.id);
                                 open();
                                 setCurrentOption('updateUser');
@@ -52,14 +48,12 @@ const UserRow: React.FC<UserRowProps> = ({ user, open, setCurrentUserId, setCurr
                             }}>Редагувати</Button>
                         </Col>
                         <Col>
-                            <Button variant="danger" onClick={() => {
-                                    setCurrentUserId(user.id);
-                                    open();
-                                    setCurrentOption('deleteUser');
-                                    setSize('sm');
-                                }}>
-                                Видалити
-                            </Button>
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
+                                setCurrentUserId(user.id);
+                                open();
+                                setCurrentOption('deleteUser');
+                                setSize('sm');
+                            }}>Видалити</Button>
                         </Col>
                     </Row>
                 </Container>

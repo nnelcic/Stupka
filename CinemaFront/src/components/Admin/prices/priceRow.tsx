@@ -21,7 +21,7 @@ const PriceRow: React.FC<PriceRowProps> = ({ setPrice, setShowPrice, price, open
                 <Container>
                     <Row>                       
                         <Col>
-                            <Button variant="outline-dark" className="text-white" onClick={() => {
+                            <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentPriceId(price.id);
                                 setPrice(price);
                                 setCurrentOption('updatePrice');

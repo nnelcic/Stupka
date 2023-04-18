@@ -44,7 +44,7 @@ const CreateHall: React.FC<CreateHallFormProps> = ({ setOccuredError, setShowErr
             {error && <Alert variant="danger">{error}</Alert>}
 
             <div className="d-grid gap-2">
-                <Button variant="primary" type="submit">
+                <Button variant="dark" type="submit">
                     Створити
                 </Button>
             </div>

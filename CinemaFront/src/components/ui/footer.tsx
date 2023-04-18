@@ -16,7 +16,7 @@ export const Footer: FC<{}> = () => {
                             style={{ textDecoration: "none" }}
                             className="nav-link px-2 text-white"
                         >
-                            Допомога
+                            <p className="fnt">Допомога</p>
                         </Link>
                     </li>
                     <li>
@@ -25,7 +25,8 @@ export const Footer: FC<{}> = () => {
                             style={{ textDecoration: "none" }}
                             className="nav-link px-2 text-white"
                         >
-                            Про нас
+                            <p className="fnt">Про нас</p>
+                            
                         </Link>
                     </li>
                     <li>
@@ -34,7 +35,7 @@ export const Footer: FC<{}> = () => {
                             style={{ textDecoration: "none" }}
                             className="nav-link px-2 text-white"
                         >
-                            Контакти
+                            <p className="fnt">Контакти</p>
                         </Link>
                     </li>
                     <li>
@@ -43,14 +44,16 @@ export const Footer: FC<{}> = () => {
                             style={{ textDecoration: "none" }}
                             className="nav-link px-2 text-white"
                         >
-                            FAQ
+                            <p className="fnt">FAQ</p>
                         </Link>
                     </li>
+                    <li>
+                    <div className="p-3 bg-black text-white text-center"
+                        id="copyright">
+                        <p>© 2023 Stupka cinema. All Rights Reserved.</p>
+                    </div>
+                    </li>
                 </ul>
-            </div>
-            <div className="p-3 bg-black text-white border-top text-center"
-                id="copyright">
-                <p>© 2023 Stupka cinema. All Rights Reserved.</p>
             </div>
         </footer>
     );

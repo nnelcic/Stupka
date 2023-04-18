@@ -1,15 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "./components/ui/header";
 import Home from "./pages/Home/Home";
-import Cinema from "./pages/Admin/Cinemas";
 import News from "./pages/News/News";
 import MoviePosters from "./pages/Movies/MoviePosters";
 import { FAQ } from "./pages/Home/FAQ";
 import AdminMain from "./pages/Admin/Main"
 import Account from "./pages/Authentication/Account";
 import Users from "./pages/Admin/Users";
-import Movies from "./pages/Admin/Movie";
-import Seanses from "./pages/Admin/Seanses";
 import CinemasManagement from "./pages/Admin/CinemaManagement";
 import MovieManagement from "./pages/Admin/MovieManagement";
 import SeanseManagement from "./pages/Admin/SeanseManagement";
@@ -17,7 +14,6 @@ import PriceManagement from "./pages/Admin/PriceManagement";
 import { Footer } from "./components/ui/footer";
 import Promocodes from "./pages/Admin/Promocodes";
 import SingleMovie from "./pages/Movies/SingleMovie";
-import Cinemas from "./pages/Admin/Cinemas";
 
 
 function App() {
