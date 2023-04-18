@@ -1,4 +1,4 @@
-import { Container, Table, Button } from "react-bootstrap";
+import { Container, Table, Button, Row, Col } from "react-bootstrap";
 import SeanseRow from "../../components/Admin/seanses/SeanseRow";
 import CreateSeanse from "../../components/Admin/seanses/CreateSeanse";
 import DeleteSeanse from "../../components/Admin/seanses/DeleteSeanse";

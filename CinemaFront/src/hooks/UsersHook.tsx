@@ -1,5 +1,7 @@
-import User from '../types/userTypes/User';
-import { useState } from "react";
+import User from "../types/userTypes/User";
+import { useEffect, useState } from "react";
+import axios, { AxiosError } from 'axios';
+import { getCurrentUserId } from './getCurrentUserId';
 import UserInfo, { defaultUser } from '../types/userTypes/UserInfo';
 import http from '../http-common';
 
@@ -7,6 +9,7 @@ export default function useUsers() {
     
     const [users, setUsers] = useState<User[]>([]);
     const [user, setUser] = useState<UserInfo>(defaultUser);
+    const [currentUser, setCurrentUser] = useState<UserInfo>(defaultUser)
     const [show, setShow] = useState(false);
 
     async function fetchUsers() {
@@ -27,10 +30,25 @@ export default function useUsers() {
         await http.put(`/users/updateuserrole/${userId}/${role}`);
     }
 
+    async function getCurrentUser() {
+        try{
+            const userId = getCurrentUserId()
+            const response = await axios.get<UserInfo>(`https://localhost:7282/api/users/GetUserInfo/${userId}`);
+            setCurrentUser(response.data)
+        } catch(error) {
+            throw new Error(`Failed to get user with ID`);
+        }
+    }
+
     async function deleteUser(userId: number) {
         await http.delete(`/users/${userId}`);
         setUsers(users.filter(x => x.id !== userId));
     }
 
-    return { users, show, deleteUser, setShow, getUser, user, fetchUsers, updateUserRole }
+    useEffect(() => {
+        fetchUsers();
+        getCurrentUser();
+    }, []);
+
+    return { fetchUsers, users, show, deleteUser, setShow,  getUser, user, getCurrentUser, currentUser, updateUserRole }
 }

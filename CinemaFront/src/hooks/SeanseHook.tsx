@@ -1,5 +1,5 @@
-import { useState } from "react";
 import CustomError from '../types/errorTypes/CustomError';
+import { useEffect, useState } from "react";
 import axios, { AxiosError } from 'axios';
 import Seanse from '../types/seanseTypes/Seanse';
 import http from '../http-common';

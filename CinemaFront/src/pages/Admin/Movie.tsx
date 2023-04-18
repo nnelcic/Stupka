@@ -15,7 +15,6 @@ import MovieDetails, {defaultMovieDetails} from "../../types/MovieDetails";
 import MovieGenre, {defaultGenre} from "../../types/movieGenre";
 import MovieItem from "../../components/Admin/movies/MovieItem";
 import PublishMovieItem from "../../components/Admin/movies/PublishMovieItem";
-import SearchTitle from "../../components/forms/SearchTitle";
 
 interface MoviesProps {
     setShowMovie: (flag: boolean) => void;  

@@ -7,7 +7,7 @@ import * as React from "react"
 
 
 const MainLogo = () => (
-  <svg xmlns="../../assets/stupka/svg">
+  <svg xmlns="../../assets/stupka.svg">
     
   </svg>
 )

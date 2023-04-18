@@ -8,6 +8,14 @@ public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
 {
     public UpdateUserRequestValidator()
     {
+        RuleFor(x => x.Password)
+            .NotNull()
+                .WithMessage("Password could not be null!")
+            .NotEmpty()
+                .WithMessage("Password could not be empty!")
+            .MaximumLength(50)
+                .WithMessage("50 character limit exceeded!");
+        
         RuleFor(x => x.FirstName)
             .NotNull()
                 .WithMessage("FirstName could not be null!")
@@ -40,17 +48,17 @@ public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
             .MaximumLength(50)
                 .WithMessage("50 character limit exceeded!")
             .Must(IsValidPhoneNumber)
-                .WithMessage("Phonenumber isn't valid!");
-
-        RuleFor(x => x.RoleId)
+                .WithMessage("Phone number isn't valid!");
+        
+        RuleFor(x => x.Email)
             .NotNull()
-                .WithMessage("RoleId could not be null!")
+                .WithMessage("Email could not be null!")
             .NotEmpty()
-                .WithMessage("RoleId could not be empty!")
-            .GreaterThan(0)
-                .WithMessage("RoleId must be greater than 0")
-            .LessThan(3)
-                .WithMessage("RoleId must be less than 3");
+                .WithMessage("Email could not be empty!")
+            .EmailAddress()
+                .WithMessage("Email is invalid!")
+            .MaximumLength(50)
+                .WithMessage("50 character limit exceeded!");
     }
     private bool IsValidPhoneNumber(string phoneNumber)
     {

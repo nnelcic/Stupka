@@ -1,13 +1,13 @@
 import { Container, Table } from "react-bootstrap";
-import UserRow from "../../components/Admin/users/UserRow";
+import UserRow from "../../components/Admin/Users/UserRow";
 import useUsers from "../../hooks/UsersHook";
 import { useContext, useEffect, useState } from "react";
-import ShowUser from "../../components/Admin/users/ShowUser";
+import ShowUser from "../../components/Admin/Users/ShowUser";
 import { ModalContext } from "../../context/ModalContext";
 import ModalWindow from "../../components/shared/ModalWindow";
-import PurchasesUser from "../../components/Admin/users/PurchasesUser";
-import DeleteUser from "../../components/Admin/users/DeleteUser";
-import UpdateUserRole from "../../components/Admin/users/UpdateUserRole";
+import PurchasesUser from "../../components/Admin/Users/PurchasesUser";
+import DeleteUser from "../../components/Admin/Users/DeleteUser";
+import UpdateUserRole from "../../components/Admin/Users/UpdateUserRole";
 import AdminPage from "../../components/ui/AdminPage";
 import image from "../../assets/Main.png";
 
