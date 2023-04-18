@@ -7,8 +7,6 @@ import * as React from "react"
 
 
 const MainLogo = () => (
-  <svg xmlns="../../assets/stupka.svg">
-    
-  </svg>
+  <img src={logo} className="w-75 h-75"></img>
 )
 export default MainLogo
