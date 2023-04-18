@@ -1,5 +1,6 @@
 ﻿using Cinema.Domain.Models.DTOs;
 using Cinema.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.UI.Controllers;
@@ -48,6 +49,7 @@ public class ReviewController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "User, Admin")]
     public async Task<IActionResult> AddReviewAsync(AddReviewRequest addReviewRequest)
     {
         var createdReview = await _service.ReviewService.AddAsync(addReviewRequest);
@@ -55,6 +57,7 @@ public class ReviewController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "User, Admin")]
     public async Task<IActionResult> UpdateReviewAsync(int id, UpdateReviewRequest updateReviewRequest)
     {
         await _service.ReviewService.UpdateAsync(id, updateReviewRequest);
@@ -62,6 +65,7 @@ public class ReviewController : ControllerBase
     }
     
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "User, Admin")]
     public async Task<IActionResult> DeleteReviewAsync(int id)
     {
         await _service.ReviewService.DeleteAsync(id);

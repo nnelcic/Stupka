@@ -3,6 +3,7 @@ using Cinema.Domain.RequestFeatures;
 using Cinema.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cinema.UI.Controllers;
 
@@ -69,6 +70,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "Admin, User")]
     public async Task<IActionResult> DeleteUserAsync(int id)
     {
         await _service.UserService.DeleteAsync(id);

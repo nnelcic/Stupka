@@ -1,5 +1,6 @@
 ﻿using Cinema.Domain.Models.DTOs;
 using Cinema.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.UI.Controllers;
@@ -40,6 +41,7 @@ public class SeatController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddSeatAsync([FromBody] AddSeatWithHallIdRequest addSeatRequest)
     {
         var createdSeat = await _service.SeatService.AddAsync(addSeatRequest);
@@ -48,6 +50,7 @@ public class SeatController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateSeatAsync(int id, [FromBody] UpdateSeatWithHallIdRequest updateSeatRequest)
     {
         await _service.SeatService.UpdateAsync(id, updateSeatRequest);
@@ -56,6 +59,7 @@ public class SeatController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteSeatAsync(int id)
     {
         await _service.SeatService.DeleteAsync(id);

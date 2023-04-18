@@ -1,9 +1,13 @@
 ﻿using Cinema.Domain.Models.DTOs;
 using Cinema.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.UI.Controllers;
 
+[Route("api/favourites")]
+[ApiController]
+[Authorize(Roles = "User, Admin")]
 public class FavouriteController : ControllerBase
 {
     private readonly IServiceManager _service;

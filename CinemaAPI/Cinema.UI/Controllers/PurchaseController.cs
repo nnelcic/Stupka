@@ -3,11 +3,13 @@ using Cinema.Domain.RequestFeatures;
 using Cinema.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cinema.UI.Controllers;
 
 [Route("api/purchase")]
 [ApiController]
+[Authorize(Roles = "User, Admin")]
 public class PurchaseController : ControllerBase
 {
     private readonly IServiceManager _service;

@@ -1,6 +1,7 @@
 ﻿using Cinema.Domain.Models.DTOs;
 using Cinema.Domain.Models.ViewModels;
 using Cinema.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.UI.Controllers;
@@ -33,6 +34,7 @@ public class PriceController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddPriceAsync([FromBody] AddPriceRequest addPriceRequest)
     {
         var createdPrice = await _service.PriceService.AddAsync(addPriceRequest);
@@ -41,6 +43,7 @@ public class PriceController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdatePriceAsync(int id, [FromBody] UpdatePriceRequest updatePriceRequest)
     {
         await _service.PriceService.UpdateAsync(id, updatePriceRequest);
@@ -49,6 +52,7 @@ public class PriceController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeletePriceAsync(int id)
     {
         await _service.PriceService.DeleteAsync(id);

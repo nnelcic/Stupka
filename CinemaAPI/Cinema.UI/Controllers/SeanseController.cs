@@ -3,6 +3,7 @@ using Cinema.Domain.RequestFeatures;
 using Cinema.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cinema.UI.Controllers;
 
@@ -36,6 +37,7 @@ public class SeanseController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddSeanseAsync([FromBody] AddSeanseRequest addSeanseRequest)
     {
         var createdSeanse = await _service.SeanseService.AddAsync(addSeanseRequest);
@@ -45,6 +47,7 @@ public class SeanseController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateSeanseAsync(int id, [FromBody] UpdateSeanseRequest updateSeanseRequest)
     {
         await _service.SeanseService.UpdateAsync(id, updateSeanseRequest);
@@ -53,6 +56,7 @@ public class SeanseController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteSeanseAsync(int id)
     {
         await _service.SeanseService.DeleteAsync(id);

@@ -1,5 +1,6 @@
 ﻿using Cinema.Domain.Models.DTOs;
 using Cinema.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.UI.Controllers;
@@ -40,6 +41,7 @@ public class HallController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddHallAsync([FromBody] AddHallWithCinemaIdRequest addHallRequest)
     {
         var createdHall = await _service.HallService.AddAsync(addHallRequest);
@@ -48,6 +50,7 @@ public class HallController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateHallAsync(int id, [FromBody] UpdateHallWithCinemaIdRequest updateHallRequest)
     {
         await _service.HallService.UpdateAsync(id, updateHallRequest);
@@ -56,6 +59,7 @@ public class HallController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteHallAsync(int id)
     {
         await _service.HallService.DeleteAsync(id);
