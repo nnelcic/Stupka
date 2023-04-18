@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Modal} from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import RegisterForm from '../forms/RegisterForm';
-import AuthButton from './AuthButton';
+import AuthForm from '../forms/LoginForm';
 
 const RegisterButton: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,7 +31,7 @@ const RegisterButton: React.FC = () => {
           </Modal>
         </div>
         <>
-          {conditionBool ? <AuthButton openCondition={conditionBool} /> : null}
+          {conditionBool ? <AuthForm openCondition={conditionBool} /> : null}
         </>
       </>
     );

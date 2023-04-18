@@ -3,13 +3,12 @@ import { Button, Form, Modal} from 'react-bootstrap';
 import { DecodedToken, verifyAuthToken } from '../../hooks/VerifyAuthToken';
 import axios from 'axios';
 
+interface AuthFormProps{
+  openCondition?: boolean;
+}
 
-const AuthButton: React.FC<{}> = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  function handleOpenModal(): void {
-    setIsModalOpen(true);
-  }
+const AuthForm: React.FC<AuthFormProps> = ({openCondition}) => {
+  const [isModalOpen, setIsModalOpen] = useState(openCondition);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -54,7 +53,6 @@ const AuthButton: React.FC<{}> = () => {
   
   return (
     <div>
-      <button className="nav-link px-2 text-white" onClick={handleOpenModal}>Вхід</button>
       <Modal show={isModalOpen} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Вхід</Modal.Title>
@@ -80,4 +78,4 @@ const AuthButton: React.FC<{}> = () => {
   );
   };
   
-  export default AuthButton;
+  export default AuthForm;
