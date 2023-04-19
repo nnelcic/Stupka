@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Review from "../../../types/reviewTypes/Review";
 import axios from "axios";
 import { Alert, Card, Col, Row } from "react-bootstrap";
-import Movie from "../../../types/movieTypes/Movie";
+import Movie, { defaultMovie } from "../../../types/movieTypes/Movie";
 
 interface ReviewItemProps { 
     review: Review;
@@ -10,14 +10,6 @@ interface ReviewItemProps {
 
 const ReviewItem: React.FC<ReviewItemProps> = ({review}) => {
     
-    const defaultMovie: Movie = {
-        id: 0,
-        duration: 0,
-        originalTitle: '',
-        posterUrl: '',
-        releaseDate: new Date(),
-        title: '',
-    }
     
     const [movie, setMovie] = useState<Movie>(defaultMovie);
 

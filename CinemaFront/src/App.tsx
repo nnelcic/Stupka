@@ -4,7 +4,6 @@ import Home from "./pages/Home/Home";
 import News from "./pages/News/News";
 import MoviePosters from "./pages/Movies/MoviePosters";
 import { FAQ } from "./pages/Home/FAQ";
-import AdminMain from "./pages/Admin/Main"
 import Account from "./pages/Authentication/Account";
 import Users from "./pages/Admin/Users";
 import CinemasManagement from "./pages/Admin/CinemaManagement";
@@ -15,6 +14,7 @@ import { Footer } from "./components/ui/footer";
 import Promocodes from "./pages/Admin/Promocodes";
 import SingleMovie from "./pages/Movies/SingleMovie";
 import AddMovie from "./pages/Admin/AddMovie";
+import SeansePage from "./pages/Seance/SeansePage";
 
 function App() {
     return (
@@ -25,18 +25,16 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />}></Route>
                         <Route path="/account" element={<Account />}></Route>
-                        <Route path="/news/news" element={<News/>}></Route>
                         <Route path="/movies/movieposters" element={<MoviePosters/>}></Route>
-                        <Route path="/admin/main" element={<AdminMain/>}></Route>
                         <Route path="/admin/users" element={<Users />}></Route>
                         <Route path="/home/faq" element={<FAQ/>}></Route>
-                        <Route path="/news/news" element={<News/>}></Route>
+                        <Route path="/news/news" element={<News />}></Route>
+                        <Route path="/movies/seances" element={<SeansePage />}></Route>
                         <Route path="/admin/promocodes" element={<Promocodes />}></Route>
                         <Route path="/admin/cinemamanagement" element={<CinemasManagement />}></Route>
                         <Route path="/admin/moviemanagement" element={<MovieManagement />}></Route>
                         <Route path="/admin/seansemanagement" element={<SeanseManagement />}></Route>
                         <Route path="/movies/singlemovie" element={<SingleMovie/>}></Route>
-                        <Route path="/admin/movie" element={<MovieManagement/>}></Route>
                         <Route path="/admin/pricemanagement" element={<PriceManagement/>}></Route>
                         <Route path="/admin/addmovie" element={<AddMovie/>}></Route>
                     </Routes>

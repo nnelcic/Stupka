@@ -1,5 +1,5 @@
 import CustomError from '../types/errorTypes/CustomError';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios, { AxiosError } from 'axios';
 import Seanse from '../types/seanseTypes/Seanse';
 import http from '../http-common';
@@ -11,6 +11,7 @@ export default function useSeanses() {
     async function fetchSeanses() {
         const response = await http.get<Seanse[]>('/seanses');
         setSeanses(response.data);
+        return response.data;
     }
 
     async function updateSeanse(seanseId: number, startTime: string, hallId: number, movieId: number, priceId: number, setShowError: (value: boolean) => void, setOccuredError: (value: CustomError) => void) {

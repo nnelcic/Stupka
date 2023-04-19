@@ -1,4 +1,3 @@
-import MovieType from "./MovieType";
 
 export default interface Movie {
     id: number;
@@ -7,16 +6,14 @@ export default interface Movie {
     posterUrl: string;
     releaseDate: Date;
     title: string;
-    
 }
 
-export const defaultMovieItem = {
+export const defaultMovie = {
     id: 0,
     duration: 0,
     originalTitle: '',
     posterUrl: '',
     releaseDate: new Date(),
     title: ''
-   
 }
 

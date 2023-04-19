@@ -1,22 +1,14 @@
+import Hall from "../cinemaTypes/Hall";
 import Movie from "../movieTypes/Movie";
-import Price from "../priceTypes/Price";
+import Price from "../priceTypes/Price"
 
 export default interface Seanse {
     id: number;
     hallId: number;
     startTime: string;
-    movie:    {
-        id: number,
-        originalTitle: string,
-        title: string,
-        duration: number, 
-        releaseDate: string,  
-        posterUrl: string, 
-    }
-    price: {
-        id: number;
-        cost: number;
-    }
+    movie: Movie;
+    price: Price;
+    hall: Hall;
 }
 
 export const defaultSeanse: Seanse = {
@@ -28,8 +20,15 @@ export const defaultSeanse: Seanse = {
         duration: 0,
         originalTitle: '',
         posterUrl: '',
-        releaseDate: '',
+        releaseDate: new Date(),
         title: '',
+        
+    },
+    hall: {
+        id: 0,
+        hallNumber: 0,
+        cinemaId: 0,
+        seats: []
     },
     price: {
         id: 0,

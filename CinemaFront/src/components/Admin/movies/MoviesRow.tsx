@@ -1,5 +1,6 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import MovieInfo from "../../../types/movieTypes/MovieInfo";
+import MovieDetails from "../../../types/movieTypes/MovieDetails";
 
 
 interface MoviesRowProps {
@@ -33,7 +34,7 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, movie, op
                                 setCurrentOption('showMovie');
                                 setSize('lg');
                             }}>
-                                Інформація
+                                Інформаціѝ
                             </Button>
                         </Col>     
                         <Col>
