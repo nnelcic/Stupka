@@ -9,12 +9,12 @@ import ModalWindow from "../../components/shared/ModalWindow";
 import useMovie from "../../hooks/MovieHook";
 import { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../context/ModalContext";
-import MovieInfo, {defaultMovieInfo} from "../../types/MovieInfo";
+import MovieInfo, {defaultMovieInfo} from "../../types/movieTypes/MovieInfo";
 import CustomError, { defaultError } from "../../types/errorTypes/CustomError";
-import MovieDetails, {defaultMovieDetails} from "../../types/MovieDetails";
-import MovieGenre, {defaultGenre} from "../../types/movieGenre";
+import MovieDetails, {defaultMovieDetails} from "../../types/movieTypes/MovieDetails";
+import MovieGenre, {defaultGenre} from "../../types/movieTypes/movieGenre";
 import MovieItem from "../../components/Admin/movies/MovieItem";
-import PublishMovieItem from "../../components/Admin/movies/PublishMovieItem";
+import { PublishMovie } from "../../components/Admin/movies/PublishMovie";
 
 interface MoviesProps {
     setShowMovie: (flag: boolean) => void;  
@@ -51,9 +51,8 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
                 size={size}>
                 {
                     currentOption === 'showMovie' 
-                    ? <GetMovieInfo  getMovie={getMovie} movie={movie} movieDetails={info} />
-                    : currentOption === 'publishMovie' 
-                    ? <PublishMovieItem movieItem={movie} getMovie={getMovie} close={close} movieId={movie.id}/>
+                    ? <GetMovieInfo  getMovie={getMovie} movie={movie} movieDetails={info} />                  
+                   
                     : currentOption ===  'updateMovie' 
                     ? <UpdateMovie setShowError={setShowError} setOccuredError={setOccuredError} 
                     close={close} movie={movie} setRerender={setRerender} movieDetails={info} movieGenre={genre}/> 
@@ -71,6 +70,8 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
                 open();
                 setSize('lg');
             }}>Створити новий фільм</Button>
+
+            <PublishMovie/>
               
             
         <Table striped bordered hover className="mt-2" variant="dark" responsive>

@@ -1,15 +1,15 @@
 import CustomError from '../types/errorTypes/CustomError';
 import { useState } from "react";
 import axios, { AxiosError } from 'axios';
-import MovieInfo, {defaultMovieInfo} from '../types/MovieInfo';
+import MovieInfo, {defaultMovieInfo} from '../types/movieTypes/MovieInfo';
 import http from '../http-common';
 
 export default function useMovie() {
 
     const [movies, setMovies] = useState<MovieInfo[]>([]);
-    const [movie, setMovie] = useState<MovieInfo>(defaultMovieInfo);
+    const [movie, setMovie] = useState<MovieInfo>();
     const [showMovie, setShowMovie] = useState<boolean>(true);
-    const [movieItem, setMovieItem] = useState<MovieInfo[]>();
+  
 
     async function fetchMovies() {
         const response = await http.get<MovieInfo[]>('/movies/GetAllMovies');

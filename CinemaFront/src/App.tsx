@@ -14,7 +14,7 @@ import PriceManagement from "./pages/Admin/PriceManagement";
 import { Footer } from "./components/ui/footer";
 import Promocodes from "./pages/Admin/Promocodes";
 import SingleMovie from "./pages/Movies/SingleMovie";
-
+import AddMovie from "./pages/Admin/AddMovie";
 
 function App() {
     return (
@@ -38,6 +38,7 @@ function App() {
                         <Route path="/movies/singlemovie" element={<SingleMovie/>}></Route>
                         <Route path="/admin/movie" element={<MovieManagement/>}></Route>
                         <Route path="/admin/pricemanagement" element={<PriceManagement/>}></Route>
+                        <Route path="/admin/addmovie" element={<AddMovie/>}></Route>
                     </Routes>
 
                     <Footer/>

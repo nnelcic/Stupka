@@ -1,6 +1,6 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
-import MovieInfo from "../../../types/MovieInfo";
-import MovieDetails from "../../../types/MovieDetails";
+import MovieInfo from "../../../types/movieTypes/MovieInfo";
+
 
 interface MoviesRowProps {
     movie: MovieInfo;   
@@ -24,17 +24,7 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, movie, op
             <td>
                 <Container>
                     <Row> 
-                         <Col>
-                            <Button variant="outline-danger" className="text-white" onClick={() => {
-                                setCurrentMovieId(movie.id); 
-                                                         
-                                open();                               
-                                setCurrentOption('publishMovie');
-                                setSize('lg');
-                            }}>
-                                Опублікувати
-                            </Button>
-                        </Col>                           
+                                               
                          <Col>
                             <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentMovieId(movie.id); 

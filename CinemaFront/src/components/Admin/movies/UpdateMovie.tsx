@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
-import MovieInfo from "../../../types/MovieInfo";
-import MovieDetails from "../../../types/MovieDetails";
-import MovieGenre from "../../../types/movieGenre";
+import MovieInfo from "../../../types/movieTypes/MovieInfo";
+import MovieDetails from "../../../types/movieTypes/MovieDetails";
+import MovieGenre from "../../../types/movieTypes/movieGenre";
 import useMovie from "../../../hooks/MovieHook";
 import CustomError from "../../../types/errorTypes/CustomError";
 
@@ -202,7 +202,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                         type="text"
                         placeholder="Введіть Url трейлера"
-                        value={trailer}
+                        value={movieDetails.movieTrailerUrl}
                         onChange={(event) => setTrailer(event.target.value)}
                             />
                         </Form.Group>

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import MovieInfo from "../../../types/MovieInfo";
-import MovieDetails from "../../../types/MovieDetails";
+import MovieInfo from "../../../types/movieTypes/MovieInfo";
+import MovieDetails from "../../../types/movieTypes/MovieDetails";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/Stack';

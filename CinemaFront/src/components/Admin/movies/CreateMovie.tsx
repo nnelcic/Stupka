@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import useMovie from "../../../hooks/MovieHook";
 import CustomError from "../../../types/errorTypes/CustomError";
-import MovieInfo from "../../../types/MovieInfo";
+import MovieInfo from "../../../types/movieTypes/MovieInfo";
 
 type CreateMovieFormProps = {
     close: () => void;

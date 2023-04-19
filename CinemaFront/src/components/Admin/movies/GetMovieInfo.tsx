@@ -1,5 +1,5 @@
-import MovieInfo from "../../../types/MovieInfo";
-import MovieDetails from "../../../types/MovieDetails";
+import MovieInfo from "../../../types/movieTypes/MovieInfo";
+import MovieDetails from "../../../types/movieTypes/MovieDetails";
 import { Card, Container, Row } from "react-bootstrap";
 
 interface GetMovieInfoProps {
@@ -9,13 +9,15 @@ interface GetMovieInfoProps {
     getMovie: (movieId: number) => void;
 }
 
-const GetMovieInfo: React.FC<GetMovieInfoProps> = ({ getMovie, movie, movieDetails}) => {
+const GetMovieInfo: React.FC<GetMovieInfoProps> = ({ movie, movieDetails}) => {
 
     return (
         <>
             <Container>
                 <Row>               
-                    <Card style={{ width: '17rem'}}>                
+                   
+                 <img src={movie.posterUrl}></img>
+                    {/* <Card style={{ width: '17rem'}}>                
                         <Card.Img variant="top" src={movie.posterUrl} />                              
                     </Card>  
                                 
@@ -30,7 +32,7 @@ const GetMovieInfo: React.FC<GetMovieInfoProps> = ({ getMovie, movie, movieDetai
                             <Card.Text>Вікові обмеження: {movieDetails.age_Limit}</Card.Text>
                             <Card.Text>Рейтинг: {movieDetails.independent_rate}</Card.Text>                                                   
                         </Card.Footer>
-                    </Card>      
+                    </Card>       */}
                 </Row>
             </Container>
         </>
