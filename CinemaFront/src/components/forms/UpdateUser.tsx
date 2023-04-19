@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal} from 'react-bootstrap';
+import useUsers from "../../hooks/UsersHook";
 import axios from 'axios';
 import { getCurrentUserId } from '../../hooks/getCurrentUserId';
+import UserInfo from '../../types/userTypes/UserInfo';
 
 interface UpdateUserFormProps{
-  modalCondition?: boolean
+  modalCondition?: boolean;
+  currentUser: UserInfo;
 }
 
-const UpdateUserForm: React.FC<UpdateUserFormProps> = ({ modalCondition }) => {
+const UpdateUserForm: React.FC<UpdateUserFormProps> = ({ modalCondition, currentUser }) => {
   const [isModalOpen, setIsModalOpen] = useState(modalCondition);
+
+  // Parse the input date string into a Date object
+  const date = new Date(currentUser.birthday);
+
+  // Extract the year, month, and day from the Date object
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-indexed, so we add 1
+  const day = String(date.getDate()).padStart(2, '0');
+
+  // Construct the output date string in the "YYYY-MM-DD" format
+  const outputDate = `${year}-${month}-${day}`;
 
   function handleOpenModal(): void {
     setIsModalOpen(true);
@@ -18,12 +32,12 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({ modalCondition }) => {
     setIsModalOpen(false);
   };
   
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(currentUser.email);
   const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [firstName, setFirstName] = useState(currentUser.firstName);
+  const [lastName, setLastName] = useState(currentUser.lastName);
+  const [birthday, setBirthday] = useState(outputDate);
+  const [phoneNumber, setPhoneNumber] = useState(currentUser.phoneNumber);
 
   const [error, setError] = useState('');
 
@@ -44,14 +58,14 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({ modalCondition }) => {
   
   return (
     <>
-    <button className="btn btn-primary me-md-2" onClick={handleOpenModal}>
+    <button className="text-white btn btn-outline-primary me-md-2" onClick={handleOpenModal}>
         Оновити інформацію
     </button>
     <Modal show={isModalOpen} onHide={handleCloseModal}>
-      <Modal.Header closeButton>
+      <Modal.Header className="bg-dark text-light" closeButton>
         <Modal.Title>Внесення змін</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="bg-dark text-light">
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Електронна пошта</Form.Label>
@@ -85,7 +99,7 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({ modalCondition }) => {
 
           {error && <div>{error}</div>}
           <div className="d-grid gap-2">
-            <Button variant="primary" type="submit">
+            <Button variant="outline-primary" type="submit">
               Змінити інформацію
             </Button>
           </div>

@@ -6,9 +6,10 @@ namespace Cinema.Persistence.Interfaces;
 public interface IMovieRepository
 {
     Task<PagedList<Movie>> GetAllMoviesAsync(MovieParameters movieParameters);
+    Task<PagedList<Movie>> GetMoviesByUserFavouritesAsync(int id, MovieParameters movieParameters);
     Task<Movie?> GetMovieAsync(int id, bool trackChanges = false);
     Task<Movie?> GetMovieByMovieDetailsIdAsync(int movieDetailsId);
-    Task<Movie?> GetMovieInfoAsync(int id, bool trackChanges = false);    
+    Task<Movie?> GetMovieInfoAsync(int userId, bool trackChanges = false);    
     Task<Movie?> GetMovieByTittleAsync(string tittle);
     void CreateMovie(Movie movie);
     void DeleteMovie(Movie movie);

@@ -285,7 +285,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
             {error && <Alert variant="danger">{error}</Alert>}
 
             <div className="d-grid gap-2">
-                <Button variant="dark" size="lg" type="submit">
+                <Button variant="outline-primary" size="lg" type="submit">
                     Редагувати
                 </Button>
             </div>

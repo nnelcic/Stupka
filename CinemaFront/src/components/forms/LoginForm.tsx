@@ -54,10 +54,10 @@ const AuthForm: React.FC<AuthFormProps> = ({openCondition}) => {
   return (
     <div>
       <Modal show={isModalOpen} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
+        <Modal.Header className="bg-dark text-light" closeButton>
           <Modal.Title>Вхід</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="bg-dark text-light">
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Електронна пошта</Form.Label>

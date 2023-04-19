@@ -60,35 +60,35 @@ const Cinemas: React.FC<CinemasProps> = ({ setCinemaId, setShowHall, setShowCine
                 setSize('lg');
             }}>Створити</Button>
                
-        <Table striped bordered hover className="mt-2" variant="dark" responsive>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Назва</th>
-                    <th>Місто</th>
-                    <th>Адреса</th>
-                    <th>Пошта</th>
-                    <th>Номер телефону</th>
-                    <th>Опції</th>
-                </tr>
-            </thead>
-            <tbody>
-                {cinemas.map(x => 
-                <CinemaRow 
-                    setCinema={setCinema}
-                    setCinemaId={setCinemaId}
-                    setShowHall={setShowHall}
-                    setShowCinema={setShowCinema}
-                    cinema={x}
-                    key={x.id} 
-                    open={open}
-                    modal={modal}
-                    setCurrentCinemaId={setCurrentCinemaId}
-                    setCurrentOption={setCurrentOption}
-                    setSize={setSize}
-                />)}
-            </tbody>
-        </Table>
+            <Table striped bordered hover className="mt-2" variant="dark" responsive>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Назва</th>
+                        <th>Місто</th>
+                        <th>Адреса</th>
+                        <th>Пошта</th>
+                        <th>Номер телефону</th>
+                        <th>Опції</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {cinemas.map(x => 
+                    <CinemaRow 
+                        setCinema={setCinema}
+                        setCinemaId={setCinemaId}
+                        setShowHall={setShowHall}
+                        setShowCinema={setShowCinema}
+                        cinema={x}
+                        key={x.id} 
+                        open={open}
+                        modal={modal}
+                        setCurrentCinemaId={setCurrentCinemaId}
+                        setCurrentOption={setCurrentOption}
+                        setSize={setSize}
+                    />)}
+                </tbody>
+            </Table>
         </Container>
     )
 };

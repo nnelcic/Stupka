@@ -17,7 +17,7 @@ const GetMovieInfo: React.FC<GetMovieInfoProps> = ({ movie, movieDetails}) => {
                 <Row>               
                    
                  <img src={movie.posterUrl}></img>
-                    {/* <Card style={{ width: '17rem'}}>                
+                    <Card style={{ width: '17rem'}}>                
                         <Card.Img variant="top" src={movie.posterUrl} />                              
                     </Card>  
                                 
@@ -32,7 +32,7 @@ const GetMovieInfo: React.FC<GetMovieInfoProps> = ({ movie, movieDetails}) => {
                             <Card.Text>Вікові обмеження: {movieDetails.age_Limit}</Card.Text>
                             <Card.Text>Рейтинг: {movieDetails.independent_rate}</Card.Text>                                                   
                         </Card.Footer>
-                    </Card>       */}
+                    </Card>
                 </Row>
             </Container>
         </>

@@ -35,7 +35,7 @@ public class CinemaController : ControllerBase
     }
 
     [HttpPost]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddCinemaAsync([FromBody] AddCinemaRequest addCinemaRequest)
     {
         var createdCinema = await _service.CinemaService.AddAsync(addCinemaRequest);
@@ -44,7 +44,7 @@ public class CinemaController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateCinemaAsync(int id, [FromBody] UpdateCinemaRequest updateCinemaRequest)
     {
         await _service.CinemaService.UpdateAsync(id, updateCinemaRequest);
@@ -53,7 +53,7 @@ public class CinemaController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteCinemaAsync(int id)
     {
         await _service.CinemaService.DeleteAsync(id);

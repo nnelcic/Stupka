@@ -22,10 +22,10 @@ const RegisterButton: React.FC = () => {
         <div>
           <button className="nav-link px-2 text-white" onClick={handleOpenModal}>Реєстрація</button>
           <Modal show={isModalOpen} onHide={handleCloseModal}>
-            <Modal.Header closeButton>
+            <Modal.Header className="bg-dark text-light" closeButton>
               <Modal.Title>Реєстрація</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="bg-dark text-light">
               <RegisterForm onClose={handleCloseModal} />
             </Modal.Body>
           </Modal>

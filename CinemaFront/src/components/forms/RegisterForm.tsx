@@ -69,7 +69,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
 
       {error && <div>{error}</div>}
       <div className="d-grid gap-2">
-        <Button variant="primary" type="submit">
+        <Button variant="outline-primary" type="submit">
           Зареєструватися
         </Button>
       </div>

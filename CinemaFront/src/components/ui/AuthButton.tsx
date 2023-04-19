@@ -56,10 +56,10 @@ const AuthButton: React.FC<{}> = () => {
     <div>
       <button className="nav-link px-2 text-white" onClick={handleOpenModal}>Вхід</button>
       <Modal show={isModalOpen} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="bg-dark text-light">
           <Modal.Title>Вхід</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="bg-dark text-light">
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Електронна пошта</Form.Label>
@@ -70,7 +70,7 @@ const AuthButton: React.FC<{}> = () => {
               <Form.Control type="password" placeholder="Введіть пароль" value={password} onChange={handlePasswordChange} />
             </Form.Group>
             {error && <div>{error}</div>}
-            <Button variant="primary" type="submit" className="w-100">
+            <Button variant="outline-primary" type="submit" className="w-100">
               Увійти
             </Button>
           </Form>

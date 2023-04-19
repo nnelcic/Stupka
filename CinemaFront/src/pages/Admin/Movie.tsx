@@ -39,8 +39,7 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
     }, []);
 
    
-    return ( 
-        
+    return (
         <Container fluid className="p-5 pt-2 text-center">   
            
             {showError && <AlertDismissible func={setShowError} error={occuredError}/>}
@@ -63,7 +62,7 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
                     close={close} movieId={movie.id} setRerender={setRerender} />}
             </ModalWindow>}
 
-            <Button variant="outline-danger" size="lg" onClick={() => {
+            <Button className="me-3" variant="outline-danger" size="lg" onClick={() => {
                 setCurrentOption('createMovie');
                 setMovie(movie);
                 setShowMovie(true);

@@ -27,6 +27,16 @@ public class MovieController : ControllerBase
 
         return Ok(pagedResult.movies);        
     }
+    
+    [HttpGet("[action]/{userId:int}")]
+    public async Task<IActionResult> GetMoviesByUserFavouritesAsync(int userId, [FromQuery] MovieParameters movieParameters)
+    {
+        var pagedResult = await _service.MovieService.GetByUserFavourites(userId, movieParameters);
+
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedResult.metaData));
+
+        return Ok(pagedResult.movies);        
+    }
 
     [HttpGet("[action]/{id:int}")]
     public async Task<IActionResult> GetMovieInfoAsync(int id)

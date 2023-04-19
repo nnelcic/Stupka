@@ -91,7 +91,7 @@ const UpdateCinema: React.FC<UpdateCinemaFormProps> = ({ setOccuredError, setSho
             {error && <Alert variant="danger">{error}</Alert>}
 
             <div className="d-grid gap-2">
-                <Button variant="dark" type="submit">
+                <Button variant="outline-primary" type="submit">
                     Редагувати
                 </Button>
             </div>

@@ -26,6 +26,23 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
         return new PagedList<Movie>(movies, count, movieParameters.PageNumber, movieParameters.PageSize);
     }
 
+    public async Task<PagedList<Movie>> GetMoviesByUserFavouritesAsync(int userId, MovieParameters movieParameters)
+    {
+        var movies = FindAll()
+            .SelectMany(x => x.Favourites
+                .Where(f => f.UserDetails.UserId == userId))
+            .Select(x => x.Movie);
+        var filteredMovies = await movies
+            .OrderBy(x => x.Title)
+            .Search(movieParameters.SearchTerm)
+            .Skip((movieParameters.PageNumber - 1) * movieParameters.PageSize)
+            .Take(movieParameters.PageSize)
+            .ToListAsync();
+        
+        var count = movies.Count();
+        return new PagedList<Movie>(filteredMovies, count, movieParameters.PageNumber, movieParameters.PageSize);
+    }
+
     public async Task<Movie?> GetMovieAsync(int id, bool trackChanges = false)
     {
         return await FindByCondition(x => x.Id == id, trackChanges)
