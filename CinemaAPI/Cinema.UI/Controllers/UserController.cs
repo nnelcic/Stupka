@@ -70,7 +70,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    [Authorize(Roles = "Admin, User")]
+    //[Authorize(Roles = "Admin, User")]
     public async Task<IActionResult> DeleteUserAsync(int id)
     {
         await _service.UserService.DeleteAsync(id);

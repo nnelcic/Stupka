@@ -48,7 +48,7 @@ public class PdfService : IPdfService
                 <style> body {{ font-size: x-large; }} </style> </head><body>
                 <div class='container m-5'> <div class='row'> <div class='col-4'></div>
                 <div class='card col-6 bg-{colors[rand.Next(0, 4)]}' style='width: 18rem;'>
-                <div class='card-header'><h3 class='text-bg-success'>Квиток: 3</h3> 
+                <div class='card-header'><h3 class='text-bg-success'>Квиток: { ticket.Id }</h3> 
                 </div><div class='card-body'><p> Ціна квитка: { ticket.Price }₴ </p>
                 <p> Сеанс: { ticket.Seanse.Id } </p> <p> Зал: { ticket.Seanse.HallId } </p>
                 <p> Дата початку: { ticket.Seanse.StartTime }</p>

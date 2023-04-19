@@ -89,6 +89,7 @@ public class Program
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .WithOrigins("http://localhost:3000")
+                    .WithExposedHeaders("X-Pagination")
             );
 
         var logger = app.Services.GetRequiredService<ILoggerManager>();

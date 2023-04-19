@@ -1,4 +1,6 @@
-﻿namespace Cinema.Domain.Models.ViewModels;
+﻿using Cinema.Domain.Models.Entities;
+
+namespace Cinema.Domain.Models.ViewModels;
 
 public class SeanseViewModel
 {
@@ -6,5 +8,6 @@ public class SeanseViewModel
     public DateTime StartTime { get; set; }
     public MovieViewModel Movie { get; set; }
     public int HallId { get; set; }
+    public HallInfoViewModel Hall { get; set; }
     public PriceViewModel Price { get; set; }
 }

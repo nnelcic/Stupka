@@ -33,7 +33,7 @@ public class PromocodeController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddPromocodeAsync([FromBody] AddPromocodeRequest addPromocodeRequest)
     {
         var createdPromocode = await _service.PromocodeService.AddAsync(addPromocodeRequest);
@@ -42,7 +42,7 @@ public class PromocodeController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdatePromocodeAsync(int id, [FromBody] UpdatePromocodeRequest updatePromocodeRequest)
     {
         await _service.PromocodeService.UpdateAsync(id, updatePromocodeRequest);
@@ -51,7 +51,7 @@ public class PromocodeController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeletePromocodeAsync(int id)
     {
         await _service.PromocodeService.DeleteAsync(id);

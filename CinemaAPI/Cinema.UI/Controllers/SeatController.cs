@@ -41,7 +41,7 @@ public class SeatController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddSeatAsync([FromBody] AddSeatWithHallIdRequest addSeatRequest)
     {
         var createdSeat = await _service.SeatService.AddAsync(addSeatRequest);
@@ -50,7 +50,7 @@ public class SeatController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateSeatAsync(int id, [FromBody] UpdateSeatWithHallIdRequest updateSeatRequest)
     {
         await _service.SeatService.UpdateAsync(id, updateSeatRequest);
@@ -59,7 +59,7 @@ public class SeatController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteSeatAsync(int id)
     {
         await _service.SeatService.DeleteAsync(id);

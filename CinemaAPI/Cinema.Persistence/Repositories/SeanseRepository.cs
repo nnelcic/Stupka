@@ -27,6 +27,8 @@ public class SeanseRepository : RepositoryBase<Seanse>, ISeanseRepository
         var seanses = await FindAll()
             .Include(x => x.Movie)
             .Include(x => x.Hall)
+                .ThenInclude(x => x.Seats)
+                    .ThenInclude(x => x.SeatType)
             .Include(x => x.Price)
             .OrderBy(x => x.Id)
             .Skip((seanseParameters.PageNumber - 1) * seanseParameters.PageSize)

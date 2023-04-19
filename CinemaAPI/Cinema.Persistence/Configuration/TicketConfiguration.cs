@@ -14,6 +14,10 @@ public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
             .OnDelete(DeleteBehavior.NoAction);
 
         builder
+            .HasIndex(x => x.SeatId)
+            .IsUnique(false);
+
+        builder
             .Property(x => x.Price)
             .HasPrecision(7, 2);
     }
