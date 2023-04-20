@@ -1,15 +1,31 @@
 import CustomError from '../types/errorTypes/CustomError';
-import { useState } from "react";
-import axios, { AxiosError } from 'axios';
+import { useEffect, useState } from "react";
+import axios, { AxiosError, isAxiosError } from 'axios';
 import MovieInfo, {defaultMovieInfo} from '../types/movieTypes/MovieInfo';
 import http from '../http-common';
+import Movie from '../types/movieTypes/Movie';
+import { getCurrentUserId } from './getCurrentUserId';
 
 export default function useMovie() {
-
+    
     const [movies, setMovies] = useState<MovieInfo[]>([]);
     const [movie, setMovie] = useState<MovieInfo>(defaultMovieInfo);
     const [showMovie, setShowMovie] = useState<boolean>(true);
-  
+    const [favouriteMovies, setFavouriteMovies] = useState<Movie[]>([])
+    const [errorMessage, setErrorMessage] = useState('')
+
+    async function getMoviesByUserFavourite() {
+        try{
+            const userId = await getCurrentUserId()
+            const response = await http.get<Movie[]>(`/movies/GetMoviesByUserFavourites/${userId}`)
+            setFavouriteMovies(response.data)
+        }catch(error){
+            if(isAxiosError(error)){
+                setErrorMessage(error.message)
+            }
+            setErrorMessage("Invalid request!")
+        }
+    }
 
     async function fetchMovies() {
         const response = await http.get<MovieInfo[]>('/movies/GetAllMovies');
@@ -63,6 +79,7 @@ export default function useMovie() {
         }
     }
 
+
     async function getMovie(movieId: number) {       
         const response = await http.get<MovieInfo>(`/movies/GetMovieInfo/${movieId}`);
         console.log(response.data);
@@ -86,10 +103,16 @@ export default function useMovie() {
         }
     }
 
+    useEffect(() => {
+        getMoviesByUserFavourite();
+    }, []);
+
     return { 
         movies,
         movie, 
-        showMovie, 
+        showMovie,
+        favouriteMovies,
+        errorMessage,
         setShowMovie,
         addMovieItem,
         deleteMovie,
@@ -98,6 +121,7 @@ export default function useMovie() {
         createMovie,
         findByTitle,
         getMovie,
+        getMoviesByUserFavourite,
         setMovie
     };
 }

@@ -56,7 +56,7 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
                     close={close} movieId={movie.id} setRerender={setRerender} />}
             </ModalWindow>}
 
-            <Button variant="outline-danger" size="lg" onClick={() => {
+            <Button className="me-3" variant="outline-danger" size="lg" onClick={() => {
                 setCurrentOption('createMovie');
                 setMovie(movie);
                 setShowMovie(true);

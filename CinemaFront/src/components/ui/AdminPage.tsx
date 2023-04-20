@@ -4,19 +4,19 @@ function AdminPage() {
   return (
     <Nav justify variant="tabs" defaultActiveKey="/home" className='bg-black'>
       <Nav.Item>
-      <Nav.Link href="/admin/cinemamanagement">Кінотеатри</Nav.Link>
+      <Nav.Link href="/admin/cinemamanagement" className="navbar-link">Кінотеатри</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-      <Nav.Link href="/admin/seansemanagement">Сеанси</Nav.Link>
+      <Nav.Link href="/admin/seansemanagement" className="navbar-link">Сеанси</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-      <Nav.Link href="/admin/moviemanagement">Фільми</Nav.Link>
+      <Nav.Link href="/admin/moviemanagement" className="navbar-link">Фільми</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-      <Nav.Link href="/admin/users">Користувачі</Nav.Link>
+      <Nav.Link href="/admin/users" className="navbar-link">Користувачі</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-      <Nav.Link href="/admin/promocodes">Промокоди</Nav.Link>
+      <Nav.Link href="/admin/promocodes" className="navbar-link">Промокоди</Nav.Link>
       </Nav.Item>
     </Nav>
   );

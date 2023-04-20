@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form, Modal} from 'react-bootstrap';
 import useUsers from "../../hooks/UsersHook";
 import axios from 'axios';
@@ -23,21 +23,27 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({ modalCondition, current
 
   // Construct the output date string in the "YYYY-MM-DD" format
   const outputDate = `${year}-${month}-${day}`;
-
+  
   function handleOpenModal(): void {
     setIsModalOpen(true);
+    setEmail(currentUser.email)
+    setPassword('')
+    setFirstName(currentUser.firstName)
+    setLastName(currentUser.lastName)
+    setBirthday(outputDate)
+    setPhoneNumber(currentUser.phoneNumber)
   }
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
   
-  const [email, setEmail] = useState(currentUser.email);
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState(currentUser.firstName);
-  const [lastName, setLastName] = useState(currentUser.lastName);
-  const [birthday, setBirthday] = useState(outputDate);
-  const [phoneNumber, setPhoneNumber] = useState(currentUser.phoneNumber);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const [error, setError] = useState('');
 

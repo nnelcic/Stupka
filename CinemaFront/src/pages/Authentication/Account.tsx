@@ -2,16 +2,26 @@ import { useState } from "react";
 import useUsers from "../../hooks/UsersHook";
 import UpdateUserForm from "../../components/forms/UpdateUser";
 import image from "../../assets/Main.png";
+import Movie from "../../types/movieTypes/Movie";
+import useMovie from "../../hooks/MovieHook";
+import { Button, Card } from "react-bootstrap";
+import http from "../../http-common";
 
 const Account: React.FC<{}> = () => {
-    const [error, setError] = useState('')
     const { currentUser } = useUsers();
+    const { favouriteMovies, errorMessage } = useMovie();
+    console.log({ favouriteMovies })
     const birthday = new Date(currentUser.birthday).toLocaleDateString();
 
     const handleLogout = () => {
         localStorage.clear()
         window.location.href = "/"
     };
+
+    async function handleDelete(movieId: number) {
+        await http.delete(`/favourites/${currentUser.id}&${movieId}`)
+        window.location.href="/account"
+    }
     
     return (
         <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100">
@@ -57,12 +67,41 @@ const Account: React.FC<{}> = () => {
                     </div>
                     <div className="card-body">
                         <div className="row mb-3">
-                            {
-                                
-                            }
+                            {favouriteMovies.length === 0 && <p>Вам поки що нічого не до вподоби</p>}
+                            { favouriteMovies.map(item => (
+                                <Card className="me-3 pt-3 pb-3 text-light bg-secondary" key={item.id} style={{ width: '10rem' }}>
+                                    {errorMessage && <div>{errorMessage}</div>}
+                                    <Card.Img variant="top" src={item.posterUrl} />
+                                    <Card.Body>
+                                        <Card.Title>{item.originalTitle}</Card.Title>
+                                        <Card.Text>
+                                            {item.title}
+                                        </Card.Text>
+                                    </Card.Body>
+                                    <Button type="submit" variant="outline-danger" className="text-light" size="sm"
+                                        onClick={() => handleDelete(item.id)}>
+                                        Видалити з вподобайок
+                                    </Button>
+                                </Card>
+                            )) }
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="container pt-2 py-5 bg-transparent">
+                <div className="card mt-3 bg-dark text-light">
+                    <div className="card-header">
+                        <h2 className="card-title mb-0">Ваші коментарі:</h2>
+                    </div>
+                    <div className="card-body">
+                        <div className="row mb-3">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="container pt-2 py-5 bg-transparent">
+                
             </div>
         </div>
     );

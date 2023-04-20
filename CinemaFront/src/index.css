@@ -32,3 +32,7 @@ a {
   list-style-type: none;
 }
 
+.navbar-link {
+  color: white !important;
+}
+
