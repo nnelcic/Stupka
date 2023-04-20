@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Seat from "../../types/seatTypes/Seat";
 import { useEffect } from "react";
 import usePurchases from "../../hooks/PurchasesHook";
@@ -25,6 +25,12 @@ const SeatsForPurchase: React.FC<PurchaseTicketsProps> = ({ seatIds, seanseId, a
             color === 'ForKissing' ? 'danger' : 'warning'
     }
 
+    const getTooltip = (color: string) => {
+        return color === 'Normal'? 'Звичайне' : 
+            color === 'ForDisablers' ? 'Для інвалідів' :
+            color === 'ForKissing' ? 'Для поцілунків' : 'VIP'
+    }
+
     return (
         <div>
             {seats.sort((a, b) => {
@@ -42,25 +48,30 @@ const SeatsForPurchase: React.FC<PurchaseTicketsProps> = ({ seatIds, seanseId, a
                 return (
                     <>
                         <br />
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{getTooltip(x.seatType.type)}</Tooltip>}>
+                        <span className="d-inline-block">
                         <Button key={x.id} variant={freeSeats.some(e => e.id === x.id) !== true ? 'secondary' : 
-                        getColor(x.seatType.type)} className={seatIds.some(e => e === x.id) === true ? 'p-2 m-1 border' : 'p-2 m-1'}
-                        onClick={() => {
+                            getColor(x.seatType.type)} className={seatIds.some(e => e === x.id) === true ? 'p-2 m-1 border' : 'p-2 m-1'}
+                            onClick={() => {
                             if(freeSeats.some(e => e.id === x.id)) {
                                 addOrRemoveItemFromArray(x.id)
-                            }
-                        }}>{x.row}/{x.seatNumber}</Button>
+                        }}}>{x.row}/{x.seatNumber}</Button>
+                        </span>
+                        </OverlayTrigger>
                     </>
                 );
             }
 
-            return <Button key={x.id} variant={freeSeats.some(e => e.id === x.id) !== true ? 'secondary' : 
-                getColor(x.seatType.type)} className={seatIds.some(e => e === x.id) === true ? 'p-2 m-1 border' : 'p-2 m-1'}
-                onClick={() => {
+            return <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{getTooltip(x.seatType.type)}</Tooltip>}>
+                <span className="d-inline-block">
+                <Button key={x.id} variant={freeSeats.some(e => e.id === x.id) !== true ? 'secondary' : 
+                    getColor(x.seatType.type)} className={seatIds.some(e => e === x.id) === true ? 'p-2 m-1 border' : 'p-2 m-1'}
+                    onClick={() => {
                     if(freeSeats.some(e => e.id === x.id)) {
                         addOrRemoveItemFromArray(x.id)
-                    }
-                }}>{x.row}/{x.seatNumber}</Button>
-            })}
+                }}}>{x.row}/{x.seatNumber}</Button>
+                </span>
+            </OverlayTrigger>})}
         </div>
     )
 };

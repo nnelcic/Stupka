@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import MovieInfo from "../../../types/movieTypes/MovieInfo";
-import MovieDetails from "../../../types/movieTypes/MovieDetails";
 import MovieGenre from "../../../types/movieTypes/movieGenre";
 import useMovie from "../../../hooks/MovieHook";
 import CustomError from "../../../types/errorTypes/CustomError";
@@ -9,33 +8,33 @@ import CustomError from "../../../types/errorTypes/CustomError";
 type UpdateMovieFormProps = {
     close: () => void;
     movie: MovieInfo;
-    movieDetails: MovieDetails;
     movieGenre: MovieGenre;
     setRerender: (value: boolean | ((prevVar: boolean) => boolean)) => void;
     setShowError: (value: boolean) => void;
     setOccuredError: (value: CustomError) => void;
+    getMovie: (movieId: number) => void;
 };
 
-const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowError, close, movie, movieDetails, movieGenre, setRerender }) => {
-    const [originalTitle, setOriginalTitle] = useState(movie.originalTitle);
-    const [title, setTitle] = useState(movie.title);
-    const [duration, setDuration] = useState(movie.duration);
-    const [type, setType] = useState(movie.movieTypeId);
-    const [releaseDate, setReleaseDate] = useState(movie.releaseDate);
-    const [posterUrl, setPosterUrl] = useState(movie.posterUrl);
-    const [description, setDescription] = useState(movieDetails.description);
-    const [ageLimit, setAgeLimit] = useState(movieDetails.age_Limit);
-    const [country, setCountry] = useState(movieDetails.country);
-    const [rate, setRate] = useState(movieDetails.independent_rate);
-    const [producer, setProducer] = useState(movieDetails.producer);
-    const [trailer, setTrailer] = useState(movieDetails.movieTrailerUrl);
-    const [genreId, setGenreId] = useState(movieGenre.genreId);
-    const [movieId, setMovieId] = useState(movie.id);
-    const [startDate, setStartDate] = useState(movieDetails.start_date);
-    const [endDate, setEndDate] = useState(movieDetails.end_date);
+const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, setOccuredError, setShowError, close, movie, movieGenre, setRerender }) => {
+    
+    const [originalTitle, setOriginalTitle] = useState('');
+    const [title, setTitle] = useState('');
+    const [duration, setDuration] = useState(0);
+    const [type, setType] = useState(0);
+    const [releaseDate, setReleaseDate] = useState('');
+    const [posterUrl, setPosterUrl] = useState('');
+    const [description, setDescription] = useState('');
+    const [ageLimit, setAgeLimit] = useState(0);
+    const [country, setCountry] = useState('');
+    const [rate, setRate] = useState(0);
+    const [producer, setProducer] = useState('');
+    const [trailer, setTrailer] = useState('');
+    const [genreId, setGenreId] = useState(0);
+    const [movieId, setMovieId] = useState(0);
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const [error, setError] = useState("");
     const { updateMovie } = useMovie();
-
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -53,7 +52,14 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
         }
     };
 
+    useEffect(() => {
+        getMovie(movie.id);
+    }, [])
+
+
     return (
+        <div>
+        {movie.movieDetails !== undefined &&
         <Form onSubmit={handleSubmit}>
             <Container>
                 <Row>
@@ -63,7 +69,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                             type="text"
                             placeholder="Введіть оригінальну назву"
-                            value={originalTitle}
+                            value={movie.originalTitle}
                             onChange={(event) => setOriginalTitle(event.target.value)}
                         />
                         </Form.Group>
@@ -75,7 +81,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                             type="text"
                             placeholder="Введіть назву"
-                            value={title}
+                            value={movie.title}
                             onChange={(event) => setTitle(event.target.value)}
                              />
                          </Form.Group>
@@ -91,7 +97,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                         type="number"
                         placeholder="Введіть тривалість фільму"
-                        value={duration}
+                        value={movie.duration}
                         onChange={(event: any) => setDuration(event.target.value)}
                         />
                         </Form.Group>
@@ -103,7 +109,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                             <Form.Control
                                 type="number"
                                 placeholder="Введіть тип фільму"
-                                value={type}
+                                value={movie.movieTypeId}
                                 onChange={(event: any) => setType(event.target.value)}
                             />
                          </Form.Group>   
@@ -119,7 +125,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                         type="text"
                         placeholder="Введіть дату релізу"
-                        value={releaseDate}
+                        value={movie.releaseDate}
                         onChange={(event) => setReleaseDate(event.target.value)}
                         />
                         </Form.Group>
@@ -131,7 +137,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                         type="text"
                         placeholder="Введіть Url постеру"
-                        value={posterUrl}
+                        value={movie.posterUrl}
                         onChange={(event) => setPosterUrl(event.target.value)}
                         />
                         </Form.Group>
@@ -148,17 +154,18 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                         type="text"
                         placeholder="Введіть опис"
-                        value={description}
+                        value={movie.movieDetails.description}
                         onChange={(event) => setDescription(event.target.value)}
                         />
                         </Form.Group></Col>
+
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
                         <Form.Label>Вікові обмеження</Form.Label>
                         <Form.Control
                         type="number"
                         placeholder="Введіть вік"
-                        value={ageLimit}
+                        value={movie.movieDetails.age_Limit}
                         onChange={(event: any) => setAgeLimit(event.target.value)}
                         />
                         </Form.Group>
@@ -174,7 +181,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                         type="text"
                         placeholder="Введіть продюсера"
-                        value={producer}
+                        value={movie.movieDetails.producers}
                         onChange={(event) => setProducer(event.target.value)}
                          />
                          </Form.Group>
@@ -186,7 +193,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                         type="text"
                         placeholder="Введіть країну"
-                        value={country}
+                        value={movie.movieDetails.country}
                         onChange={(event) => setCountry(event.target.value)}
                             />
                         </Form.Group>
@@ -202,7 +209,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                         type="text"
                         placeholder="Введіть Url трейлера"
-                        value={movieDetails.movieTrailerUrl}
+                        value={movie.movieDetails.movieTrailerUrl}
                         onChange={(event) => setTrailer(event.target.value)}
                             />
                         </Form.Group>
@@ -215,7 +222,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                         type="number"
                         placeholder="Введіть Id жанра"
-                        value={genreId}
+                        
                         onChange={(event: any) => setGenreId(event.target.value)}
                             />
                         </Form.Group>
@@ -232,7 +239,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                         type="number"
                         placeholder="Введіть Id фільму"
-                        value={movieId}
+                        
                         onChange={(event: any) => setMovieId(event.target.value)}
                             />
                         </Form.Group>
@@ -244,7 +251,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                         type="date"
                         placeholder="Введіть дату початку"
-                        value={startDate}
+                        value={movie.movieDetails.start_date}
                         onChange={(event) => setStartDate(event.target.value)}
                             />
                         </Form.Group>
@@ -261,7 +268,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                         <Form.Control
                         type="date"
                         placeholder="Введіть дату закінчення"
-                        value={endDate}
+                        value={movie.movieDetails.end_date}
                         onChange={(event) => setEndDate(event.target.value)}
                             />
                         </Form.Group>
@@ -273,7 +280,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                             <Form.Control
                             type="number"
                             placeholder="Введіть рейтинг"
-                            value={rate}
+                            value={movie.movieDetails.independentRate}
                             onChange={(event: any) => setRate(event.target.value)}
                             />
                         </Form.Group>
@@ -289,7 +296,8 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ setOccuredError, setShowE
                     Редагувати
                 </Button>
             </div>
-        </Form>
+        </Form>}
+        </div>
     );
 };
 

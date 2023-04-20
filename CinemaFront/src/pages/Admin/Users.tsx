@@ -19,6 +19,9 @@ const Users: React.FC<{}> = () => {
     const [currentOption, setCurrentOption] = useState<string>('');
     const [size, setSize] = useState<string>('');
     const [rerender, setRerender] = useState(false);
+    const title: string = currentOption === 'updateUser' ? `Редагувати користувача Id ${currentUserId}` :
+        currentOption === 'showUser'? `Користувач id ${currentUserId}` : currentOption === 'purchasesUser' ?
+        `Покупки користувача id ${currentUserId}` : `Видалити користувача Id ${currentUserId}`
 
     useEffect(() => {
         fetchUsers();
@@ -31,7 +34,7 @@ const Users: React.FC<{}> = () => {
                 <Container fluid className="p-5 pt-3 text-center">
                     
                     {modal &&
-                    <ModalWindow title={`Користувач Id ${currentUserId}`} 
+                    <ModalWindow title={title} 
                         close={close}
                         modal={modal} 
                         size={size}>

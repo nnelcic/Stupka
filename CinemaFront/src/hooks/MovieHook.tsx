@@ -7,7 +7,7 @@ import http from '../http-common';
 export default function useMovie() {
 
     const [movies, setMovies] = useState<MovieInfo[]>([]);
-    const [movie, setMovie] = useState<MovieInfo>();
+    const [movie, setMovie] = useState<MovieInfo>(defaultMovieInfo);
     const [showMovie, setShowMovie] = useState<boolean>(true);
   
 
@@ -63,10 +63,10 @@ export default function useMovie() {
         }
     }
 
-
     async function getMovie(movieId: number) {       
-            const response = await http.get<MovieInfo>(`/movies/GetMovieInfo/${movieId}`);
-            setMovie(response.data);       
+        const response = await http.get<MovieInfo>(`/movies/GetMovieInfo/${movieId}`);
+        console.log(response.data);
+        setMovie(response.data);    
     }  
 
 
@@ -97,6 +97,7 @@ export default function useMovie() {
         updateMovie,
         createMovie,
         findByTitle,
-        getMovie
+        getMovie,
+        setMovie
     };
 }

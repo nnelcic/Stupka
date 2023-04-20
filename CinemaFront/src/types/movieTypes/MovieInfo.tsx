@@ -12,7 +12,6 @@ export default interface MovieInfo {
     posterUrl: string;
     movieDetails: MovieDetails;
     movieGerne: MovieGenre 
-
 }
 
 export const defaultMovieInfo: MovieInfo = {
@@ -26,9 +25,9 @@ export const defaultMovieInfo: MovieInfo = {
     movieDetails: {
         id: 0,
         description: '',
-        producer: '',
+        producers: '',
         age_Limit: 0,    
-        independent_rate: 0,
+        independentRate: 0,
         country: '',
         movieTrailerUrl: '',
         start_date: '',

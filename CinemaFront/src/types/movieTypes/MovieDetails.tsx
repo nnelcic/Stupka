@@ -1,9 +1,9 @@
 export default interface MovieDetails {
         id: number;
         description: string;
-        producer: string;
+        producers: string;
         age_Limit: number;  
-        independent_rate: number;
+        independentRate: number;
         country: string;
         movieTrailerUrl: string;
         start_date: string;
@@ -13,9 +13,9 @@ export default interface MovieDetails {
 export const defaultMovieDetails: MovieDetails = {
         id: 0,
         description: '',
-        producer: '',
+        producers: '',
         age_Limit: 0,
-        independent_rate: 0,
+        independentRate: 0,
         country: '',
         movieTrailerUrl: '',
         start_date: '',
