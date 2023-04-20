@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Persistence.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230419214826_dbInit")]
-    partial class dbInit
+    [Migration("20230420120307_initialDbCinema")]
+    partial class initialDbCinema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
