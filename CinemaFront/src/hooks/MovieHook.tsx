@@ -79,7 +79,6 @@ export default function useMovie() {
         }
     }
 
-
     async function getMovie(movieId: number) {       
         const response = await http.get<MovieInfo>(`/movies/GetMovieInfo/${movieId}`);
         console.log(response.data);

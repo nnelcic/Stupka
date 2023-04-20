@@ -47,11 +47,6 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
 
     return (
         <Container className='p-5'>
-            <Button variant='outline-danger' className="text-white" onClick={() => {
-                setShowSeanses(true)
-                setShowSeanse(false)
-            }}>
-            Назад</Button>
             <Row>
             <Col className="mt-3">
                 <Card>

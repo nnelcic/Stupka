@@ -13,7 +13,7 @@ const SeanseItem: React.FC<SeanseItemProps> = ({ setSeanse, setShowSeanse, setSh
         <Col className="mt-3">
             <Card>
                 <Row>
-                    <Col sm={2}> 
+                    <Col sm={2} className="p-1 ms-3"> 
                         <img src={seanse.movie.posterUrl} className="w-100" 
                             alt={`Постер ${seanse.movie.title}`} />
                     </Col>

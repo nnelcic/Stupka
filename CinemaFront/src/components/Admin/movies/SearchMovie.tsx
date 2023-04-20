@@ -21,7 +21,6 @@ const SearchMovie: React.FC<SearchMovieProps> = ({movieTitle, findByTitle, movie
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         findByTitle(movieTitle);
-        close();
     };
 
     return (

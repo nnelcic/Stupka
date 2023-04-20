@@ -23,11 +23,11 @@ public class MovieService : IMovieService
         _mapper = mapper;
     }
 
-    public async Task<(IEnumerable<MovieViewModel> movies, MetaData metaData)> GetAllAsync(MovieParameters movieParameters)
+    public async Task<(IEnumerable<MovieInfoViewModel> movies, MetaData metaData)> GetAllAsync(MovieParameters movieParameters)
     {
         var moviesWithMediaData = await _repository.Movie.GetAllMoviesAsync(movieParameters);
 
-        var moviesToReturn = _mapper.Map<IEnumerable<MovieViewModel>>(moviesWithMediaData);
+        var moviesToReturn = _mapper.Map<IEnumerable<MovieInfoViewModel>>(moviesWithMediaData);
 
         return (movies: moviesToReturn, metaData: moviesWithMediaData.MetaData);
     }

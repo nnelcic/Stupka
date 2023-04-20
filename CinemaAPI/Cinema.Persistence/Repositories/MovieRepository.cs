@@ -17,6 +17,10 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
     {
         var movies = await FindAll()
             .OrderBy(x => x.Title)
+            .Include(x => x.MovieDetails)
+            .Include(x => x.MovieType)
+            .Include(x => x.MovieGenres)
+                .ThenInclude(x => x.Genre)
             .Search(movieParameters.SearchTerm)
             .Skip((movieParameters.PageNumber - 1) * movieParameters.PageSize)
             .Take(movieParameters.PageSize)
