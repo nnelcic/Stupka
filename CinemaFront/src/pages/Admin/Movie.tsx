@@ -62,39 +62,22 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
                 setShowMovie(true);
                 open();
                 setSize('lg');
-            }}>Створити новий фільм</Button>
-
-            <PublishMovie/>
+            }}>Створити новий фільм</Button>          
               
-            
-        <Table striped bordered hover className="mt-2" variant="dark" responsive>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Оригінальна назва</th>
-                    <th>Назва</th>
-                    <th>Дата реліза</th>
-                    <th>Тривалість</th>                    
-                    <th>Опції</th>
-                </tr>
-            </thead>
-            <tbody>
-                {movies.map(x => 
+                     
                 <MoviesRow 
                     setMovie={setMovie}                  
                     setShowMovie={setShowMovie}                   
-                    movie={x}                                
-                    key={x.posterUrl} 
+                    movie={movie}                                
+                    key={movie.id} 
                     open={open}
                     modal={modal}
                     setCurrentMovieId={setCurrentMovieId}
                     setCurrentOption={setCurrentOption}
                     setSize={setSize}
                 />               
-                
-                )}
-            </tbody>
-        </Table>
+        
+           
         </Container>
     )
 };

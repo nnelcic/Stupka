@@ -37,9 +37,10 @@ export default function useMovie() {
         setMovie(response.data);
       }
 
-    async function findByTitle(title: string) {
+      async function findByTitle(title: string) {
         const response = await http.get<MovieInfo[]>(`/movies/GetAllMovies?SearchTerm=${title}`);
-        return response.data;
+        setMovies(response.data);
+       
     }
 
     async function updateMovie(id: number, originalTitle: string, title: string, duration: number, type: number,

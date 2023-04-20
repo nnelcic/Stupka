@@ -3,7 +3,7 @@ import { Header } from "./components/ui/header";
 import Home from "./pages/Home/Home";
 import Cinema from "./pages/Admin/Cinemas";
 import News from "./pages/News/News";
-import MoviePosters from "./pages/Movies/MoviePosters";
+import MoviePosters from "./pages/Movies/MoviePosterManager";
 import { FAQ } from "./pages/Home/FAQ";
 import AdminMain from "./pages/Admin/Main"
 import Account from "./pages/Authentication/Account";
@@ -17,7 +17,6 @@ import PriceManagement from "./pages/Admin/PriceManagement";
 import { Footer } from "./components/ui/footer";
 import Promocodes from "./pages/Admin/Promocodes";
 import SingleMovie from "./pages/Movies/SingleMovie";
-import AddMovie from "./pages/Admin/AddMovie";
 import SeansePage from "./pages/Seance/SeansePage";
 
 function App() {
@@ -33,7 +32,7 @@ function App() {
                         <Route path="/" element={<Home />}></Route>
                         { token && <Route path="/account" element={<Account />}></Route> }
                         <Route path="/news/news" element={<News/>}></Route>
-                        <Route path="/movies/movieposters" element={<MoviePosters/>}></Route>
+                        <Route path="/movies/moviepostermanager" element={<MoviePosters/>}></Route>
                         <Route path="/movies/seances" element={<SeansePage />}></Route>
                         {
                             role === "Admin" &&
@@ -45,7 +44,7 @@ function App() {
                                 <Route path="/admin/cinemamanagement" element={<CinemasManagement />}></Route>
                                 <Route path="/admin/moviemanagement" element={<MovieManagement />}></Route>
                                 <Route path="/admin/seansemanagement" element={<SeanseManagement />}></Route>
-                                <Route path="/admin/addmovie" element={<AddMovie/>}></Route>
+                                
                             </>
                         }
                         <Route path="/home/faq" element={<FAQ/>}></Route>

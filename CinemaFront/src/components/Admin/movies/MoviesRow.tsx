@@ -1,5 +1,8 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import MovieInfo from "../../../types/movieTypes/MovieInfo";
+import { useState } from "react";
+import useMovie from "../../../hooks/MovieHook";
+
 
 interface MoviesRowProps {
     movie: MovieInfo;   
@@ -12,19 +15,57 @@ interface MoviesRowProps {
     setMovie: (movie: MovieInfo) => void;
 }
 
-const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, movie, open, setCurrentMovieId, setCurrentOption, setSize }) => {
+const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, open, movie, setCurrentMovieId, setCurrentOption, setSize }) => {
+    
+    const [query, setQuery] = useState("");   
+    const {findByTitle, movies} = useMovie();  
+    const [publish, setPublish] = useState(false);
+  
 
+   const OnChange = (event: any) => {
+    event.preventDefault();
+    setQuery(event.target.value);
+    findByTitle(event.target.value); 
+
+   }  
+    
     return (
-        <tr>
-            <td>{movie.id}</td>
-            <td>{movie.originalTitle}</td>
-            <td>{movie.title}</td>
-            <td>{movie.releaseDate}</td>
-            <td>{movie.duration}</td>            
-            <td>
-                <Container>
-                    <Row> 
-                                               
+        <>
+        <div className="add-page">
+                <div className="container">
+                    <div className="add-content">
+                        <div className="input-wrapper">
+                            <label className="text-white p-4">Пошук</label>
+                            <input type="text" className="result"
+                            value={query}
+                            onChange={OnChange}
+                            />
+                        </div>                        
+                  
+                       {movies.length > 0 && (
+                           <Container>
+                             <Table striped bordered hover className="mt-2" variant="dark" responsive>                                
+                                <thead>
+                                    <tr>                                        
+                                    <th>Id</th>
+                                    <th>Оригінальна назва</th>
+                                    <th>Назва</th>
+                                    <th>Дата реліза</th>
+                                    <th>Тривалість</th>                                              
+                                    <th>Опції</th>                                 
+                                        </tr>
+                                        </thead>                                     
+                                        <tbody>
+                                                {movies.map(movie => (
+                                                    <tr>
+                                                        <td>{movie.id}</td>
+                                                        <td>{movie.originalTitle}</td>
+                                                        <td>{movie.title}</td>
+                                                        <td>{movie.releaseDate}</td>
+                                                        <td>{movie.duration}</td>                                                         
+                                                        <td>
+                        <Container>
+                            <Row>                                
                          <Col>
                             <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentMovieId(movie.id); 
@@ -32,7 +73,8 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, movie, op
                                 open();                               
                                 setCurrentOption('showMovie');
                                 setSize('lg');
-                                }}>Інформація 
+                            }}>
+                                Інформація
                             </Button>
                         </Col>     
                         <Col>
@@ -56,10 +98,22 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, movie, op
                             Видалити
                           </Button>
                         </Col>
-                    </Row>
-                </Container>
-            </td>
-        </tr>
+                </Row>
+        
+        </Container>
+                                                        </td>
+                                                    </tr>                                                    
+                                                ))}
+                                        </tbody>                                
+                            </Table>
+                           </Container>
+                        )}                       
+                        
+                    </div>
+                </div>
+
+            </div>
+        </>
     );
 };
 

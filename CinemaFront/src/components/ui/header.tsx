@@ -20,7 +20,7 @@ export const Header: FC<{}> = () => {
                             Новини</Link>                           
                     </li> 
                     <li className="nav-item">
-                        <Link to="/movies/moviemosters" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
+                        <Link to="/movies/moviepostermanager" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
                             Фільми</Link>
                     </li>
                     <li className="nav-item">

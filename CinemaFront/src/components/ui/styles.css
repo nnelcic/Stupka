@@ -68,11 +68,11 @@ li {
 }
 
 #slide {
-    width: 70%;
-    height: 70%;
+    width: 80%;
+    height: 100%;
     border: 3pt rgb(113, 8, 8) solid;
-    margin: 20px;
-    margin-top: 130px;
+    margin: 10px;
+    margin-top: 160px;
     padding: 0;
 }
 
