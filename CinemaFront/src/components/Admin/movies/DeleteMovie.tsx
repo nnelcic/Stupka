@@ -1,16 +1,19 @@
+import { useEffect } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import useMovie from "../../../hooks/MovieHook";
 import CustomError from "../../../types/errorTypes/CustomError";
+import MovieInfo from "../../../types/movieTypes/MovieInfo";
 
 interface DeleteMovieProps {
     movieId: number; 
+    movie: MovieInfo;
     close: () => void;
     setRerender: (value: boolean | ((prevVar: boolean) => boolean)) => void;
     setShowError: (value: boolean) => void;
     setOccuredError: (value: CustomError) => void;
 }
 
-const DeleteMovie: React.FC<DeleteMovieProps> = ({ setOccuredError, setShowError, movieId, close, setRerender }) => {
+const DeleteMovie: React.FC<DeleteMovieProps> = ({ setOccuredError, setShowError, movieId, movie, close, setRerender }) => {
     const { deleteMovie } = useMovie();
 
     return (
@@ -24,7 +27,7 @@ const DeleteMovie: React.FC<DeleteMovieProps> = ({ setOccuredError, setShowError
                             variant="danger" size="lg"
                             className="btn-lg"
                             onClick={() => {
-                                deleteMovie(movieId, setShowError, setOccuredError);
+                                deleteMovie(movie.id, setShowError, setOccuredError);
                                 close();
                                 setTimeout(() => {
                                     setRerender(x => !x)

@@ -31,9 +31,9 @@ const GetMovieInfo: React.FC<GetMovieInfoProps> = ({ getMovie, movie }) => {
                         <Card.Text>Продюсер: {movie.movieDetails.producers}</Card.Text> 
                         <Card.Text>Вікові обмеження: {movie.movieDetails.ageLimit}</Card.Text>
                         <Card.Text>Рейтинг: {movie.movieDetails.independentRate}</Card.Text>                                                   
-                        <Card.Text>Рейтинг: {movie.movieDetails.description}</Card.Text>                                                   
-                        <Card.Text>Рейтинг: {movie.movieDetails.country}</Card.Text>                                                   
-                        <Card.Text>Рейтинг: {movie.movieDetails.movieTrailerUrl}</Card.Text>                                                   
+                        <Card.Text>Опис: {movie.movieDetails.description}</Card.Text>                                                   
+                        <Card.Text>Країна: {movie.movieDetails.country}</Card.Text>                                                   
+                        <Card.Text>Трейлер: {movie.movieDetails.movieTrailerUrl}</Card.Text>                                                   
                     </Card.Footer>
                     </Card>      
                 </Row>

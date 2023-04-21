@@ -52,7 +52,7 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
                     : currentOption ===  'createMovie'
                     ? <CreateMovie setShowError={setShowError} setOccuredError={setOccuredError}
                     close={close} movie={movie} setRerender={setRerender} /> 
-                    : <DeleteMovie setShowError={setShowError} setOccuredError={setOccuredError}
+                    : <DeleteMovie movie={movie} setShowError={setShowError} setOccuredError={setOccuredError}
                     close={close} movieId={movie.id} setRerender={setRerender} />}
             </ModalWindow>}
 

@@ -26,7 +26,6 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, open, mov
     event.preventDefault();
     setQuery(event.target.value);
     findByTitle(event.target.value); 
-
    }  
     
     return (
