@@ -16,8 +16,8 @@ export const Header: FC<{}> = () => {
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav text-white" id="header_list">
                     <li className="nav-item text-white">
-                        <Link to="/news/news" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
-                            Новини</Link>                           
+                        <Link to="/upcoming" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">
+                            Популярні</Link>                      
                     </li> 
                     <li className="nav-item">
                         <Link to="/movies/moviepostermanager" style={{ textDecoration: 'none' }} className="nav-link px-2 text-white">

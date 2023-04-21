@@ -21,8 +21,8 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
 
     const getColor = (color: string) => {
         return color === 'Normal'? 'Звичайне' : 
-            color === 'ForDisablers' ? 'Для інвалідів' :
-            color === 'ForKissing' ? 'Для поцілунків' : 'VIP'
+            color === 'ForDisablers' ? 'Длѝ інвалідів' :
+            color === 'ForKissing' ? 'Длѝ поцілунків' : 'VIP'
     }
 
     const addOrRemoveItemFromArray = (item: number) => {
@@ -46,28 +46,28 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
     })
 
     return (
-        <Container className='p-5'>
+        <Container className='p-5 pt-3'>
             <Row>
             <Col className="mt-3">
-                <Card>
+                <Card className='bg-dark text-white'>
                     <Row>
                         <Col sm={2}> 
                             <img src={seanse.movie.posterUrl} className="w-100" 
-                                alt={`Постер ${seanse.movie.title}`} />
+                                alt={`Поѝтер ${seanse.movie.title}`} />
                         </Col>
                         <Col sm={4}>
                             <Card.Body className="mt-4">
-                                <Card.Title>Сеанс №{seanse.id}</Card.Title>
+                                <Card.Title>Сеанѝ №{seanse.id}</Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted">
                                 Зал №{seanse.hall.hallNumber}
                                 </Card.Subtitle>
-                                <Card.Text>Початок сеансу: {new Date(seanse.startTime).toLocaleTimeString().slice(0, 5)}</Card.Text>
+                                <Card.Text>Початок ѝеанѝу: {new Date(seanse.startTime).toLocaleTimeString().slice(0, 5)}</Card.Text>
                             </Card.Body>
                             <ListGroup className="list-group-flush">
-                                <ListGroupItem>
+                                <ListGroupItem className='bg-dark text-white'>
                                     <strong>Фільм:</strong> {seanse.movie.title}
                                 </ListGroupItem>
-                                <ListGroupItem>
+                                <ListGroupItem className='bg-dark text-white'>
                                     <strong>Оригінальна назва:</strong> {seanse.movie.originalTitle}
                                 </ListGroupItem>
                             </ListGroup>
@@ -75,8 +75,8 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
 
                         <Col sm={4}>
                             <ListGroup className="mt-5">
-                                <ListGroupItem>
-                                    <strong>Тривалість:</strong> {seanse.movie.duration} хвилин
+                                <ListGroupItem className='bg-dark text-white'>
+                                    <strong>Триваліѝть:</strong> {seanse.movie.duration} хвилин
                                 </ListGroupItem>
                                 <ListGroupItem>
                                     <strong>Дата виходу:</strong> {new Date(seanse.movie.releaseDate).toLocaleDateString()}
@@ -96,10 +96,10 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
                 <SeatsForPurchase seanseId={seanse.id} addOrRemoveItemFromArray={addOrRemoveItemFromArray}  
                 seats={seanse.hall.seats} setSeatIds={setSeatIds} seatIds={seatIds} />
             </Col>
-            <Row className="mt-5">
+            <Row className="mt-4">
                 {seatIds.map((x, index) => {
                     return (
-                        <Card className="mt-3" key={index}>
+                        <Card className="mt-3 bg-dark text-white" key={index}>
                             <Row>
                                 <Col>
                                     <Card.Body>
@@ -112,11 +112,11 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
                                 </Col>
                                 <Col>
                                     <Card.Body>
-                                        <Col><Card.Title>Місце</Card.Title></Col>
+                                        <Col><Card.Title>Міѝце</Card.Title></Col>
                                         <Card.Text>
                                             {getColor(seanse.hall.seats.filter(i => i.id === x)[0].seatType.type)} | 
-                                            Ряд: {seanse.hall.seats.filter(i => i.id === x)[0].row} |
-                                            Місце: {seanse.hall.seats.filter(i => i.id === x)[0].seatNumber}
+                                            Рѝд: {seanse.hall.seats.filter(i => i.id === x)[0].row} |
+                                            Міѝце: {seanse.hall.seats.filter(i => i.id === x)[0].seatNumber}
                                         </Card.Text>
                                     </Card.Body>
                                 </Col>
@@ -131,9 +131,9 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
                     <Col></Col>
                     <Col></Col>
                     <Col>
-                        <Card style={{ width: '18rem' }} className="mt-3">
+                        <Card style={{ width: '18rem' }} className="mt-3 bg-dark text-white">
                             <Card.Body>
-                                <Card.Title>Всього квитків: {seatIds.length}</Card.Title>
+                                <Card.Title>Вѝього квитків: {seatIds.length}</Card.Title>
                                 <Card.Text>
                                     <strong>Ціна: {sum} грн.</strong> 
                                 </Card.Text>
@@ -159,7 +159,7 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
 
                             <div className="d-grid gap-2">
                             <Button variant="outline-danger" className="text-white" type="submit">
-                                Оформити замовлення</Button>
+                                Оформити замовленнѝ</Button>
                             </div>
                             {showError && <AlertDismissible func={setShowError} error={occuredError}/>}
                         </Form>

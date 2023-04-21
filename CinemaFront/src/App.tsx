@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "./components/ui/header";
 import Home from "./pages/Home/Home";
 import Cinema from "./pages/Admin/Cinemas";
-import News from "./pages/News/News";
 import MoviePosters from "./pages/Movies/MoviePosterManager";
 import { FAQ } from "./pages/Home/FAQ";
 import AdminMain from "./pages/Admin/Main"
@@ -19,6 +18,7 @@ import Promocodes from "./pages/Admin/Promocodes";
 import SingleMovie from "./pages/Movies/SingleMovie";
 import SeansePage from "./pages/Seance/SeansePage";
 import MovieItem from "./components/Admin/movies/MovieItem";
+import UpcomingPage from "./pages/Upcoming/Upcoming";
 
 function App() {
     const token = localStorage.getItem("token");
@@ -32,7 +32,6 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />}></Route>
                         { token && <Route path="/account" element={<Account />}></Route> }
-                        <Route path="/news/news" element={<News/>}></Route>
                         <Route path="/movies/moviepostermanager" element={<MoviePosters/>}></Route>
                         <Route path="/movies/seances" element={<SeansePage />}></Route>
                         {
@@ -49,8 +48,8 @@ function App() {
                             </>
                         }
                         <Route path="/home/faq" element={<FAQ/>}></Route>
-                        <Route path="/news/news" element={<News/>}></Route>
                         <Route path="/movies/singlemovie/:id" element={<SingleMovie/>}></Route>
+                        <Route path="/upcoming" element={<UpcomingPage />}></Route>
                     </Routes>
 
                     <Footer/>

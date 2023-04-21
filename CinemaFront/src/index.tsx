@@ -12,9 +12,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-      <ModalState>
-        <App />
-      </ModalState>
+    <ModalState>
+      <App />
+    </ModalState>
   </React.StrictMode>
 );
 

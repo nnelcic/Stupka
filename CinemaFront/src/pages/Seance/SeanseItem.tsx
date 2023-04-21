@@ -11,25 +11,25 @@ interface SeanseItemProps {
 const SeanseItem: React.FC<SeanseItemProps> = ({ setSeanse, setShowSeanse, setShowSeanses, seanse}) => {
     return (
         <Col className="mt-3">
-            <Card>
+            <Card className="bg-dark text-white">
                 <Row>
                     <Col sm={2} className="p-1 ms-3"> 
                         <img src={seanse.movie.posterUrl} className="w-100" 
-                            alt={`Постер ${seanse.movie.title}`} />
+                            alt={`Поѝтер ${seanse.movie.title}`} />
                     </Col>
                     <Col sm={4}>
                         <Card.Body className="mt-5">
-                            <Card.Title>Сеанс №{seanse.id}</Card.Title>
+                            <Card.Title>Сеанѝ №{seanse.id}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">
                             Зал №{seanse.hall.hallNumber}
                             </Card.Subtitle>
-                            <Card.Text>Початок сеансу: {new Date(seanse.startTime).toLocaleTimeString().slice(0, 5)}</Card.Text>
+                            <Card.Text>Початок ѝеанѝу: {new Date(seanse.startTime).toLocaleTimeString().slice(0, 5)}</Card.Text>
                         </Card.Body>
                         <ListGroup className="list-group-flush">
-                            <ListGroupItem>
+                            <ListGroupItem className='bg-dark text-white'>
                                 <strong>Фільм:</strong> {seanse.movie.title}
                             </ListGroupItem>
-                            <ListGroupItem>
+                            <ListGroupItem className='bg-dark text-white'>
                                 <strong>Оригінальна назва:</strong> {seanse.movie.originalTitle}
                             </ListGroupItem>
                         </ListGroup>
@@ -37,10 +37,11 @@ const SeanseItem: React.FC<SeanseItemProps> = ({ setSeanse, setShowSeanse, setSh
 
                     <Col sm={4}  className="mt-3">
                         <ListGroup className="mt-5">
-                            <ListGroupItem>
-                                <strong>Тривалість:</strong> {seanse.movie.duration} хвилин
+                            <ListGroupItem className='bg-dark text-white'>
+                                <strong>Триваліѝть:</strong> {seanse.movie.duration} хвилин
                             </ListGroupItem>
-                            <ListGroupItem>
+                                
+                            <ListGroupItem className='bg-dark text-white'>
                                 <strong>Дата виходу:</strong> {new Date(seanse.movie.releaseDate).toLocaleDateString()}
                             </ListGroupItem>
                         </ListGroup>
@@ -49,7 +50,7 @@ const SeanseItem: React.FC<SeanseItemProps> = ({ setSeanse, setShowSeanse, setSh
                                 <strong>Ціна квитка:</strong> {seanse.price.cost} грн.
                             </Card.Text>
                         </Card.Body>
-                        <Button variant='outline-danger' className="ms-3" onClick={() => {
+                        <Button variant='danger' className="ms-3" onClick={() => {
                             setShowSeanses(false);
                             setShowSeanse(true);
                             setSeanse(seanse);
