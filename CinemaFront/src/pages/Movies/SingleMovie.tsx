@@ -22,6 +22,8 @@ const SingleMovie: React.FC<{}> = () => {
   const [likeState, setLikeState] = useState(true)
   
   const releaseYear = new Date(movie.releaseDate).getFullYear().toString()
+  const startDate = new Date(movie.movieDetails.startDate).toLocaleDateString()
+  const endDate = new Date(movie.movieDetails.endDate).toLocaleDateString()
 
   async function updateUserRate() {
     await http.put(`/movies/users-rate/${id}`);
@@ -55,7 +57,9 @@ const SingleMovie: React.FC<{}> = () => {
   }
 
   useEffect(() => {
-    updateUserRate();
+    if (reviewsByMovie.length !== 0 || reviewsByMovie !== undefined) {
+      updateUserRate();
+    }
     handleLikeState();
   }, [])
 
@@ -85,10 +89,10 @@ const SingleMovie: React.FC<{}> = () => {
                     <p><strong>Тривалість:</strong> {movie.duration} хвилин</p>
                     <p><strong>Дата виходу:</strong> {releaseYear}</p>
                     <p><strong>Продюсери:</strong> {movie.movieDetails.producers}</p>
-                    <p><strong>Вікові обмеження:</strong> {movie.movieDetails.age_Limit}</p>
+                    <p><strong>Вікові обмеження:</strong> {movie.movieDetails.ageLimit}</p>
                     <p><strong>Країна:</strong> {movie.movieDetails.country}</p>
-                    <p><strong>У прокаті з:</strong> {movie.movieDetails.start_date}</p>
-                    <p><strong>У прокаті по:</strong> {movie.movieDetails.end_date}</p>
+                    <p><strong>У прокаті з:</strong> {startDate}</p>
+                    <p><strong>У прокаті по:</strong> {endDate}</p>
                     <p><strong>Оцінка критиків:</strong> {movie.movieDetails.independentRate}</p>
                     <p><strong>Оцінка глядачів:</strong> {movie.movieDetails.usersRate.toFixed(1)}</p>
                     {likeState ? 
@@ -110,7 +114,7 @@ const SingleMovie: React.FC<{}> = () => {
           <div className="col-12 col-md-8 mx-auto">
             <div className="card mt-3 bg-dark text-light">
               <div className="card-header">
-                <h2 className="card-title mb-0">Коментарі:</h2>
+                <h2 className="card-title mb-0">Коментарі</h2>
               </div>
               <div className="card-body">
                 <div className="row">
@@ -130,6 +134,7 @@ const SingleMovie: React.FC<{}> = () => {
                 </div>
               </div>
               <div className="card-footer">
+                { reviewsByMovie.length === 0 && <p>Коментарів до цього фільму поки що немає</p> }
                 { reviewsByMovie.map(item => (
                   <Card className="mt-3 px-3 text-light bg-secondary" key={item.id}>
                     <CardGroup>

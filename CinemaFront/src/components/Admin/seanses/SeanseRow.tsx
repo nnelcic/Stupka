@@ -16,7 +16,7 @@ const SeanseRow: React.FC<SeanseRowProps> = ({ setSeanse, setShowSeanse, seanse,
     return (
         <tr>
             <td>{seanse.id}</td>
-            <td>{seanse.startTime}</td>
+            <td>{new Date(seanse.startTime).toLocaleTimeString().slice(0, 5)}</td>
             <td>{seanse.hallId}</td>
             <td>{seanse.movie.title}</td>
             <td>{seanse.price.cost}</td>         

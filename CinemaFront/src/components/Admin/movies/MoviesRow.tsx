@@ -61,7 +61,7 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, open, mov
                                                         <td>{movie.id}</td>
                                                         <td>{movie.originalTitle}</td>
                                                         <td>{movie.title}</td>
-                                                        <td>{movie.releaseDate}</td>
+                                                        <td>{new Date(movie.releaseDate).toLocaleDateString()}</td>
                                                         <td>{movie.duration}</td>                                                         
                                                         <td>
                         <Container>

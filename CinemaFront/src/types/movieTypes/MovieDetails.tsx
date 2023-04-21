@@ -2,24 +2,24 @@ export default interface MovieDetails {
         id: number;
         description: string;
         producers: string;
-        age_Limit: number;  
+        ageLimit: number;  
         independentRate: number;
         usersRate: number,
         country: string;
         movieTrailerUrl: string;
-        start_date: string;
-        end_date: string;
+        startDate: string;
+        endDate: string;
 }
 
 export const defaultMovieDetails: MovieDetails = {
         id: 0,
         description: '',
         producers: '',
-        age_Limit: 0,
+        ageLimit: 0,
         independentRate: 0,
         usersRate: 0,
         country: '',
         movieTrailerUrl: '',
-        start_date: '',
-        end_date: ''
+        startDate: '',
+        endDate: ''
 }

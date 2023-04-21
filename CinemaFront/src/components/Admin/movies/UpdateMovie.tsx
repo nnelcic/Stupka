@@ -167,7 +167,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, setOccuredError
                         <Form.Control
                         type="number"
                         placeholder="Введіть вік"
-                        value={movie.movieDetails.age_Limit}
+                        value={movie.movieDetails.ageLimit}
                         onChange={(event: any) => setAgeLimit(event.target.value)}
                         />
                         </Form.Group>

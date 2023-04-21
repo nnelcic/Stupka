@@ -79,7 +79,10 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
             .Include(x => x.MovieDetails)
             .SingleAsync();
 
-        movie.MovieDetails.UsersRate = reviews.Select(x => x.Rate).Average();
+        if (reviews.Any())
+        {
+            movie.MovieDetails.UsersRate = reviews.Select(x => x.Rate).Average();
+        }
         return movie;
     }
 

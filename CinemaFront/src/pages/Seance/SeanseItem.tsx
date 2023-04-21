@@ -23,7 +23,7 @@ const SeanseItem: React.FC<SeanseItemProps> = ({ setSeanse, setShowSeanse, setSh
                             <Card.Subtitle className="mb-2 text-muted">
                             Зал №{seanse.hall.hallNumber}
                             </Card.Subtitle>
-                            <Card.Text>Початок сеансу: {seanse.startTime}</Card.Text>
+                            <Card.Text>Початок сеансу: {new Date(seanse.startTime).toLocaleTimeString().slice(0, 5)}</Card.Text>
                         </Card.Body>
                         <ListGroup className="list-group-flush">
                             <ListGroupItem>
@@ -41,7 +41,7 @@ const SeanseItem: React.FC<SeanseItemProps> = ({ setSeanse, setShowSeanse, setSh
                                 <strong>Тривалість:</strong> {seanse.movie.duration} хвилин
                             </ListGroupItem>
                             <ListGroupItem>
-                                <strong>Дата виходу:</strong> {seanse.movie.releaseDate.toString()}
+                                <strong>Дата виходу:</strong> {new Date(seanse.movie.releaseDate).toLocaleDateString()}
                             </ListGroupItem>
                         </ListGroup>
                         <Card.Body>
