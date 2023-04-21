@@ -6,13 +6,14 @@ import http from '../http-common';
 import Movie from '../types/movieTypes/Movie';
 import { getCurrentUserId } from './getCurrentUserId';
 
-export default function useMovie() {
+export default function useMovie(movieId?: number) {
     
     const [movies, setMovies] = useState<MovieInfo[]>([]);
     const [movie, setMovie] = useState<MovieInfo>(defaultMovieInfo);
     const [showMovie, setShowMovie] = useState<boolean>(true);
     const [favouriteMovies, setFavouriteMovies] = useState<Movie[]>([])
     const [errorMessage, setErrorMessage] = useState('')
+    const [currentMovieId, setCurrentMovieId] = useState(movieId)
 
     async function getMoviesByUserFavourite() {
         try{
@@ -80,9 +81,8 @@ export default function useMovie() {
         }
     }
 
-    async function getMovie(movieId: number) {       
-        const response = await http.get<MovieInfo>(`/movies/GetMovieInfo/${movieId}`);
-        console.log(response.data);
+    async function getMovie() {       
+        const response = await http.get<MovieInfo>(`/movies/GetMovieInfo/${currentMovieId}`);
         setMovie(response.data);    
     }  
 
@@ -105,6 +105,8 @@ export default function useMovie() {
 
     useEffect(() => {
         getMoviesByUserFavourite();
+        getMovie();
+        fetchMovies();
     }, []);
 
     return { 

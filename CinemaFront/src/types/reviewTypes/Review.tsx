@@ -3,4 +3,5 @@ export default interface Review {
     description: string;
     rate: number;
     movieDetailsId: number;
+    userDetailsId: number;
 }

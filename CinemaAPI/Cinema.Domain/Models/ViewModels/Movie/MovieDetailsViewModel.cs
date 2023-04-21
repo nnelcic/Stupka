@@ -9,6 +9,7 @@ public class MovieDetailsViewModel
     public string Producers { get; set; }
     public int AgeLimit { get; set; }
     public double IndependentRate { get; set; }
+    public double UsersRate { get; set; }
     public string Country { get; set; }
     public string MovieTrailerUrl { get; set; }
     public DateTime StartDate { get; set; }

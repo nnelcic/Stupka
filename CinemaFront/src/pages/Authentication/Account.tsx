@@ -1,16 +1,17 @@
-import { useState } from "react";
 import useUsers from "../../hooks/UsersHook";
 import UpdateUserForm from "../../components/forms/UpdateUser";
 import image from "../../assets/Main.png";
-import Movie from "../../types/movieTypes/Movie";
 import useMovie from "../../hooks/MovieHook";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, CardGroup, Form, Stack } from "react-bootstrap";
 import http from "../../http-common";
+import useReviews from "../../hooks/ReviewHook";
+import { useNavigate } from "react-router-dom";
 
 const Account: React.FC<{}> = () => {
     const { currentUser } = useUsers();
     const { favouriteMovies, errorMessage } = useMovie();
-    console.log({ favouriteMovies })
+    const { reviewsByUser } = useReviews()
+    const navigate = useNavigate();
     const birthday = new Date(currentUser.birthday).toLocaleDateString();
 
     const handleLogout = () => {
@@ -20,6 +21,11 @@ const Account: React.FC<{}> = () => {
 
     async function handleDelete(movieId: number) {
         await http.delete(`/favourites/${currentUser.id}&${movieId}`)
+        window.location.href="/account"
+    }
+
+    async function deleteComment(reviewId: number) {
+        await http.delete(`/reviews/${reviewId}`)
         window.location.href="/account"
     }
     
@@ -71,10 +77,13 @@ const Account: React.FC<{}> = () => {
                             { favouriteMovies.map(item => (
                                 <Card className="me-3 pt-3 pb-3 text-light bg-secondary" key={item.id} style={{ width: '10rem' }}>
                                     {errorMessage && <div>{errorMessage}</div>}
-                                    <Card.Img variant="top" src={item.posterUrl} />
+                                    <Card.Img className="cursor-state" onClick={() => navigate(`/movies/singlemovie/${item.id}`)}
+                                    variant="top" src={item.posterUrl} />
                                     <Card.Body>
-                                        <Card.Title>{item.originalTitle}</Card.Title>
-                                        <Card.Text>
+                                        <Card.Title className="cursor-state" onClick={() => navigate(`/movies/singlemovie/${item.id}`)}>
+                                            {item.originalTitle}
+                                        </Card.Title>
+                                        <Card.Text className="cursor-state" onClick={() => navigate(`/movies/singlemovie/${item.id}`)}>
                                             {item.title}
                                         </Card.Text>
                                     </Card.Body>
@@ -95,13 +104,31 @@ const Account: React.FC<{}> = () => {
                     </div>
                     <div className="card-body">
                         <div className="row mb-3">
-                            
+                            { reviewsByUser.length === 0 && <p>У Вас ще немає коментарів</p> }
+                            { reviewsByUser.map(item => (
+                                <Card className="mt-3 px-3 text-light bg-secondary" key={item.id}>
+                                    <CardGroup>
+                                        <Form.Label className="me-3">Коментар:</Form.Label>
+                                        <Form.Text className="text-light">{item.description}</Form.Text>
+                                    </CardGroup>
+                                    <CardGroup className="pt-3 pb-3 w-25">
+                                        <Stack direction="horizontal" gap={3}>
+                                            <div>
+                                                <Form.Label className="me-3">Оцінка:</Form.Label>
+                                                <Form.Text className="text-light">{item.rate}</Form.Text>
+                                            </div>
+                                            <div className="float-right">
+                                                <Button onClick={() => deleteComment(item.id)} variant="outline-danger">Видалити</Button>
+                                            </div>
+                                        </Stack>
+                                    </CardGroup>
+                                </Card>
+                            )) }
                         </div>
                     </div>
                 </div>
             </div>
             <div className="container pt-2 py-5 bg-transparent">
-                
             </div>
         </div>
     );

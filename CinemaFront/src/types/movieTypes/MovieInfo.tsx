@@ -28,6 +28,7 @@ export const defaultMovieInfo: MovieInfo = {
         producers: '',
         age_Limit: 0,    
         independentRate: 0,
+        usersRate: 0,
         country: '',
         movieTrailerUrl: '',
         start_date: '',

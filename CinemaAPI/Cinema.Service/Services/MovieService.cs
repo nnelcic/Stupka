@@ -75,6 +75,17 @@ public class MovieService : IMovieService
         return movieToReturn;
     }
 
+    public async Task CalculateUserRate(int movieId)
+    {
+        var movie = await _repository.Movie.CalculateUsersRate(movieId);
+        if (movie is null)
+        {
+            _loggerManager.LogError(ConstError.ERROR_BY_ID);
+            throw new NotFoundException(ConstError.GetErrorForException(nameof(Movie), movieId));
+        }
+        await _repository.SaveAsync();
+    }
+
     public async Task UpdateAsync(int id, UpdateMovieRequest updateMovieRequest)
     {
         var movie = await _repository.Movie.GetMovieInfoAsync(id, true);

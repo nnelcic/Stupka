@@ -55,6 +55,13 @@ public class MovieController : ControllerBase
         return Ok(movie);
     }
 
+    [HttpPut("users-rate/{movieId:int}")]
+    public async Task<IActionResult> CalculateUsersRateAsync(int movieId)
+    {
+        await _service.MovieService.CalculateUserRate(movieId);
+        return NoContent();
+    }
+
     [HttpGet("[action]/{movieDetailsId:int}")]
     public async Task<IActionResult> GetMovieByMovieDetailsIdAsync(int movieDetailsId)
     {

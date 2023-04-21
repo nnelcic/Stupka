@@ -12,6 +12,7 @@ public interface IMovieService
     Task<MovieViewModel> GetByMovieDetailsIdAsync(int movieDetailsId);
     Task<MovieInfoViewModel> GetInfoAsync(int id);
     Task<MovieInfoViewModel> AddAsync(AddMovieRequest addMovieRequest);
+    Task CalculateUserRate(int movieId);
     Task UpdateAsync(int id, UpdateMovieRequest updateMovieRequest);
     Task DeleteAsync(int id);
 }

@@ -11,6 +11,7 @@ public interface IMovieRepository
     Task<Movie?> GetMovieByMovieDetailsIdAsync(int movieDetailsId);
     Task<Movie?> GetMovieInfoAsync(int userId, bool trackChanges = false);    
     Task<Movie?> GetMovieByTittleAsync(string tittle);
+    Task<Movie?> CalculateUsersRate(int movieId);
     void CreateMovie(Movie movie);
     void DeleteMovie(Movie movie);
 }

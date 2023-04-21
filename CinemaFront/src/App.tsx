@@ -18,6 +18,7 @@ import { Footer } from "./components/ui/footer";
 import Promocodes from "./pages/Admin/Promocodes";
 import SingleMovie from "./pages/Movies/SingleMovie";
 import SeansePage from "./pages/Seance/SeansePage";
+import MovieItem from "./components/Admin/movies/MovieItem";
 
 function App() {
     const token = localStorage.getItem("token");
@@ -49,7 +50,7 @@ function App() {
                         }
                         <Route path="/home/faq" element={<FAQ/>}></Route>
                         <Route path="/news/news" element={<News/>}></Route>
-                        <Route path="/movies/singlemovie" element={<SingleMovie/>}></Route>
+                        <Route path="/movies/singlemovie/:id" element={<SingleMovie/>}></Route>
                     </Routes>
 
                     <Footer/>

@@ -60,13 +60,27 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
             .Include(x => x.MovieType)
             .Include(x => x.MovieGenres)
                 .ThenInclude(x => x.Genre)
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .SingleAsync();
     }
 
     public async Task<Movie?> GetMovieByTittleAsync(string tittle)
     {
         return await FindByCondition(x => x.Title == tittle, false)
             .FirstOrDefaultAsync();
+    }
+
+    public async Task<Movie?> CalculateUsersRate(int movieId)
+    {
+        var reviews = await FindByCondition(x => x.Id == movieId, false)
+            .SelectMany(x => x.MovieDetails.Reviews)
+            .ToListAsync();
+
+        var movie = await FindByCondition(x => x.Id == movieId, true)
+            .Include(x => x.MovieDetails)
+            .SingleAsync();
+
+        movie.MovieDetails.UsersRate = reviews.Select(x => x.Rate).Average();
+        return movie;
     }
 
     public void CreateMovie(Movie movie)

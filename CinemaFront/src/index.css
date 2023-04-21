@@ -36,6 +36,13 @@ a {
   color: white !important;
 }
 
+.cursor-state {
+  cursor: pointer;
+}
+
+.align-right {
+  text-align: right;
+}
 .add-page {
   min-height: 1000px;
   width: 100%;  

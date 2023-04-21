@@ -4,9 +4,9 @@ import { useState } from "react";
 import { isAxiosError } from "axios";
 
 interface MovieItemProps {
-    posterUrl: string;
-    originalTitle: string;
-    title: string
+    posterUrl?: string;
+    originalTitle?: string;
+    title?: string
 }
 
 const MovieItem: React.FC<MovieItemProps> = ({posterUrl, originalTitle, title}) => {
