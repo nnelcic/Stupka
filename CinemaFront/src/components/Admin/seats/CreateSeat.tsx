@@ -67,7 +67,7 @@ const CreateSeat: React.FC<CreateSeatFormProps> = ({ setOccuredError, setShowErr
 
             <div className="d-grid gap-2">
                 <Button variant="outline-primary" type="submit">
-                    Редагувати
+                    Створити
                 </Button>
             </div>
         </Form>

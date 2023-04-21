@@ -1,6 +1,4 @@
-import CustomError from '../types/errorTypes/CustomError';
 import { useEffect, useState } from "react";
-import axios, { AxiosError, isAxiosError } from 'axios';
 import http from '../http-common';
 import Review from '../types/reviewTypes/Review';
 import { getCurrentUserId } from './getCurrentUserId';

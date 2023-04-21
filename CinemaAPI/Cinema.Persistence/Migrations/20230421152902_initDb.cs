@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cinema.Persistence.Migrations
 {
-    public partial class initialDbCinema : Migration
+    public partial class initDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -213,6 +213,7 @@ namespace Cinema.Persistence.Migrations
                     Producers = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     AgeLimit = table.Column<int>(type: "int", nullable: false),
                     IndependentRate = table.Column<double>(type: "float(4)", precision: 4, scale: 2, nullable: false),
+                    UsersRate = table.Column<double>(type: "float", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     MovieTrailerUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -549,15 +550,15 @@ namespace Cinema.Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "MovieDetails",
-                columns: new[] { "Id", "AgeLimit", "Country", "Description", "EndDate", "IndependentRate", "MovieId", "MovieTrailerUrl", "Producers", "StartDate" },
+                columns: new[] { "Id", "AgeLimit", "Country", "Description", "EndDate", "IndependentRate", "MovieId", "MovieTrailerUrl", "Producers", "StartDate", "UsersRate" },
                 values: new object[,]
                 {
-                    { 1, 5, "USA", "Мирний зелений чолов'яга, намагається релаксувати в своєму болоті, але спочатку йому заважає цирк, а потім новий надокучливий друг віслюк.", new DateTime(2010, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 9.6999999999999993, 1, "www.shrekMovieTrailerUrl.com", "Mr Producer", new DateTime(2000, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, 16, "USA", "Чувачок потрапив на корабель, корабель затонув чувачку сподобалась дівчина, там ще була та сцена на кораблі, і потім він затонув ніби.", new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 9.0999999999999996, 2, "www.TitanicMovieTrailerUrl.com", "Mr Producer", new DateTime(1995, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, 20, "USA", "Борат стає інтервью'єром і напрвляється в Сполучені Штати щоб зустрітися з Памелою Андерсон, по дорозі розкидуючись смішнулічками.", new DateTime(2020, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 10.0, 3, "www.BoratMovieTrailerUrl.com", "Mr Producer", new DateTime(2006, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 4, 16, "USA", "Невдаха Джим Кері знаходить маску на березі моря і вона фіксить всі його проблеми.", new DateTime(2015, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 7.0999999999999996, 4, "www.MaskMovieTrailerUrl.com", "Mr Producer", new DateTime(1999, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 5, 3, "USA", "Божевільна стара черепаха, вибирає по приколу ведмідя-офіціанта в якості воїна ящірки, і він стає ним за 2 дня, знецінюючи працю інших.", new DateTime(2014, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 3.0, 5, "www.shrekKungFuTrailerUrl.com", "Mr Producer", new DateTime(2003, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 6, 17, "USA", "Якісь сині трьох метрові створіння, шось там роблять, я не знаю бо не дивився.", new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 6.0999999999999996, 6, "www.AvatarMovieTrailerUrl.com", "Mr Producer", new DateTime(2009, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, 5, "USA", "Мирний зелений чолов'яга, намагається релаксувати в своєму болоті, але спочатку йому заважає цирк, а потім новий надокучливий друг віслюк.", new DateTime(2010, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 9.6999999999999993, 1, "www.shrekMovieTrailerUrl.com", "Mr Producer", new DateTime(2000, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0 },
+                    { 2, 16, "USA", "Чувачок потрапив на корабель, корабель затонув чувачку сподобалась дівчина, там ще була та сцена на кораблі, і потім він затонув ніби.", new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 9.0999999999999996, 2, "www.TitanicMovieTrailerUrl.com", "Mr Producer", new DateTime(1995, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0 },
+                    { 3, 20, "USA", "Борат стає інтервью'єром і напрвляється в Сполучені Штати щоб зустрітися з Памелою Андерсон, по дорозі розкидуючись смішнулічками.", new DateTime(2020, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 10.0, 3, "www.BoratMovieTrailerUrl.com", "Mr Producer", new DateTime(2006, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0 },
+                    { 4, 16, "USA", "Невдаха Джим Кері знаходить маску на березі моря і вона фіксить всі його проблеми.", new DateTime(2015, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 7.0999999999999996, 4, "www.MaskMovieTrailerUrl.com", "Mr Producer", new DateTime(1999, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0 },
+                    { 5, 3, "USA", "Божевільна стара черепаха, вибирає по приколу ведмідя-офіціанта в якості воїна ящірки, і він стає ним за 2 дня, знецінюючи працю інших.", new DateTime(2014, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 3.0, 5, "www.shrekKungFuTrailerUrl.com", "Mr Producer", new DateTime(2003, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0 },
+                    { 6, 17, "USA", "Якісь сині трьох метрові створіння, шось там роблять, я не знаю бо не дивився.", new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 6.0999999999999996, 6, "www.AvatarMovieTrailerUrl.com", "Mr Producer", new DateTime(2009, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), 0.0 }
                 });
 
             migrationBuilder.InsertData(
@@ -574,10 +575,25 @@ namespace Cinema.Persistence.Migrations
                 columns: new[] { "Id", "HallId", "Row", "SeatNumber", "SeatTypeId" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 1, 1 },
+                    { 1, 1, 1, 1, 2 },
                     { 2, 1, 1, 2, 2 },
-                    { 3, 1, 2, 1, 3 },
-                    { 4, 1, 2, 2, 4 }
+                    { 3, 1, 1, 3, 4 },
+                    { 4, 1, 1, 4, 4 },
+                    { 5, 1, 1, 5, 2 },
+                    { 6, 1, 1, 6, 2 },
+                    { 7, 1, 2, 1, 1 },
+                    { 8, 1, 2, 2, 1 },
+                    { 9, 1, 2, 3, 4 },
+                    { 10, 1, 2, 4, 4 },
+                    { 11, 1, 2, 5, 1 },
+                    { 12, 1, 2, 6, 1 },
+                    { 13, 1, 3, 1, 3 },
+                    { 14, 1, 3, 2, 3 },
+                    { 15, 1, 3, 3, 3 },
+                    { 16, 1, 3, 4, 3 },
+                    { 17, 1, 3, 5, 3 },
+                    { 18, 1, 3, 6, 3 },
+                    { 19, 1, 3, 7, 3 }
                 });
 
             migrationBuilder.InsertData(

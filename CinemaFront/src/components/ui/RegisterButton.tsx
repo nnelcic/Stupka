@@ -7,7 +7,6 @@ const RegisterButton: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const condition = sessionStorage.getItem('condition');
     const conditionBool = Boolean(condition);
-    console.log({conditionBool})
   
     const handleOpenModal = () => {
       setIsModalOpen(true);

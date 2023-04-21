@@ -36,7 +36,7 @@ const SeansePage: React.FC<{}> = () => {
                 {seanses.map(x => {
                     if (new Date(Date.parse(x.startTime.slice(0, 10))) > new Date())
                     return <SeanseItem setShowSeanse={setShowSeanse} seanse={x}
-                    setShowSeanses={setShowSeanses} setSeanse={setSeanse}/>
+                    setShowSeanses={setShowSeanses} setSeanse={setSeanse} key={x.id} />
                 })}
             </Container>}
         </div>

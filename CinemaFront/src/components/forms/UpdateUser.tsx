@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Modal} from 'react-bootstrap';
-import useUsers from "../../hooks/UsersHook";
-import axios from 'axios';
 import { getCurrentUserId } from '../../hooks/getCurrentUserId';
 import UserInfo from '../../types/userTypes/UserInfo';
+import http from '../../http-common';
 
 interface UpdateUserFormProps{
   modalCondition?: boolean;
@@ -52,7 +51,7 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({ modalCondition, current
 
     try {
       const id = getCurrentUserId();
-      await axios.put(`https://localhost:7282/api/users/${id}`, 
+      await http.put(`/users/${id}`, 
         { email, password, firstName, lastName, birthday, phoneNumber }
       );
       window.location.href = "/Account"

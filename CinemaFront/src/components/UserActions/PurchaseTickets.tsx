@@ -5,6 +5,7 @@ import { useState } from "react";
 import usePurchases from "../../hooks/PurchasesHook";
 import CustomError, { defaultError } from "../../types/errorTypes/CustomError";
 import AlertDismissible from "../shared/AlertDismissible";
+import { getCurrentUserId } from '../../hooks/getCurrentUserId'
 
 interface PurchaseTicketsProps {
     seanse: Seanse;
@@ -18,6 +19,7 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
     const { purchasing } = usePurchases();
     const [showError, setShowError] = useState(false);
     const [occuredError, setOccuredError] = useState<CustomError>(defaultError);
+    const currentId = getCurrentUserId();
 
     const getColor = (color: string) => {
         return color === 'Normal'? 'Звичайне' : 
@@ -38,7 +40,7 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        purchasing(1, promocode, seatIds, seanse.id, setShowError, setOccuredError);
+        purchasing(currentId, promocode, seatIds, seanse.id, setShowError, setOccuredError);
     };
     var sum = 0;
     seatIds.map(x => {
@@ -53,15 +55,15 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
                     <Row>
                         <Col sm={2}> 
                             <img src={seanse.movie.posterUrl} className="w-100" 
-                                alt={`Поѝтер ${seanse.movie.title}`} />
+                                alt={`Постер ${seanse.movie.title}`} />
                         </Col>
                         <Col sm={4}>
                             <Card.Body className="mt-4">
-                                <Card.Title>Сеанѝ №{seanse.id}</Card.Title>
+                                <Card.Title>Сеанси №{seanse.id}</Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted">
                                 Зал №{seanse.hall.hallNumber}
                                 </Card.Subtitle>
-                                <Card.Text>Початок ѝеанѝу: {new Date(seanse.startTime).toLocaleTimeString().slice(0, 5)}</Card.Text>
+                                <Card.Text>Початок сеансу: {new Date(seanse.startTime).toLocaleTimeString().slice(0, 5)}</Card.Text>
                             </Card.Body>
                             <ListGroup className="list-group-flush">
                                 <ListGroupItem className='bg-dark text-white'>
@@ -76,9 +78,9 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
                         <Col sm={4}>
                             <ListGroup className="mt-5">
                                 <ListGroupItem className='bg-dark text-white'>
-                                    <strong>Триваліѝть:</strong> {seanse.movie.duration} хвилин
+                                    <strong>Тривалість:</strong> {seanse.movie.duration} хвилин
                                 </ListGroupItem>
-                                <ListGroupItem>
+                                <ListGroupItem className='bg-dark text-white'>
                                     <strong>Дата виходу:</strong> {new Date(seanse.movie.releaseDate).toLocaleDateString()}
                                 </ListGroupItem>
                             </ListGroup>
@@ -112,18 +114,18 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
                                 </Col>
                                 <Col>
                                     <Card.Body>
-                                        <Col><Card.Title>Міѝце</Card.Title></Col>
+                                        <Col><Card.Title>Місце</Card.Title></Col>
                                         <Card.Text>
                                             {getColor(seanse.hall.seats.filter(i => i.id === x)[0].seatType.type)} | 
-                                            Рѝд: {seanse.hall.seats.filter(i => i.id === x)[0].row} |
-                                            Міѝце: {seanse.hall.seats.filter(i => i.id === x)[0].seatNumber}
+                                            Ряд: {seanse.hall.seats.filter(i => i.id === x)[0].row} |
+                                            Місце: {seanse.hall.seats.filter(i => i.id === x)[0].seatNumber}
                                         </Card.Text>
                                     </Card.Body>
                                 </Col>
                             </Row>
                         </Card>
                     );
-                })};
+                })}
             </Row>
             {seatIds.length !== 0 && 
             <div>
@@ -133,7 +135,7 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
                     <Col>
                         <Card style={{ width: '18rem' }} className="mt-3 bg-dark text-white">
                             <Card.Body>
-                                <Card.Title>Вѝього квитків: {seatIds.length}</Card.Title>
+                                <Card.Title>Всього квитків: {seatIds.length}</Card.Title>
                                 <Card.Text>
                                     <strong>Ціна: {sum} грн.</strong> 
                                 </Card.Text>
@@ -159,7 +161,7 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
 
                             <div className="d-grid gap-2">
                             <Button variant="outline-danger" className="text-white" type="submit">
-                                Оформити замовленнѝ</Button>
+                                Оформити замовлення</Button>
                             </div>
                             {showError && <AlertDismissible func={setShowError} error={occuredError}/>}
                         </Form>

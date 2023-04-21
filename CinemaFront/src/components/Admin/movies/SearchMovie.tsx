@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import MovieInfo from "../../../types/movieTypes/MovieInfo";
-import MovieDetails from "../../../types/movieTypes/MovieDetails";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/Stack';
@@ -25,11 +24,11 @@ const SearchMovie: React.FC<SearchMovieProps> = ({movieTitle, findByTitle, movie
 
     return (
         <Form onSubmit={handleSubmit}>
-                    <Stack direction="horizontal" gap={3}>
-                    <Form.Control className="me-auto" placeholder="Введіть назву фільму..." />
-                    <Button variant="outline-dark"className='text-white'>Пошук</Button>
-                    <div className="vr" />       
-                    </Stack>
+            <Stack direction="horizontal" gap={3}>
+            <Form.Control className="me-auto" placeholder="Введіть назву фільму..." />
+            <Button variant="outline-dark"className='text-white'>Пошук</Button>
+            <div className="vr" />       
+            </Stack>
         </Form>       
     )
 }

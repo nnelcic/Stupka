@@ -18,9 +18,11 @@ function PurchaseItem({purchase}: PropsPurchaseItem) {
                     <Card.Text>
                         {purchase.promocode} 
                         Ціна {purchase.price} ₴ 
-                        {purchase.tickets.length > 0 && <div>
-                        Кількість квитків: {purchase.tickets.length}</div>}
                     </Card.Text>
+                    {purchase.tickets.length > 0 && 
+                    <Card.Text>
+                        Кількість квитків: {purchase.tickets.length}
+                    </Card.Text>}
                     <Row>
                     <CardGroup>
                         {purchase.tickets.map(x => <TicketGroup ticket={x} key={x.id} />)}

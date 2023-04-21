@@ -1,6 +1,7 @@
-import axios, {AxiosError, isAxiosError} from 'axios';
+import {AxiosError, isAxiosError} from 'axios';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import http from '../../http-common';
 
 type RegisterFormProps = {
   onClose: () => void;
@@ -19,7 +20,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try{
-      await axios.post('https://localhost:7282/api/users', {
+      await http.post('/users', {
         email, password, firstName, lastName, birthday, phoneNumber
       });
       

@@ -1,7 +1,6 @@
 import Alert from "react-bootstrap/Alert";
 import CustomError from "../../types/errorTypes/CustomError";
 import { useEffect } from "react";
-import { Fade } from "react-bootstrap";
 
 interface ButtonProps {
   func: (show: boolean) => void;

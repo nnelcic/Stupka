@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Favourite from "../../../types/favouriteTypes/Favourite";
 import MovieItem from "../movies/MovieItem";
 import { Col, Row } from "react-bootstrap";
 import Movie, { defaultMovie } from "../../../types/movieTypes/Movie";
+import http from "../../../http-common";
 
 interface FavouriteItemProps { 
     favourite: Favourite;
@@ -14,8 +14,8 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({favourite}) => {
     const [movie, setMovie] = useState<Movie>(defaultMovie);
 
     async function fetchMovie(movieDetailsId: number) {
-        const response = await axios
-            .get<Movie>(`https://localhost:7282/api/movies/GetMovieByMovieDetailsId/${movieDetailsId}`);
+        const response = await http
+            .get<Movie>(`/movies/GetMovieByMovieDetailsId/${movieDetailsId}`);
         setMovie(response.data);
     }
 

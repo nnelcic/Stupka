@@ -345,6 +345,9 @@ namespace Cinema.Persistence.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<double>("UsersRate")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MovieId")
@@ -364,7 +367,8 @@ namespace Cinema.Persistence.Migrations
                             MovieId = 1,
                             MovieTrailerUrl = "www.shrekMovieTrailerUrl.com",
                             Producers = "Mr Producer",
-                            StartDate = new DateTime(2000, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateTime(2000, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UsersRate = 0.0
                         },
                         new
                         {
@@ -377,7 +381,8 @@ namespace Cinema.Persistence.Migrations
                             MovieId = 2,
                             MovieTrailerUrl = "www.TitanicMovieTrailerUrl.com",
                             Producers = "Mr Producer",
-                            StartDate = new DateTime(1995, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateTime(1995, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UsersRate = 0.0
                         },
                         new
                         {
@@ -390,7 +395,8 @@ namespace Cinema.Persistence.Migrations
                             MovieId = 3,
                             MovieTrailerUrl = "www.BoratMovieTrailerUrl.com",
                             Producers = "Mr Producer",
-                            StartDate = new DateTime(2006, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateTime(2006, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UsersRate = 0.0
                         },
                         new
                         {
@@ -403,7 +409,8 @@ namespace Cinema.Persistence.Migrations
                             MovieId = 4,
                             MovieTrailerUrl = "www.MaskMovieTrailerUrl.com",
                             Producers = "Mr Producer",
-                            StartDate = new DateTime(1999, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateTime(1999, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UsersRate = 0.0
                         },
                         new
                         {
@@ -416,7 +423,8 @@ namespace Cinema.Persistence.Migrations
                             MovieId = 5,
                             MovieTrailerUrl = "www.shrekKungFuTrailerUrl.com",
                             Producers = "Mr Producer",
-                            StartDate = new DateTime(2003, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateTime(2003, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UsersRate = 0.0
                         },
                         new
                         {
@@ -429,7 +437,8 @@ namespace Cinema.Persistence.Migrations
                             MovieId = 6,
                             MovieTrailerUrl = "www.AvatarMovieTrailerUrl.com",
                             Producers = "Mr Producer",
-                            StartDate = new DateTime(2009, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateTime(2009, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UsersRate = 0.0
                         });
                 });
 
@@ -731,7 +740,7 @@ namespace Cinema.Persistence.Migrations
                             HallId = 1,
                             Row = 1,
                             SeatNumber = 1,
-                            SeatTypeId = 1
+                            SeatTypeId = 2
                         },
                         new
                         {
@@ -745,17 +754,137 @@ namespace Cinema.Persistence.Migrations
                         {
                             Id = 3,
                             HallId = 1,
-                            Row = 2,
-                            SeatNumber = 1,
-                            SeatTypeId = 3
+                            Row = 1,
+                            SeatNumber = 3,
+                            SeatTypeId = 4
                         },
                         new
                         {
                             Id = 4,
                             HallId = 1,
+                            Row = 1,
+                            SeatNumber = 4,
+                            SeatTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            HallId = 1,
+                            Row = 1,
+                            SeatNumber = 5,
+                            SeatTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            HallId = 1,
+                            Row = 1,
+                            SeatNumber = 6,
+                            SeatTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            HallId = 1,
+                            Row = 2,
+                            SeatNumber = 1,
+                            SeatTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            HallId = 1,
                             Row = 2,
                             SeatNumber = 2,
+                            SeatTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            HallId = 1,
+                            Row = 2,
+                            SeatNumber = 3,
                             SeatTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 10,
+                            HallId = 1,
+                            Row = 2,
+                            SeatNumber = 4,
+                            SeatTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 11,
+                            HallId = 1,
+                            Row = 2,
+                            SeatNumber = 5,
+                            SeatTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            HallId = 1,
+                            Row = 2,
+                            SeatNumber = 6,
+                            SeatTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 13,
+                            HallId = 1,
+                            Row = 3,
+                            SeatNumber = 1,
+                            SeatTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 14,
+                            HallId = 1,
+                            Row = 3,
+                            SeatNumber = 2,
+                            SeatTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 15,
+                            HallId = 1,
+                            Row = 3,
+                            SeatNumber = 3,
+                            SeatTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 16,
+                            HallId = 1,
+                            Row = 3,
+                            SeatNumber = 4,
+                            SeatTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 17,
+                            HallId = 1,
+                            Row = 3,
+                            SeatNumber = 5,
+                            SeatTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 18,
+                            HallId = 1,
+                            Row = 3,
+                            SeatNumber = 6,
+                            SeatTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 19,
+                            HallId = 1,
+                            Row = 3,
+                            SeatNumber = 7,
+                            SeatTypeId = 3
                         });
                 });
 

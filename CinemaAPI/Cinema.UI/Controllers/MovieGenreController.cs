@@ -7,7 +7,6 @@ namespace Cinema.UI.Controllers;
 
 [Route("api/movieGenre")]
 [ApiController]
-[Authorize(Roles = "Admin")]
 public class MovieGenreController : ControllerBase
 {
     private readonly IServiceManager _service;

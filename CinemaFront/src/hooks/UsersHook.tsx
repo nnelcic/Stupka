@@ -1,6 +1,6 @@
 import User from "../types/userTypes/User";
 import { useEffect, useState } from "react";
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { getCurrentUserId } from './getCurrentUserId';
 import UserInfo, { defaultUser } from '../types/userTypes/UserInfo';
 import http from '../http-common';
@@ -33,7 +33,7 @@ export default function useUsers() {
     async function getCurrentUser() {
         try{
             const userId = getCurrentUserId()
-            const response = await axios.get<UserInfo>(`https://localhost:7282/api/users/GetUserInfo/${userId}`);
+            const response = await http.get<UserInfo>(`/users/GetUserInfo/${userId}`);
             setCurrentUser(response.data)
         } catch(error) {
             throw new Error(`Failed to get user with ID`);

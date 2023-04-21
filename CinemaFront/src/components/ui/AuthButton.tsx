@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal} from 'react-bootstrap';
 import { DecodedToken, verifyAuthToken } from '../../hooks/VerifyAuthToken';
-import axios from 'axios';
-
+import http from '../../http-common';
 
 const AuthButton: React.FC<{}> = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +24,7 @@ const AuthButton: React.FC<{}> = () => {
     // Handle login logic here
     try {
       // Send a request to the server to authenticate the user and get a JWT token
-      const response = await axios.post('https://localhost:7282/api/auth/login', {email, password});
+      const response = await http.post('/auth/login', {email, password});
       const token = response.data;
 
       localStorage.setItem('token', token);

@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import Purchase from "../../../types/purchaseTypes/Purchase";
 import PurchaseItem from "../purchases/PurchaseItem";
+import http from "../../../http-common";
 
 interface PurchasesUserProps {
     userId: number; 
@@ -12,7 +12,7 @@ const PurchasesUser: React.FC<PurchasesUserProps> = ({userId}) => {
     const [purchases, setPurchase] = useState<Purchase[]>([]);
 
     async function fetchPurchase() {
-        const response = await axios.get<Purchase[]>("https://localhost:7282/api/purchase/user/" + userId);
+        const response = await http.get<Purchase[]>("/purchase/user/" + userId);
         setPurchase(response.data);
     }
 

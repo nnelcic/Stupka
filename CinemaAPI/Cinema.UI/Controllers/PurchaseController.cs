@@ -9,7 +9,6 @@ namespace Cinema.UI.Controllers;
 
 [Route("api/purchase")]
 [ApiController]
-[Authorize(Roles = "User, Admin")]
 public class PurchaseController : ControllerBase
 {
     private readonly IServiceManager _service;
@@ -62,6 +61,7 @@ public class PurchaseController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeletePurchaseAsync(int id)
     {
         await _service.PurchaseService.DeleteAsync(id);

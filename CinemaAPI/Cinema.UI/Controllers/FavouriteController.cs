@@ -7,7 +7,6 @@ namespace Cinema.UI.Controllers;
 
 [Route("api/favourites")]
 [ApiController]
-[Authorize(Roles = "User, Admin")]
 public class FavouriteController : ControllerBase
 {
     private readonly IServiceManager _service;
