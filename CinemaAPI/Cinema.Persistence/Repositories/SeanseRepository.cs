@@ -12,6 +12,14 @@ public class SeanseRepository : RepositoryBase<Seanse>, ISeanseRepository
         : base(repositoryContext)
     { }
 
+    public async Task DeleteSeanseAsync(int id)
+    {
+        var seanse = await _repositoryContext.Seanses!
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == id);
+        if (seanse is not null) _repositoryContext.Remove(seanse);;
+    }
+
     public void CreateSeanse(Seanse seanse)
     {
         Create(seanse);

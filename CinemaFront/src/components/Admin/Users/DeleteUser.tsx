@@ -8,7 +8,6 @@ interface DeleteUserProps {
 }
 
 const DeleteUser: React.FC<DeleteUserProps> = ({ setRerender, userId, deleteUser, close }) => {
-
     return (
         <>
             <h3 className="text-center mb-4">Видалити цього користувача?</h3>

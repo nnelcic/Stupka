@@ -4,7 +4,7 @@ import image from "../../assets/Main.png";
 
 export const FAQ: FC<{}> = () => {
     return (
-        <div style={{ backgroundImage: `url(${image})`}}>
+        <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100">
             <div className='container' >
             <h1 className='text-center text-white'>Поширені питання</h1>
             <Accordion defaultActiveKey="0">

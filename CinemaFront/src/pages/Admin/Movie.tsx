@@ -23,8 +23,6 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
     const [currentOption, setCurrentOption] = useState<string>('');
     const [size, setSize] = useState<string>('');
     const [currentMovieId, setCurrentMovieId] = useState<number>();
-    const [getTitle, setGetTitle] = useState("");
-    const [info, setInfo] = useState<MovieDetails>(defaultMovieDetails); 
     const [genre, setGenre] = useState<MovieGenre>(defaultGenre);      
     const [showError, setShowError] = useState(false);
     const [occuredError, setOccuredError] = useState<CustomError>(defaultError);
@@ -33,7 +31,7 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
 
     useEffect(() => {
         fetchMovies();
-    }, []);
+    }, [rerender]);
    
     return ( 
         <Container fluid className="p-5 pt-2 text-center">   
@@ -53,7 +51,7 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
                     ? <CreateMovie setShowError={setShowError} setOccuredError={setOccuredError}
                     close={close} movie={movie} setRerender={setRerender} /> 
                     : <DeleteMovie movie={movie} setShowError={setShowError} setOccuredError={setOccuredError}
-                    close={close} movieId={movie.id} setRerender={setRerender} />}
+                    close={close} movieId={currentMovieId as number} setRerender={setRerender} />}
             </ModalWindow>}
 
             <Button className="me-3" variant="outline-danger" size="lg" onClick={() => {
@@ -63,21 +61,20 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
                 open();
                 setSize('lg');
             }}>Створити новий фільм</Button>          
-              
-                     
-                <MoviesRow 
+            
+            { movies.map(x => 
+                <MoviesRow
                     setMovie={setMovie}                  
                     setShowMovie={setShowMovie}                   
-                    movie={movie}                                
-                    key={movie.id} 
+                    movie={x}                                
+                    key={x.id} 
                     open={open}
                     modal={modal}
                     setCurrentMovieId={setCurrentMovieId}
                     setCurrentOption={setCurrentOption}
                     setSize={setSize}
-                />               
-        
-           
+                />
+            )}
         </Container>
     )
 };

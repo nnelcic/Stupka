@@ -35,9 +35,7 @@ public class SeanseService : ISeanseService
 
     public async Task DeleteAsync(int id)
     {
-        var seanse = await SeanseExists(id);
-
-        _repository.Seanse.DeleteSeanse(seanse);
+        await _repository.Seanse.DeleteSeanseAsync(id);
         await _repository.SaveAsync();
     }
 

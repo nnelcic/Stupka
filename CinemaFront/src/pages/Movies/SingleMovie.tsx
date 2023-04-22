@@ -35,6 +35,11 @@ const SingleMovie: React.FC<{}> = () => {
 
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10) as Rating;
+    if(value > 10){
+      setRate(10)
+    }else if(value < 0){
+      setRate(0)
+    }
     setRate(value);
   };
 
@@ -110,7 +115,7 @@ const SingleMovie: React.FC<{}> = () => {
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className="row mb-5">
           <div className="col-12 col-md-8 mx-auto">
             <div className="card mt-3 bg-dark text-light">
               <div className="card-header">

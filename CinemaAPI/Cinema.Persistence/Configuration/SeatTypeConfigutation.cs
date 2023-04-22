@@ -10,6 +10,9 @@ public class SeatTypeConfigutation : IEntityTypeConfiguration<SeatType>
     public void Configure(EntityTypeBuilder<SeatType> builder)
     {
         builder
+            .HasKey(x => x.Id);
+        
+        builder
             .Property(x => x.Price)
                 .HasPrecision(7, 2);
 
