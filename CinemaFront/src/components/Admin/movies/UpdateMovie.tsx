@@ -7,8 +7,9 @@ import CustomError from "../../../types/errorTypes/CustomError";
 
 type UpdateMovieFormProps = {
     close: () => void;
-    movie: MovieInfo;
-    movieGenre: MovieGenre;
+    movie: MovieInfo; 
+    movieId: number;   
+  
     setRerender: (value: boolean | ((prevVar: boolean) => boolean)) => void;
     setShowError: (value: boolean) => void;
     setOccuredError: (value: CustomError) => void;
@@ -16,35 +17,37 @@ type UpdateMovieFormProps = {
 };
 
 
-const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, setOccuredError, setShowError, close, movie, movieGenre, setRerender }) => {
-    const [id, setId] = useState(0);
+const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, movieId, setOccuredError, setShowError, close, movie, setRerender }) => {
     const [originalTitle, setOriginalTitle] = useState('');
-    const [title, setTitle] = useState(movie.title);
+    const [title, setTitle] = useState('');
     const [duration, setDuration] = useState(0);
-    const [movieTypeId, setType] = useState(0);
+    const [movieTypeId, setType] = useState('');
     const [releaseDate, setReleaseDate] = useState('');
     const [posterUrl, setPosterUrl] = useState('');
     const [description, setDescription] = useState('');
     const [ageLimit, setAgeLimit] = useState(0);
     const [country, setCountry] = useState('');
+    const [genreId, setGenre] = useState(0);
     const [independentRate, setRate] = useState(0);
-    const [producers, setProducer] = useState(movie.movieDetails.producers);
-    const [movieTrailerUrl, setTrailer] = useState('');
-    const [genreId, setGenreId] = useState(0);
-    const [movieId, setMovieId] = useState(0);
-    const [start_date, setStartDate] = useState('');
-    const [end_date, setEndDate] = useState('');
-
+    const [producers, setProducer] = useState('');
+    const [movieTrailerUrl, setTrailer] = useState('');  
+    const [startdate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const [error, setError] = useState("");
     const { updateMovie } = useMovie();
+
+    useEffect(() => {
+        getMovie(movie.id);
+    }, []);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
-            updateMovie(id, originalTitle, title, duration, movieTypeId, releaseDate, posterUrl, description,
-                producers, ageLimit, independentRate, country, movieTrailerUrl, 
-                genreId, movieId, start_date, end_date, setShowError, setOccuredError)
+            updateMovie(movieId, originalTitle, title, duration, movieTypeId, releaseDate, posterUrl, description,
+                producers, ageLimit, independentRate, country, movieTrailerUrl, startdate,
+                endDate, setShowError, setOccuredError);
+                console.log(movie)
             close();
             setTimeout(() => {
                 setRerender(x => !x)
@@ -55,28 +58,28 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, setOccuredError
     };
 
     useEffect(() => {
-        getMovie(movie.id);
-        setId(movie.id);
+        getMovie(movieId);       
         setOriginalTitle(movie.originalTitle);
         setTitle(movie.title);
         setDuration(movie.duration);
-        setType(movie.movieTypeId);
+        setType(movie.movieType);
         setReleaseDate(movie.releaseDate);
         setPosterUrl(movie.posterUrl);
         setDescription(movie.movieDetails.description);
         setAgeLimit(movie.movieDetails.ageLimit);
         setCountry(movie.movieDetails.country);
-        setRate(movie.movieDetails.independentRate);
+       
+        setRate(movie.movieDetails.independentRate);       
         setProducer(movie.movieDetails.producers);
-        setTrailer(movie.movieDetails.movieTrailerUrl);
-        setGenreId(movieGenre.genreId);
-        setMovieId(movieGenre.movieId);
+        setTrailer(movie.movieDetails.movieTrailerUrl); 
+        setStartDate(new Date(movie.movieDetails.startDate).toLocaleDateString());
+        setEndDate(new Date(movie.movieDetails.endDate).toLocaleDateString());      
     }, [])
 
 
     return (
         <div>
-        {movie.movieDetails !== undefined && movieGenre !== undefined  &&
+        {movie.movieDetails !== undefined &&
         <Form onSubmit={handleSubmit}>
             <Container>
                 <Row>
@@ -110,7 +113,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, setOccuredError
                 <Row>
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicCity">
-                        <Form.Label>Триваліѝть</Form.Label>
+                        <Form.Label>Тривалість</Form.Label>
                         <Form.Control
                         type="number"
                         placeholder="Введіть триваліѝть фільму"
@@ -124,7 +127,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, setOccuredError
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Тип</Form.Label>
                             <Form.Control
-                                type="number"
+                                type="text"
                                 placeholder="Введіть тип фільму"
                                 value={movieTypeId}
                                 onChange={(event: any) => setType(event.target.value)}
@@ -150,7 +153,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, setOccuredError
 
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-                        <Form.Label>Поѝтер Url</Form.Label>
+                        <Form.Label>Постер Url</Form.Label>
                         <Form.Control
                         type="text"
                         placeholder="Введіть Url постеру"
@@ -167,7 +170,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, setOccuredError
                 <Row>
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-                        <Form.Label>Опиѝ</Form.Label>
+                        <Form.Label>Опиc</Form.Label>
                         <Form.Control
                         type="text"
                         placeholder="Введіть опис"
@@ -194,7 +197,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, setOccuredError
                 <Row>
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-                        <Form.Label>Продюѝер</Form.Label>
+                        <Form.Label>Продюcер</Form.Label>
                         <Form.Control
                         type="text"
                         placeholder="Введіть продюсера"
@@ -206,7 +209,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, setOccuredError
 
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-                        <Form.Label>Країна походженнѝ</Form.Label>
+                        <Form.Label>Країна походження</Form.Label>
                         <Form.Control
                         type="text"
                         placeholder="Введіть країну"
@@ -234,65 +237,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, setOccuredError
                     </Col>
 
                     <Col>
-                        <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-                        <Form.Label>Id жанра</Form.Label>
-                        <Form.Control
-                        type="number"
-                        placeholder="Введіть Id жанра"
-                        value={genreId}
-                        onChange={(event: any) => setGenreId(event.target.value)}
-                            />
-                        </Form.Group>
-                    
-                    </Col>
-                </Row>
-            </Container>
- 
-            <Container>
-                <Row>
-                    <Col>
-                        <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-                        <Form.Label>Id фільму</Form.Label>
-                        <Form.Control
-                        type="number"
-                        placeholder="Введіть Id фільму"
-                        value={movieId}
-                        onChange={(event: any) => setMovieId(event.target.value)}
-                            />
-                        </Form.Group>
-                    </Col>
-
-                    <Col>
-                        <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-                        <Form.Label>Дата початку</Form.Label>
-                        <Form.Control
-                        type="date"
-                        placeholder="Введіть дату початку"
-                        value={start_date}
-                        onChange={(event) => setStartDate(event.target.value)}
-                            />
-                        </Form.Group>
-                    </Col>
-                </Row>
-            </Container>
-
-            
-            <Container>
-                <Row>
-                    <Col>
-                        <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-                        <Form.Label>Дата закінченнѝ</Form.Label>
-                        <Form.Control
-                        type="date"
-                        placeholder="Введіть дату закінченнѝ"
-                        value={end_date}
-                        onChange={(event) => setEndDate(event.target.value)}
-                            />
-                        </Form.Group>
-                    </Col>
-
-                    <Col>
-                        <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
+                    <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
                             <Form.Label>Незалежний рейтинг</Form.Label>
                             <Form.Control
                             type="number"
@@ -300,10 +245,55 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, setOccuredError
                             value={independentRate}
                             onChange={(event: any) => setRate(event.target.value)}
                             />
-                        </Form.Group>
+                        </Form.Group>                    
                     </Col>
                 </Row>
-            </Container>         
+            </Container> 
+                        
+            <Container>
+                <Row>
+                <Col>
+                        <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
+                        <Form.Label>Дата початку</Form.Label>
+                        <Form.Control
+                        type="text"
+                        placeholder="Введіть дату початку"
+                        value={startdate}
+                        onChange={(event) => setStartDate(event.target.value)}
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
+                        <Form.Label>Дата закінчення</Form.Label>
+                        <Form.Control
+                        type="text"
+                        placeholder="Введіть дату закінчення"
+                        value={endDate}
+                        onChange={(event) => setEndDate(event.target.value)}
+                            />
+                        </Form.Group>
+                    </Col>
+                  
+                </Row>
+            </Container>   
+
+             {/* <Container>
+                <Row>                
+                    <Col>
+                        <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
+                        <Form.Label>Жанр</Form.Label>
+                        <Form.Control
+                        type="number"
+                        placeholder="Введіть жанр id"
+                        value={genreId}
+                        onChange={(event: any) => setGenre(event.target.value)}
+                            />
+                        </Form.Group>
+                    </Col>
+                    
+                </Row>
+            </Container>                  */}
 
   
             {error && <Alert variant="danger">{error}</Alert>}

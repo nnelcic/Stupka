@@ -1,17 +1,18 @@
-
+import Movie from "./Movie";
 import MovieDetails from "./MovieDetails";
 import MovieGenre from "./movieGenre";
+import MovieType from "./MovieType";
 
 export default interface MovieInfo {
     id: number;
     originalTitle: string;
     title: string;
     duration: number;
-    movieTypeId: number;  
+    movieType: string;  
     releaseDate: string; 
     posterUrl: string;
     movieDetails: MovieDetails;
-    movieGerne: MovieGenre 
+    movieGenre: MovieGenre[]
 }
 
 export const defaultMovieInfo: MovieInfo = {
@@ -19,7 +20,7 @@ export const defaultMovieInfo: MovieInfo = {
     originalTitle: '',
     title: '',
     duration: 0,  
-    movieTypeId: 0,
+    movieType: '',        
     releaseDate: '',  
     posterUrl: '',  
     movieDetails: {
@@ -34,8 +35,6 @@ export const defaultMovieInfo: MovieInfo = {
         startDate: '',
         endDate: '',
     },
-    movieGerne: {
-        movieId: 0,
-        genreId: 0,
-    } 
+    movieGenre: []
+  
 }

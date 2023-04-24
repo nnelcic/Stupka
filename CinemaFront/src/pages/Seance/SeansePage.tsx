@@ -19,7 +19,7 @@ const SeansePage: React.FC<{}> = () => {
     }, []);
 
     return (
-        <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100">
+        <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100 pt-5">
             
             {showSeanse && <div>
                 <Button variant='outline-danger' className="text-white m-5 mb-0" onClick={() => {

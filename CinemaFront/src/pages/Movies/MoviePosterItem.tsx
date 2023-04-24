@@ -39,7 +39,7 @@ const MoviePosterItem: React.FC<MoviePosterItemProps> = ({ movie, setShowMovies,
     }
 
     return (
-        <Card style={{ width: '10rem' }} className="px-3 m-3 bg-dark">
+        <Card style={{ width: '14rem' }} className="movie px-0 m-5 p-0 bg-black border">
             <Card.Img onClick={() => navigate(`/movies/singlemovie/${movie.id}`)} className="mt-3 cursor-state" variant="top" src={movie.posterUrl} />
             <Card.Body>
                 <Card.Text onClick={() => navigate(`/movies/singlemovie/${movie.id}`)} className="text-light cursor-state">{movie.originalTitle}</Card.Text>

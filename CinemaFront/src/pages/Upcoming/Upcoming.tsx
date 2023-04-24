@@ -21,7 +21,7 @@ const UpcomingPage: React.FC<{}> = () => {
     return (
         <div
             style={{ backgroundImage: `url(${image})` }}
-            className="min-vh-100 p-5">
+            className="min-vh-100 p-5 pt-5">
             {upocomings !== undefined && <div>
                 {upocomings.map(x => <UpcomingCard key={x.id} upcoming={x} />)} 
             </div>}

@@ -11,5 +11,5 @@ public class AddMovieRequest
     public string PosterUrl { get; set; }   
     public int MovieTypeId { get; set; }   
     public AddMovieDetailsRequest MovieDetails { get; set; }
-    //public ICollection<AddMovieGenreRequest> MovieGenres { get; set; }
+    public ICollection<AddMovieGenreRequest> MovieGenres { get; set; }
 }

@@ -5,12 +5,13 @@ import { useEffect } from "react";
 interface GetMovieInfoProps {
     movie: MovieInfo; 
     getMovie: (movieId: number) => void;
+    movieId: number; 
 }
 
-const GetMovieInfo: React.FC<GetMovieInfoProps> = ({ getMovie, movie }) => {
+const GetMovieInfo: React.FC<GetMovieInfoProps> = ({ getMovie, movie, movieId }) => {
 
     useEffect(() => {
-        getMovie(movie.id);
+        getMovie(movieId);
     }, [])
 
     return (
@@ -33,7 +34,8 @@ const GetMovieInfo: React.FC<GetMovieInfoProps> = ({ getMovie, movie }) => {
                         <Card.Text>Рейтинг: {movie.movieDetails.independentRate}</Card.Text>                                                   
                         <Card.Text>Опис: {movie.movieDetails.description}</Card.Text>                                                   
                         <Card.Text>Країна: {movie.movieDetails.country}</Card.Text>                                                   
-                        <Card.Text>Трейлер: {movie.movieDetails.movieTrailerUrl}</Card.Text>                                                   
+                        <Card.Text>Трейлер: {movie.movieDetails.movieTrailerUrl}</Card.Text>   
+                                                                     
                     </Card.Footer>
                     </Card>      
                 </Row>

@@ -25,7 +25,8 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, open, mov
    const OnChange = (event: any) => {
     event.preventDefault();
     setQuery(event.target.value);
-    findByTitle(event.target.value); 
+    findByTitle(event.target.value);
+  
    }  
     
     return (
@@ -37,21 +38,23 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, open, mov
                             <label className="text-white p-4">Пошук</label>
                             <input type="text" className="result"
                             value={query}
+                            key={movie.id}
                             onChange={OnChange}
                             />
                         </div>                        
                   
                        {movies.length > 0 && (
                            <Container>
-                             <Table striped bordered hover className="mt-2" variant="dark" responsive>                                
+                             <Table striped bordered hover className="mt-2 border" variant="dark" responsive>                                
                                 <thead>
                                     <tr>                                        
                                     <th>Id</th>
                                     <th>Оригінальна назва</th>
                                     <th>Назва</th>
                                     <th>Дата реліза</th>
-                                    <th>Тривалість</th>                                              
-                                    <th>Опції</th>                                 
+                                    <th>Тривалість</th>
+                                    <th>Тип</th>                                          
+                                    <th>Опції</th>                  
                                         </tr>
                                         </thead>                                     
                                         <tbody>
@@ -61,7 +64,8 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, open, mov
                                                         <td>{movie.originalTitle}</td>
                                                         <td>{movie.title}</td>
                                                         <td>{new Date(movie.releaseDate).toLocaleDateString()}</td>
-                                                        <td>{movie.duration}</td>                                                         
+                                                        <td>{movie.duration}</td> 
+                                                        <td>{movie.movieType}</td>                                                  
                                                         <td>
                         <Container>
                             <Row>                                
@@ -69,7 +73,8 @@ const MoviesRow: React.FC<MoviesRowProps> = ({ setMovie, setShowMovie, open, mov
                             <Button variant="outline-danger" className="text-white" onClick={() => {
                                 setCurrentMovieId(movie.id); 
                                 setMovie(movie);
-                                open();                               
+                                open();
+                                                          
                                 setCurrentOption('showMovie');
                                 setSize('lg');
                             }}>

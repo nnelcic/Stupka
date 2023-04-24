@@ -4,6 +4,7 @@ import useMovie from "../../hooks/MovieHook";
 import MoviePosterItem from "./MoviePosterItem";
 import { Col, Container, Row } from "react-bootstrap";
 import MovieInfo, {defaultMovieInfo} from "../../types/movieTypes/MovieInfo";
+import Pagination from 'react-bootstrap/Pagination';
 
 const MoviePosterManager: React.FC<{}> = () => {
     
@@ -20,10 +21,10 @@ const MoviePosterManager: React.FC<{}> = () => {
         <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100">
                 
             {showMovies &&
-            <div className="px-3 posters">
+            <div className="px-5 posters">
                <Row>                   
                     {movies.map(item =>                 
-                        <MoviePosterItem  movie={item} setMovie={setMovie} setShowMovie={setShowMovie} setShowMovies={setShowMovies} />
+                        <MoviePosterItem key={item.id}  movie={item} setMovie={setMovie} setShowMovie={setShowMovie} setShowMovies={setShowMovies} />
                         )}                 
                </Row>
             </div>}

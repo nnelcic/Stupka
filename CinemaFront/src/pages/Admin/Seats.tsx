@@ -67,7 +67,7 @@ const Seats: React.FC<SeatsProps> = ({ hallId, setShowSeat, setShowHall }) => {
             open();
         }}>Створити</Button>
 
-        <Table striped bordered hover className="mt-2" variant="dark" responsive>
+        <Table striped bordered hover className="mt-2 border" variant="dark" responsive>
             <thead>
                 <tr>
                     <th>Id</th>

@@ -59,7 +59,7 @@ const Promocodes: React.FC<{}> = () => {
                 setSize('lg');
             }}>Створити</Button>
                
-        <Table striped bordered hover className="mt-2" variant="dark" responsive>
+        <Table striped bordered hover className="mt-2 border" variant="dark" responsive>
             <thead>
                 <tr>
                     <th>Id</th>

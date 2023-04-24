@@ -3,7 +3,7 @@ import useMovie from '../../hooks/MovieHook';
 import { useParams } from "react-router-dom";
 import image from "../../assets/Main.png";
 import http from '../../http-common';
-import { Button, Card, CardGroup, Form } from 'react-bootstrap';
+import { Button, Card, CardGroup, Col, Container, Form, Row } from 'react-bootstrap';
 import { getCurrentUserId } from '../../hooks/getCurrentUserId';
 import useReviews from '../../hooks/ReviewHook';
 import { addLike, bringLike } from '../../hooks/addLike';
@@ -76,13 +76,14 @@ const SingleMovie: React.FC<{}> = () => {
   }
 
   return (
-    <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100">
-      <div className="container pt-2 py-5 bg-transparent">
-        <div className="row">
-          <div className="col-12 col-md-8 mx-auto">
-            <div className="card mt-3 bg-dark text-light">
-              <div className="card-header">
-                <h2 className="card-title mb-0">{ movie.originalTitle }</h2>
+    <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100 pt-5">
+      <Container>
+              <Row>
+                <Col>
+                <div className="row">
+         
+            <div className="card mt-3 bg-black text-light border">
+              <div className="card-header">                
                 <h2 className="card-title mb-0">{ movie.title }</h2>
               </div>
               <div className="card-body">
@@ -91,6 +92,7 @@ const SingleMovie: React.FC<{}> = () => {
                     <img className="img-fluid w-100" src={movie.posterUrl} />
                   </div>
                   <div className="col-12 col-md-8">
+                  <p><strong>Оригільна назва:</strong> {movie.originalTitle}</p>
                     <p><strong>Тривалість:</strong> {movie.duration} хвилин</p>
                     <p><strong>Дата виходу:</strong> {releaseYear}</p>
                     <p><strong>Продюсери:</strong> {movie.movieDetails.producers}</p>
@@ -114,10 +116,15 @@ const SingleMovie: React.FC<{}> = () => {
               </div>
             </div>
           </div>
-        </div>
+        
+                </Col>
+
+                <Col>
+                <div className="container pt-2 py-5 mt-3 bg-transparent border">
+        
         <div className="row mb-5">
-          <div className="col-12 col-md-8 mx-auto">
-            <div className="card mt-3 bg-dark text-light">
+          <div className="o">
+            <div className="card mt-3 bg-black text-light">
               <div className="card-header">
                 <h2 className="card-title mb-0">Коментарі</h2>
               </div>
@@ -160,6 +167,10 @@ const SingleMovie: React.FC<{}> = () => {
           </div>
         </div>
       </div>
+                </Col>
+              </Row>
+      </Container>
+      
     </div>
   )
 }

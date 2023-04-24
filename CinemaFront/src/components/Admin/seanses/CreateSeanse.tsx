@@ -12,7 +12,7 @@ type CreateSeanseFormProps = {
     setOccuredError: (value: CustomError) => void;
 };
 
-const CreateSeanse: React.FC<CreateSeanseFormProps> = ({ setOccuredError, setShowError, close, seanse, setRerender }) => {
+const CreateSeanse: React.FC<CreateSeanseFormProps> = ({ setOccuredError, setShowError, close, setRerender }) => {
     const [startTime, setStartTime] = useState('');
     const [hallId, setHallId] = useState(0);
     const [movieId, setMovieId] = useState(0);

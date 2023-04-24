@@ -44,14 +44,14 @@ export default function useMovie(movieId?: number) {
        
     }
 
-    async function updateMovie(id: number, originalTitle: string, title: string, duration: number, type: number,
+    async function updateMovie(id: number, originalTitle: string, title: string, duration: number, type: string, 
                                 releaseDate: string, posterUrl: string, description: string, producer: string, ageLimit: number,
-                                rate: number, country: string, movieTrailerUrl: string, genreId: number, movieId: number, 
-                                startDate: string, endDate: string, setShowError: (value: boolean) => void, setOccuredError: (value: CustomError) => void) {
+                                rate: number, country: string, movieTrailerUrl: string, startDate: string, endDate: string, setShowError: (value: boolean) => void, setOccuredError: (value: CustomError) => void) {
         try {
-            await http.put(`/movies/UpdateMovie/${id}`, {originalTitle, title, duration, type, releaseDate, posterUrl, description,
-                                producer, ageLimit, rate, country, movieTrailerUrl, genreId, movieId, startDate, endDate});
-        
+            const response = await http.put(`/movies/UpdateMovie/${id}`, {originalTitle, title, duration, type, releaseDate, posterUrl, description,
+                                producer, ageLimit, rate, country,  movieTrailerUrl, startDate, endDate});
+                                setMovie(response.data);
+                                
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 const serverError = error as AxiosError<CustomError>;
@@ -63,13 +63,13 @@ export default function useMovie(movieId?: number) {
         }
     }
 
-    async function createMovie(originalTitle: string, title: string, duration: number, type: number, releaseDate: string, posterUrl: string,
-                                description: string, producer: string, ageLimit: number,
-                                rate: number, country: string, movieTrailerUrl: string, genreId: number, movieId: number,
-                                startDate: string, endDate: string, setShowError: (value: boolean) => void, setOccuredError: (value: CustomError) => void) {
+    async function createMovie(originalTitle: string, title: string, duration: number, type: string, releaseDate: string, posterUrl: string,
+                                description: string, producer: string, ageLimit: number, rate: number, 
+                                country: string, genreId: number, movieTrailerUrl: string, startDate: string, endDate: string, setShowError: (value: boolean) => void, setOccuredError: (value: CustomError) => void) {
         try {
-            await http.post("/movies/AddMovie", {originalTitle, title, duration, type, releaseDate, posterUrl, description,
-                                producer, ageLimit, rate, country, movieTrailerUrl, genreId, movieId, startDate, endDate});
+          const response =  await http.post("/movies/AddMovie", {originalTitle, title, duration, type, releaseDate, posterUrl, description,
+                                producer, ageLimit, rate, country, genreId, movieTrailerUrl, startDate, endDate});
+                                setMovies(movies.filter(x => x.id !== movieId));
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 const serverError = error as AxiosError<CustomError>;
@@ -124,6 +124,8 @@ export default function useMovie(movieId?: number) {
         findByTitle,
         getMovie,
         getMoviesByUserFavourite,
-        setMovie
+        setMovie,
+        currentMovieId
+
     };
 }

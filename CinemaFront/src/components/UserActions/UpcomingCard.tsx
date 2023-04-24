@@ -71,7 +71,7 @@ const UpcomingCard: React.FC<UpcomingCardProps> = ({ upcoming }) => {
     });
 
     return (
-            <Card className="mb-5 bg-dark text-white">
+            <Card className="seanse-card mb-5 bg-dark text-white border">
                 <Card.Body>
                     {/* <img src={} className="w-100" alt='Постер' /> */}
                     <Card.Title>{translatedTitle === '' ? upcoming.title : translatedTitle}</Card.Title>

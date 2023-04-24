@@ -4,7 +4,7 @@ export default interface Movie {
     duration: number;
     originalTitle: string;
     posterUrl: string;
-    releaseDate: Date;
+    releaseDate: Date;  
     title: string;
 }
 
