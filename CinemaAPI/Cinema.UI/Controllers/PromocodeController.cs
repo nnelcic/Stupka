@@ -32,6 +32,15 @@ public class PromocodeController : ControllerBase
         return Ok(promocode);
     }
 
+    [HttpGet]
+    [Route("GetPromocode")]
+    public async Task<IActionResult> GetPromocodeAsync(string promocode)
+    {
+        var promocodePercent = await _service.PromocodeService.GetAsync(promocode);
+
+        return Ok(promocodePercent);
+    }
+
     [HttpPost]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddPromocodeAsync([FromBody] AddPromocodeRequest addPromocodeRequest)

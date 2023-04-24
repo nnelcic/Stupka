@@ -9,9 +9,11 @@ interface PurchaseTicketsProps {
     seatIds: number[];
     addOrRemoveItemFromArray: (value: number) => void;
     seanseId: number;
+    setShowPayPal: React.Dispatch<React.SetStateAction<boolean>>;
+    setToOrder: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SeatsForPurchase: React.FC<PurchaseTicketsProps> = ({ seatIds, seanseId, addOrRemoveItemFromArray, seats }) => {
+const SeatsForPurchase: React.FC<PurchaseTicketsProps> = ({ setShowPayPal, setToOrder, seatIds, seanseId, addOrRemoveItemFromArray, seats }) => {
     var max = 0;
     const { freeSeats, getFreeSeats } = usePurchases();
 
@@ -54,7 +56,9 @@ const SeatsForPurchase: React.FC<PurchaseTicketsProps> = ({ seatIds, seanseId, a
                             getColor(x.seatType.type)} className={seatIds.some(e => e === x.id) === true ? 'p-2 m-1 border' : 'p-2 m-1'}
                             onClick={() => {
                             if(freeSeats.some(e => e.id === x.id)) {
-                                addOrRemoveItemFromArray(x.id)
+                                addOrRemoveItemFromArray(x.id);
+                                setShowPayPal(false);
+                                setToOrder(true);
                         }}}>{x.row}/{x.seatNumber}</Button>
                         </span>
                         </OverlayTrigger>
@@ -68,8 +72,10 @@ const SeatsForPurchase: React.FC<PurchaseTicketsProps> = ({ seatIds, seanseId, a
                     getColor(x.seatType.type)} className={seatIds.some(e => e === x.id) === true ? 'p-2 m-1 border' : 'p-2 m-1'}
                     onClick={() => {
                     if(freeSeats.some(e => e.id === x.id)) {
-                        addOrRemoveItemFromArray(x.id)
-                }}}>{x.row}/{x.seatNumber}</Button>
+                        addOrRemoveItemFromArray(x.id);
+                        setShowPayPal(false);
+                        setToOrder(true);
+                    }}}>{x.row}/{x.seatNumber}</Button>
                 </span>
             </OverlayTrigger>})}
         </div>

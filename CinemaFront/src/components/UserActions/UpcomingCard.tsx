@@ -1,4 +1,4 @@
-import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Card, Col, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import Upcoming from "../../types/upcomingTypes/Upcoming";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -71,40 +71,42 @@ const UpcomingCard: React.FC<UpcomingCardProps> = ({ upcoming }) => {
     });
 
     return (
-            <Card className="seanse-card mb-5 bg-dark text-white border">
-                <Card.Body>
-                    {/* <img src={} className="w-100" alt='Постер' /> */}
-                    <Card.Title>{translatedTitle === '' ? upcoming.title : translatedTitle}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-
-                    </Card.Subtitle>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                    <ListGroupItem  className="bg-dark text-white">
-                        <strong>Мова оригіналу:</strong> {upcoming.original_language}
-                    </ListGroupItem>
-                    <ListGroupItem className="bg-dark text-white">
-                        <strong>Швидкий огляд:</strong> {translatedDescription === '' ? upcoming.overview : translatedDescription}
-                    </ListGroupItem>
-                </ListGroup>
-                <Card.Body>
-                    <Card.Text>
-                        <strong>Популярність:</strong> {upcoming.popularity}
-                    </Card.Text>
-                    <Card.Text>
-                        <strong>Дата виходу:</strong> {upcoming.release_date} 
-                    </Card.Text>
-                    <Card.Text>
-                        <strong>Середня оцінка:</strong> {upcoming.vote_average} 
-                    </Card.Text>
-                    <Card.Text>
-                        <strong>Кількість оцінок:</strong> {upcoming.vote_count} 
-                    </Card.Text>
-                    <Card.Text>
-                        <strong>Джерело даних: </strong>IMDB
-                    </Card.Text>
-                    
-                </Card.Body>
+            <Card className="mb-5 bg-dark text-white">
+                <Row>
+                    <Col sm={3}>
+                        <Card.Body>
+                            <Card.Title className="text-center">{translatedTitle === '' ? upcoming.title : translatedTitle}</Card.Title>
+                            <img src={"https://image.tmdb.org/t/p/w300/" + upcoming.poster_path} alt='Постер' />
+                        </Card.Body>
+                    </Col>
+                    <Col>
+                        <ListGroup className="list-group-flush mt-5">
+                            <ListGroupItem  className="bg-dark text-white mt-2">
+                                <strong>Мова оригіналу:</strong> {upcoming.original_language}
+                            </ListGroupItem>
+                            <ListGroupItem className="bg-dark text-white mt-2">
+                                <strong>Швидкий огляд:</strong> {translatedDescription === '' ? upcoming.overview : translatedDescription}
+                            </ListGroupItem>
+                        </ListGroup>
+                        <Card.Body>
+                            <Card.Text className="mt-4">
+                                <strong>Популярність:</strong> {upcoming.popularity}
+                            </Card.Text>
+                            <Card.Text className="mt-4">
+                                <strong>Дата виходу:</strong> {upcoming.release_date} 
+                            </Card.Text>
+                            <Card.Text className="mt-4">
+                                <strong>Середня оцінка:</strong> {upcoming.vote_average}/10 
+                            </Card.Text>
+                            <Card.Text className="mt-4">
+                                <strong>Кількість оцінок:</strong> {upcoming.vote_count} 
+                            </Card.Text>
+                            <Card.Text className="mt-4">
+                                <strong>Джерело даних: </strong>IMDB
+                            </Card.Text>
+                        </Card.Body>
+                    </Col>
+                </Row>
             </Card>
         )
     }

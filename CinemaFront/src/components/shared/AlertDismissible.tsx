@@ -7,7 +7,7 @@ interface ButtonProps {
   error: CustomError;
 }
 
-const AlertDismissible: React.FC<ButtonProps> = ({func, error}) => {
+const AlertDismissible: React.FC<ButtonProps> = ({ func, error}) => {
 
     useEffect(() => {
         setTimeout(() => {

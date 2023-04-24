@@ -1,11 +1,16 @@
 import { Button, Card, Col, Container, Form, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import Seanse from "../../types/seanseTypes/Seanse";
 import SeatsForPurchase from "./SeatsForPurchase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import usePurchases from "../../hooks/PurchasesHook";
 import CustomError, { defaultError } from "../../types/errorTypes/CustomError";
 import AlertDismissible from "../shared/AlertDismissible";
 import { getCurrentUserId } from '../../hooks/getCurrentUserId'
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import http from "../../http-common";
+import { use } from "i18next";
+import PurchaseDone from "../shared/PurchaseDone";
+import { useNavigate } from "react-router-dom";
 
 interface PurchaseTicketsProps {
     seanse: Seanse;
@@ -20,32 +25,49 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
     const [showError, setShowError] = useState(false);
     const [occuredError, setOccuredError] = useState<CustomError>(defaultError);
     const currentId = getCurrentUserId();
+    const [promocodePercent, setPromocodePercent] = useState(0);
+    const [sum, setSum] = useState(0);
+    const [showPayPal, setShowPayPal] = useState(false);
+    const [toOrder, setToOrder] = useState(true);
+    const [orderCompleted, setOrderCompleted] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setSum(0);
+
+        seatIds.map(x => {
+            setSum(prev => prev + seanse.price.cost + seanse.hall.seats.filter(i => i.id === x)[0].seatType.price)
+            
+        })
+    }, [seatIds])
 
     const getColor = (color: string) => {
         return color === 'Normal'? 'Звичайне' : 
-            color === 'ForDisablers' ? 'Длѝ інвалідів' :
-            color === 'ForKissing' ? 'Длѝ поцілунків' : 'VIP'
+            color === 'ForDisablers' ? 'Для інвалідів' :
+            color === 'ForKissing' ? 'Для поцілунків' : 'VIP'
     }
 
     const addOrRemoveItemFromArray = (item: number) => {
         if (seatIds.includes(item)) {
             setSeatIds((prevState) =>
             prevState.filter((existing) => existing !== item));
-      }
-      else {
-        setSeatIds((prevState) => [item, ...prevState]);
-      }
+        }
+        else {
+            setSeatIds((prevState) => [item, ...prevState]);
+        }
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        purchasing(currentId, promocode, seatIds, seanse.id, setShowError, setOccuredError);
+        const response = await http.get('/promocodes/getpromocode?promocode=' + promocode);
+        setPromocodePercent(response.data.percentage);
     };
-    var sum = 0;
-    seatIds.map(x => {
-        sum += seanse.price.cost + seanse.hall.seats.filter(i => i.id === x)[0].seatType.price;
-    })
+
+    const initialOptions = {
+        "client-id": "AXoWYNFdXPVlP8CiWBQn2RaYLPPeimFUXfT52QiwwXYWqtGVd8XGzu2-stzPNR7MwNkyiMIXE7o_hjXg",
+        currency: "USD",
+    };
 
     return (
         <Container className='p-5 pt-3'>
@@ -96,7 +118,8 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
             </Row>
             <Col className="text-center align-items-center">
                 <SeatsForPurchase seanseId={seanse.id} addOrRemoveItemFromArray={addOrRemoveItemFromArray}  
-                seats={seanse.hall.seats} setSeatIds={setSeatIds} seatIds={seatIds} />
+                seats={seanse.hall.seats} setSeatIds={setSeatIds} seatIds={seatIds} 
+                setShowPayPal={setShowPayPal} setToOrder={setToOrder} />
             </Col>
             <Row className="mt-4">
                 {seatIds.map((x, index) => {
@@ -131,47 +154,85 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
             <div>
                 <Row className="mb-3">
                     <Col></Col>
-                    <Col></Col>
                     <Col>
-                        <Card style={{ width: '18rem' }} className="mt-3 bg-dark text-white">
+                        <Card style={{ width: '48rem' }} className="mt-3 bg-dark text-white">
                             <Card.Body>
                                 <Card.Title>Всього квитків: {seatIds.length}</Card.Title>
                                 <Card.Text>
-                                    <strong>Ціна: {sum} грн.</strong> 
+                                    <strong>Ціна: {promocodePercent === 0? sum : 
+                                    ((100 - promocodePercent) * sum) / 100} грн.</strong> 
                                 </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col></Col>
-                    <Col></Col>
                 </Row>
 
                 <Row className="mb-5">
                     <Col></Col>
-                    <Col></Col>
                     <Col>
+                        {showPayPal === false && 
                         <Form onSubmit={handleSubmit}>
-                            <Form.Group className="mb-3" controlId="formBasicPromocode">
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Введіть промокод"
-                                    value={promocode}
-                                    onChange={(event: any) => setPromocode(event.target.value)}/>
-                            </Form.Group>
+                            <Row>
+                                <Col sm='7'>
+                                    <Form.Group className="mb-3" controlId="formBasicPromocode">
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Промокод"
+                                            value={promocode}
+                                            onChange={(event: any) => setPromocode(event.target.value)}/>
+                                    </Form.Group>
+                                </Col>
+                                <Col></Col>
+                                <Col>
+                                    <Button className='mb-3' variant="danger" type="submit">
+                                        Використати
+                                    </Button>
+                                </Col>
+                            </Row>
 
-                            <div className="d-grid gap-2">
-                            <Button variant="outline-danger" className="text-white" type="submit">
-                                Оформити замовлення</Button>
-                            </div>
                             {showError && <AlertDismissible func={setShowError} error={occuredError}/>}
-                        </Form>
+                        </Form>}
+                        
+                        {toOrder && 
+                        <Button className="w-100 mb-3" variant="danger" onClick={() => {
+                            setShowPayPal(true);
+                            setToOrder(false);
+                        }}>Оформити замовлення</Button>}
+                        
+                        {showPayPal && 
+                        <PayPalScriptProvider options={initialOptions}>
+                            <PayPalButtons style={{ layout: "horizontal" }} 
+                            createOrder={(data, actions) => {
+                                return actions.order.create({
+                                    purchase_units: [
+                                        {
+                                            amount: {
+                                                value: (promocodePercent === 0? sum : 
+                                                    ((100 - promocodePercent) * sum) / 100).toString(),
+                                            },
+                                        },
+                                    ],
+                                });
+                            }}
+                            
+                            onApprove={(data, actions) => {
+                                return actions.order!.capture().then((details) => {
+                                    purchasing(currentId, promocode, seatIds, seanse.id, setShowError, setOccuredError);
+                                    setOrderCompleted(true);
+                                    setTimeout(() => {
+                                        navigate('/')
+                                    }, 5000);
+                                });
+                            }}/>
+                        </PayPalScriptProvider>}
                     </Col>
                     <Col></Col>
-                    <Col></Col>
+                    {orderCompleted && <PurchaseDone func={setOrderCompleted} />}
                 </Row>
             </div>}
         </Container>
-        );
+    );
 };
 
 export default PurchaseTickets;
