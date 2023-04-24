@@ -16,4 +16,5 @@ public interface IServiceManager
     IMovieGenreService MovieGenreService { get; }
     ITicketService TicketService { get; }   
     IPdfService PdfService { get; }
+    IFileHandler FileHandler { get; }
 }

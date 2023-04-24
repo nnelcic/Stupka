@@ -208,8 +208,8 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
                                     purchase_units: [
                                         {
                                             amount: {
-                                                value: (promocodePercent === 0? sum : 
-                                                    ((100 - promocodePercent) * sum) / 100).toString(),
+                                                value: ((promocodePercent === 0? sum : 
+                                                    ((100 - promocodePercent) * sum) / 100) / 39).toFixed(2),
                                             },
                                         },
                                     ],
@@ -222,7 +222,7 @@ const PurchaseTickets: React.FC<PurchaseTicketsProps> = ({ setShowSeanse, setSho
                                     setOrderCompleted(true);
                                     setTimeout(() => {
                                         navigate('/')
-                                    }, 5000);
+                                    }, 2000);
                                 });
                             }}/>
                         </PayPalScriptProvider>}

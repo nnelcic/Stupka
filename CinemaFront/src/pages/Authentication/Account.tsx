@@ -6,13 +6,25 @@ import { Button, Card, CardGroup, Form, Stack } from "react-bootstrap";
 import http from "../../http-common";
 import useReviews from "../../hooks/ReviewHook";
 import { useNavigate } from "react-router-dom";
+import UploadComponent from "../../components/forms/DragAndDropForm";
+import { useContext, useEffect, useState } from "react";
+import { getCurrentUserId } from "../../hooks/getCurrentUserId";
+import PurchasesUser from "../../components/Admin/Users/PurchasesUser";
+import ModalWindow from "../../components/shared/ModalWindow";
+import { ModalContext } from "../../context/ModalContext";
 
 const Account: React.FC<{}> = () => {
+    const [avatarCondition, setAvatarCondition] = useState<File | null>(null)
     const { currentUser } = useUsers();
     const { favouriteMovies, errorMessage } = useMovie();
     const { reviewsByUser } = useReviews()
+    const { modal, open, close } = useContext(ModalContext);
     const navigate = useNavigate();
     const birthday = new Date(currentUser.birthday).toLocaleDateString();
+
+    useEffect(() => {
+        verifyAvatar();
+    }, [])
 
     const handleLogout = () => {
         localStorage.clear()
@@ -28,7 +40,12 @@ const Account: React.FC<{}> = () => {
         await http.delete(`/reviews/${reviewId}`)
         window.location.href="/account"
     }
-    
+
+    const verifyAvatar = async () => {
+        const reponse = await http.get<File>(`/files?userId=${getCurrentUserId()}`);
+        setAvatarCondition(reponse.data)
+    }
+
     return (
         <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100">
             <div className="container pt-2 py-5 bg-transparent">
@@ -36,32 +53,54 @@ const Account: React.FC<{}> = () => {
                     <div className="card-header">
                         <h2 className="card-title mb-0">{currentUser.firstName} {currentUser.lastName}, ласкаво просимо!</h2>
                     </div>
-                    <div className="card-body">
-                        <div className="row mb-3">
-                            <div className="col-sm-3">Електронна пошта:</div>
-                            <div className="col-sm-9">{currentUser.email}</div>
+                    <div className="card-body head">
+                        <div>
+                            {
+                                avatarCondition ?
+                                <img src={`https://localhost:7282/api/files?userId=${getCurrentUserId()}`}/> 
+                                :
+                                <div className="notation-box">
+                                    <p>Ви поки що не завантажили фото</p>
+                                </div>
+                            }
                         </div>
-                        <div className="row mb-3">
-                            <div className="col-sm-3">Ім'я:</div>
-                            <div className="col-sm-9">{currentUser.firstName}</div>
-                        </div>
-                        <div className="row mb-3">
-                            <div className="col-sm-3">Прізвище:</div>
-                            <div className="col-sm-9">{currentUser.lastName}</div>
-                        </div>
-                        <div className="row mb-3">
-                            <div className="col-sm-3">День народження:</div>
-                            <div className="col-sm-9">{birthday}</div>
-                        </div>
-                        <div className="row mb-3">
-                            <div className="col-sm-3">Телефон:</div>
-                            <div className="col-sm-9">{currentUser.phoneNumber}</div>
-                        </div>
-                        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <UpdateUserForm currentUser={currentUser} />
-                            <button className="text-white btn btn-outline-danger" onClick={handleLogout}>
-                                Вийти
-                            </button>
+                        <div>
+                            <div className="row mb-3">
+                                <div className="col-sm-5">Електронна пошта:</div>
+                                <div className="col-sm-5">{currentUser.email}</div>
+                            </div>
+                            <div className="row mb-3">
+                                <div className="col-sm-5">Ім'я:</div>
+                                <div className="col-sm-5">{currentUser.firstName}</div>
+                            </div>
+                            <div className="row mb-3">
+                                <div className="col-sm-5">Прізвище:</div>
+                                <div className="col-sm-5">{currentUser.lastName}</div>
+                            </div>
+                            <div className="row mb-3">
+                                <div className="col-sm-5">День народження:</div>
+                                <div className="col-sm-5">{birthday}</div>
+                            </div>
+                            <div className="row mb-3">
+                                <div className="col-sm-5">Телефон:</div>
+                                <div className="col-sm-5">{currentUser.phoneNumber}</div>
+                            </div>
+                            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <div className="pe-2">
+                                    <button onClick={open} type="submit" className="btn btn-outline-primary text-white">Покупки</button>
+                                    <ModalWindow title="Ваші покупки" 
+                                    close={close}
+                                    modal={modal} 
+                                    size='xl'>
+                                        <PurchasesUser userId={getCurrentUserId()} />
+                                    </ModalWindow>
+                                </div>
+                                <UploadComponent />
+                                <UpdateUserForm currentUser={currentUser} />
+                                <button className="text-white btn btn-outline-danger" onClick={handleLogout}>
+                                    Вийти
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

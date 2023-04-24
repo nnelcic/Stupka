@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Cinema.Persistence.Interfaces;
 using Cinema.Service.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Cinema.Service.Services;
 
@@ -20,8 +21,9 @@ public class ServiceManager : IServiceManager
     private readonly Lazy<IMovieGenreService> _movieGenreService;
     private readonly Lazy<ITicketService> _ticketService;
     private readonly Lazy<IPdfService> _pdfService;
-   
-    public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger, IMapper autoMapper)
+    private readonly Lazy<IFileHandler> _fileHandler;
+
+    public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger, IMapper autoMapper, IWebHostEnvironment environment)
     {
         _movieService = new Lazy<IMovieService>(() => new MovieService(repositoryManager, logger, autoMapper));
         _priceService = new Lazy<IPriceService>(() => new PriceService(repositoryManager, logger, autoMapper));
@@ -37,6 +39,7 @@ public class ServiceManager : IServiceManager
         _movieGenreService = new Lazy<IMovieGenreService> (() => new MovieGenreService(repositoryManager, logger, autoMapper));
         _ticketService = new Lazy<ITicketService>(() => new TicketService(repositoryManager, logger, autoMapper));
         _pdfService = new Lazy<IPdfService>(() => new PdfService(repositoryManager, logger, autoMapper));
+        _fileHandler = new Lazy<IFileHandler>(() => new FileHandler(repositoryManager, logger, environment));
     }
 
     public IMovieService MovieService => _movieService.Value;
@@ -53,4 +56,5 @@ public class ServiceManager : IServiceManager
     public IMovieGenreService MovieGenreService => _movieGenreService.Value;
     public ITicketService TicketService => _ticketService.Value;
     public IPdfService PdfService => _pdfService.Value;
+    public IFileHandler FileHandler => _fileHandler.Value;
 }

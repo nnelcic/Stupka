@@ -5,6 +5,7 @@ using Cinema.Service.Services;
 using Cinema.UI.Extensions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NLog;
@@ -91,6 +92,13 @@ public class Program
                     .WithOrigins("http://localhost:3000")
                     .WithExposedHeaders("X-Pagination")
             );
+        
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(
+                Path.Combine(builder.Environment.ContentRootPath, "wwwroot", "uploads")),
+            RequestPath = "/uploads"
+        });
 
         var logger = app.Services.GetRequiredService<ILoggerManager>();
         app.ConfigureExceptionHandler(logger);

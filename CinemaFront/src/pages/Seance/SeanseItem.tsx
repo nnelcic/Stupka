@@ -20,7 +20,7 @@ const SeanseItem: React.FC<SeanseItemProps> = ({ setSeanse, setShowSeanse, setSh
                     <Col sm={4}>
                         <Card.Body className="mt-5">
                             <Card.Title>Сеанс №{seanse.id}</Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">
+                            <Card.Subtitle className="mb-2 text-white">
                             Зал №{seanse.hall.hallNumber}
                             </Card.Subtitle>
                             <Card.Text>Початок сеансу: {new Date(seanse.startTime).toLocaleTimeString().slice(0, 5)}</Card.Text>

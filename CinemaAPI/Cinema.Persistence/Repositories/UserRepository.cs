@@ -32,6 +32,7 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
     public async Task<User?> GetUserAsync(int id, bool trackChanges = false)
     {
         return await FindByCondition(x => x.Id == id, trackChanges)
+            .Include(x => x.UserDetails)
             .Include(x => x.Role)
             .Include(x => x.UserRefreshToken)
             .FirstOrDefaultAsync();

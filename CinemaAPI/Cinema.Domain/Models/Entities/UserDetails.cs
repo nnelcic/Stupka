@@ -3,7 +3,8 @@
 public class UserDetails
 {
     public int Id { get; set; }
-
+    public string AvatarUrl { get; set; }
+    
     // Navigation property
     public int UserId { get; set; }
     public User User { get; set; }

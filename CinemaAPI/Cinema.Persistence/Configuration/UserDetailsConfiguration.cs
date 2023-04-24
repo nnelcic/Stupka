@@ -15,14 +15,18 @@ public class UserDetailsConfiguration : IEntityTypeConfiguration<UserDetails>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder
+            .Property(x => x.AvatarUrl)
+            .HasMaxLength(250);
+
+        builder
             .HasData
             (
-                new UserDetails { Id = 1, UserId = 1 },
-                new UserDetails { Id = 2, UserId = 2 },
-                new UserDetails { Id = 3, UserId = 3 },
-                new UserDetails { Id = 4, UserId = 4 },
-                new UserDetails { Id = 5, UserId = 5 },
-                new UserDetails { Id = 6, UserId = 6 }
+                new UserDetails { Id = 1, AvatarUrl = "", UserId = 1 },
+                new UserDetails { Id = 2, AvatarUrl = "", UserId = 2 },
+                new UserDetails { Id = 3, AvatarUrl = "", UserId = 3 },
+                new UserDetails { Id = 4, AvatarUrl = "", UserId = 4 },
+                new UserDetails { Id = 5, AvatarUrl = "", UserId = 5 },
+                new UserDetails { Id = 6, AvatarUrl = "", UserId = 6 }
             );
     }
 }

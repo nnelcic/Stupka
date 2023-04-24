@@ -60,7 +60,7 @@ public class MovieConfiguration : IEntityTypeConfiguration<Movie>
                     Title = "Смішний казах",
                     Duration = 160,
                     ReleaseDate = DateTime.Parse("2006-11-02"),
-                    PosterUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/1777765/5ff5b5b3-d231-4c60-b25c-9dac42f3c991/1920x",
+                    PosterUrl = "https://m.media-amazon.com/images/M/MV5BMTk0MTQ3NDQ4Ml5BMl5BanBnXkFtZTcwOTQ3OTQzMw@@._V1_.jpg",
                     MovieTypeId = 3,
                 }, 
                 new Movie

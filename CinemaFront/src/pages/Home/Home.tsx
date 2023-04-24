@@ -5,10 +5,9 @@ import { MainBlock } from "../../components/ui/mainBlock";
 
 const Home: React.FC<{}> = () => {
     return (
-        <>          
-        <MainBlock />
-       
-       </>
+        <>
+            <MainBlock />
+        </>
     );
 };
 

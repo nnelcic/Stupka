@@ -13,7 +13,7 @@ public class UserDetailsRepository : RepositoryBase<UserDetails>, IUserDetailsRe
 
     public async Task<UserDetails?> GetUserDetailsAsync(int id)
     {
-        return await FindByCondition(x => x.Id == id, false)
+        return await FindByCondition(x => x.Id == id, true)
             .FirstOrDefaultAsync();
     }
 }
