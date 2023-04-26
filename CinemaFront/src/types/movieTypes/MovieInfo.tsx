@@ -2,6 +2,7 @@ import Movie from "./Movie";
 import MovieDetails from "./MovieDetails";
 import MovieGenre from "./movieGenre";
 import MovieType from "./MovieType";
+import Genre from "./Genre";
 
 export default interface MovieInfo {
     id: number;
@@ -12,7 +13,7 @@ export default interface MovieInfo {
     releaseDate: string; 
     posterUrl: string;
     movieDetails: MovieDetails;
-    movieGenre: MovieGenre[]
+    movieGenre: MovieGenre []        
 }
 
 export const defaultMovieInfo: MovieInfo = {
@@ -35,6 +36,5 @@ export const defaultMovieInfo: MovieInfo = {
         startDate: '',
         endDate: '',
     },
-    movieGenre: []
-  
+    movieGenre: []  
 }

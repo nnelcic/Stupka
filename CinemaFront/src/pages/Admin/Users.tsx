@@ -50,7 +50,8 @@ const Users: React.FC<{}> = () => {
                         }
                     </ModalWindow>}
 
-                    <Table striped bordered hover className="mt-2 border" variant="dark" responsive>
+                    <Container>
+                    <Table bordered hover className="mt-2 border" variant="dark" responsive>
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -78,6 +79,7 @@ const Users: React.FC<{}> = () => {
                         }
                     </tbody>
                     </Table>
+                    </Container>
                 </Container>
             }
         </div>

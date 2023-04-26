@@ -19,7 +19,7 @@ const RegisterButton: React.FC = () => {
     return (
       <>
         <div>
-          <button className="nav-link px-2 text-white" onClick={handleOpenModal}>Реєстрація</button>
+          <button className=" signUP nav-link px-2 text-white" onClick={handleOpenModal}>Реєстрація</button>
           <Modal show={isModalOpen} onHide={handleCloseModal}>
             <Modal.Header className="bg-dark text-light" closeButton>
               <Modal.Title>Реєстрація</Modal.Title>

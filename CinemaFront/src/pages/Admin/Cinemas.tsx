@@ -60,7 +60,8 @@ const Cinemas: React.FC<CinemasProps> = ({ setCinemaId, setShowHall, setShowCine
                 setSize('lg');
             }}>Створити</Button>
                
-            <Table striped bordered hover className="mt-2 border" variant="dark" responsive>
+           <Container>
+           <Table bordered hover className="mt-2 border" variant="dark" responsive>
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -89,6 +90,7 @@ const Cinemas: React.FC<CinemasProps> = ({ setCinemaId, setShowHall, setShowCine
                     />)}
                 </tbody>
             </Table>
+           </Container>
         </Container>
     )
 };

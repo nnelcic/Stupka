@@ -71,7 +71,8 @@ const Halls: React.FC<HallsProps> = ({ setHallId, cinemaId, setShowSeat, setShow
             setSize('lg');
         }}>Створити</Button>
 
-        <Table striped bordered hover className="mt-2 border" variant="dark" responsive>
+        <Container>
+        <Table bordered hover className="mt-2 border" variant="dark" responsive>
             <thead>
                 <tr>
                     <th>Id</th>
@@ -97,6 +98,7 @@ const Halls: React.FC<HallsProps> = ({ setHallId, cinemaId, setShowSeat, setShow
                 />)}
             </tbody>
         </Table>
+        </Container>
         </Container>
     )
 };

@@ -60,7 +60,8 @@ const Prices: React.FC<PricesProps> = ({ setShowPrice }) => {
                 setSize('md');
             }}>Створити</Button>
                
-        <Table striped bordered hover className="mt-2 border" variant="dark" responsive>
+        <Container>
+        <Table bordered hover className="mt-2 border" variant="dark" responsive>
             <thead>
                 <tr>
                     <th>Id</th>                   
@@ -83,6 +84,7 @@ const Prices: React.FC<PricesProps> = ({ setShowPrice }) => {
                 />)}
             </tbody>
         </Table>
+        </Container>
         </Container>
     )
 };

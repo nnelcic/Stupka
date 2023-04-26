@@ -7,7 +7,7 @@ import CustomError from "../../../types/errorTypes/CustomError";
 
 type UpdateMovieFormProps = {
     close: () => void;
-    movie: MovieInfo; 
+    movie: MovieInfo;   
     movieId: number;   
   
     setRerender: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -37,7 +37,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, movieId, setOcc
     const { updateMovie } = useMovie();
 
     useEffect(() => {
-        getMovie(movie.id);
+        getMovie(movieId);
     }, []);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -68,7 +68,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, movieId, setOcc
         setDescription(movie.movieDetails.description);
         setAgeLimit(movie.movieDetails.ageLimit);
         setCountry(movie.movieDetails.country);
-       
+        // setGenre(genre.genreId);
         setRate(movie.movieDetails.independentRate);       
         setProducer(movie.movieDetails.producers);
         setTrailer(movie.movieDetails.movieTrailerUrl); 
@@ -181,7 +181,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, movieId, setOcc
 
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-                        <Form.Label>Вікові обмеженнѝ</Form.Label>
+                        <Form.Label>Вікові обмеження</Form.Label>
                         <Form.Control
                         type="number"
                         placeholder="Введіть вік"
@@ -278,13 +278,13 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, movieId, setOcc
                 </Row>
             </Container>   
 
-             {/* <Container>
+             <Container>
                 <Row>                
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
                         <Form.Label>Жанр</Form.Label>
                         <Form.Control
-                        type="number"
+                        type="text"
                         placeholder="Введіть жанр id"
                         value={genreId}
                         onChange={(event: any) => setGenre(event.target.value)}
@@ -293,7 +293,7 @@ const UpdateMovie: React.FC<UpdateMovieFormProps> = ({ getMovie, movieId, setOcc
                     </Col>
                     
                 </Row>
-            </Container>                  */}
+            </Container>                 
 
   
             {error && <Alert variant="danger">{error}</Alert>}

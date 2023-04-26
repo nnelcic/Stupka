@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -91,8 +96,15 @@ a {
 .movie-item:hover {
   border: 1px red solid;
 }
+.movie {
+  height: 300px;
+}
 
 .movie:hover {
   opacity: 50%;
   transform: scale(1.1);
+}
+
+.createMovie {
+  left: 0;
 }

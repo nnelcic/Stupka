@@ -62,7 +62,8 @@ const Seanses: React.FC<SeansesProps> = ({ setShowSeanse }) => {
                     }}>Створити новий сеанс</Button>
                     <GetAllPrices />
                
-        <Table striped bordered hover className="mt-2 border" variant="dark" responsive>
+        <Container>
+        <Table bordered hover className="mt-2 border" variant="dark" responsive>
             <thead>
                 <tr>
                     <th>Id</th>
@@ -88,6 +89,7 @@ const Seanses: React.FC<SeansesProps> = ({ setShowSeanse }) => {
                 />)}
             </tbody>
         </Table>
+        </Container>
         </Container>
     )
 };

@@ -11,7 +11,7 @@ export const MainBlock: FC<{}> = () => {
     return (
         
         <div id="main" style={{ backgroundImage: `url(${image})` }}>
-            <Container className="reliese">
+            <Container className="reliese border-bottom">
                 <Row>
                     <Col>
                     <div id="about_cinema" className="m-7 p-5">
@@ -36,7 +36,7 @@ export const MainBlock: FC<{}> = () => {
                 </Row>                
             </Container>  
 
-            <Container>
+            <Container className="movieRow">
                 <Row>
                     {/* <h2 className="text-center text-white my-4">Незабаром у прокаті</h2> */}
                     <SoonReliese />

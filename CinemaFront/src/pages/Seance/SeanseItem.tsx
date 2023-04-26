@@ -11,7 +11,7 @@ interface SeanseItemProps {
 const SeanseItem: React.FC<SeanseItemProps> = ({ setSeanse, setShowSeanse, setShowSeanses, seanse}) => {
     return (
         <Col className="mt-3 pt-5">
-            <Card className="seanse-card bg-black text-white border">
+            <Card className="seanse-card bg-dark text-white border">
                 <Row>
                     <Col sm={2} className="p-1 ms-3"> 
                         <img src={seanse.movie.posterUrl} className="w-100" 

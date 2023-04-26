@@ -1,16 +1,16 @@
 #main, #admin {
-    min-height: 600px;
+    min-height: 800px;
     width: 100%;  
     background-size: cover;
 }
 
 #about_cinema {
-    width: 600px;   
+    width: 700px;   
     color: white;
-    margin-top: 20px;
+    margin-top: 30px;
     padding-top: 40px;
-    margin-left: 10px;
-    font-size: 18px;
+    margin-left: 0px;   
+    font-size: 22px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: justify;
 }
@@ -20,26 +20,28 @@ h1 {
 }
 
 #main_header {
-    height: 110px;   
+    height: 100px;   
     padding: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    text-align: end;
 }
 
 .header_list, li {  
     padding: 20px;
     margin-top: 40px;
-    font-size: 22px;
+    font-size: 20px;
     color: D9D9D9;
     list-style-type: none;
+    text-align: end;
 }
 
 .copyright {
-    height: 50px;
-    border-bottom: white;
+    height: 30px;
+    border-bottom: white;   
     font-size: 8px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    width: 100%;
-
+    width: 100%;  
 }
 
 #footer {
@@ -70,11 +72,13 @@ li {
 }
 
 #slide {
-    width: 80%;
-    height: 100%;
-    border: 3pt rgb(113, 8, 8) solid;
-    margin: 10px;
-    margin-top: 160px;
+    width: 120%;
+    height: 120%;
+    border: 3pt rgb(113, 8, 8) solid; 
+    
+    margin: 20px;
+    margin-top: 120px;
+    margin-right: 30px;
     padding: 0;
 }
 
@@ -84,6 +88,8 @@ li {
 
 .fnt {
     font-size: 17px;
+    list-style: none;
+    color: white;
 }
 
 .social-media {
@@ -103,7 +109,8 @@ li {
 
 .reliese {
     border-bottom: white;
-   
+    min-width: 100%;
+    min-height: 800px;
 }
 
 .header_list li:hover {
@@ -112,4 +119,154 @@ li {
 
 .footer li:hover {
     opacity: 50%;
+}
+
+.movieRow {
+    min-width: 100%;
+}
+
+.main-logo {
+    width: 110px;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+    background-color: black;
+    color: white;
+}
+
+
+
+
+.nav-links {
+    display: flex;   
+    justify-content: flex-end;
+    list-style: none;
+    width: 75%;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    width: 75%;
+}
+
+.upcoming,
+.movies-nav,
+.admin,
+.account,
+.seanses
+ {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    padding-top: 40px;
+    font-size: 22px;
+    margin: 0 10px;
+}
+
+.signIn,
+.signUP {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 10px;
+    margin-top: 40px;
+    font-size: 22px;
+}
+
+.mobile-menu-icon {
+    display: none;
+}
+
+@media screen and (max-width: 780px){
+    .main-icon {
+        display: flex;       
+        left: 35px;
+        top: 20px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .footer-links {
+        display: block;
+        right: 0;
+        left: 35px;
+        justify-content: end;
+    }
+
+    #footer {
+        padding-top: 0;
+        padding-bottom: 0;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        height: 280px;
+        left: 35px;
+    }
+
+    .copyright {
+        height: 70px;
+        text-align: right;
+        border-bottom: white;   
+        font-size: 6px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        width: 100%;  
+    }
+
+    .nav-links-mobile {
+        position: absolute;
+        display: block;
+        list-style: none;
+        background-color: black;
+        top: 100px;
+        transition: all 0.5s ease-out;
+        width: 100%;
+    }
+   
+    .upcoming,
+    .movies-nav,
+    .admin,
+    .account,    
+    .seanses,
+    .signUP,
+    .signIn {
+        color: white;
+        text-align: right;
+        align-items: center;              
+        padding: 32px;
+        width: 100%;
+        transition: all 0.5s ease;
+    }
+
+
+    .mobile-menu-icon {
+        display: block;
+        position: absolute;
+        font-size: 30px;
+        width: 30px;
+        border: none;
+        outline: none;
+        background-color: black;
+        height: 30px;
+        top: 15px;
+        right: 25px;
+    }
+
+    #about_cinema {
+        width: 550px;   
+        
+    }
+
+    .reliese {
+        display: block;
+    }
 }

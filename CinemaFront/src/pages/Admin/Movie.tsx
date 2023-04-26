@@ -25,6 +25,7 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
     const [occuredError, setOccuredError] = useState<CustomError>(defaultError);
     const [rerender, setRerender] = useState(false);
     const { movie, setMovie, movies, fetchMovies, getMovie } = useMovie();
+ 
 
     useEffect(() => {
         fetchMovies();
@@ -42,7 +43,7 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
                     currentOption === 'showMovie'
                     ? <GetMovieInfo  getMovie={getMovie} movie={movie} movieId={currentMovieId} />                  
                     : currentOption ===  'updateMovie' 
-                    ? <UpdateMovie  getMovie={getMovie} movieId={currentMovieId} setShowError={setShowError} setOccuredError={setOccuredError} 
+                    ? <UpdateMovie getMovie={getMovie} movieId={currentMovieId} setShowError={setShowError} setOccuredError={setOccuredError} 
                     close={close} movie={movie} setRerender={setRerender} /> 
                     : currentOption ===  'createMovie'
                     ? <CreateMovie setShowError={setShowError} setOccuredError={setOccuredError}
@@ -51,13 +52,15 @@ const Movie: React.FC<MoviesProps> = ({ setShowMovie }) => {
                     close={close} movieId={currentMovieId} setRerender={setRerender} />}
             </ModalWindow>}
 
-            <Button className="me-3" variant="outline-danger" size="lg" onClick={() => {
+            <Button className="createMovie" variant="outline-danger" size="lg" onClick={() => {
                 setCurrentOption('createMovie');
                 setMovie(movie);
                 setShowMovie(true);
                 open();
                 setSize('lg');
-            }}>Створити новий фільм</Button>          
+            }}>
+                Створити новий фільм
+            </Button>          
             
             {/* { movies.map(x =>  */}
                 <MoviesRow

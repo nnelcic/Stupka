@@ -19,7 +19,7 @@ function SoonReliese() {
 
     return (
         <>
-        <h2 className="text-center text-white my-4">Незабаром у прокаті</h2>        
+        <h2 className="p-4 mt-5 text-center text-white my-4">Незабаром у прокаті</h2>        
                       
                         <div> 
                         {showMovies &&

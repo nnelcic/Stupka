@@ -53,9 +53,10 @@ const AuthButton: React.FC<{}> = () => {
   
   return (
     <div>
-      <button className="nav-link px-2 text-white" onClick={handleOpenModal}>Вхід</button>
+      <button  className="signIn nav-link px-2 text-white" onClick={handleOpenModal}>
+      Вхід  </button>
       <Modal show={isModalOpen} onHide={handleCloseModal}>
-        <Modal.Header closeButton className="bg-dark text-light">
+        <Modal.Header closeButton className=" bg-dark text-light">
           <Modal.Title>Вхід</Modal.Title>
         </Modal.Header>
         <Modal.Body className="bg-dark text-light">

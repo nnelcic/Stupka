@@ -8,8 +8,7 @@ const MovieManagement: React.FC<{}> = () => {
    
     return (
         <div style={{ backgroundImage: `url(${image})`}} className="min-vh-100">
-            <AdminPage/>
-        
+            <AdminPage/>        
             {showMovie && <Movie setShowMovie={setShowMovie} />}            
         </div>
     );

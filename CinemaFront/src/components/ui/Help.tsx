@@ -19,7 +19,7 @@ export function Help() {
         </Offcanvas.Header>
         <Offcanvas.Body>
             <p>Якщо у вас є питання, ви можете написати нам листа на admin@gmail.com.</p>
-            <p>Або подзвоніть нам на телефон: Або подзвоніть нам на телефон098-234-4455</p>
+            <p>Або подзвоніть нам на телефон: 098-234-4455</p>
             
         </Offcanvas.Body>
       </Offcanvas>
